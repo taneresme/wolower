@@ -1,1 +1,6 @@
+# Tells Travis which programming language will be used.
 language: java
+
+# Tells Travis to use last stable version of Java for build
+java:
+  - "stable"
