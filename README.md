@@ -1,1 +1,3 @@
-# swe.573.project
+# wolower
+
+Please visit wiki pages for more information about the project.
