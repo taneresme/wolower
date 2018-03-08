@@ -15,6 +15,7 @@ bin/
 *.ipr
 *.iws
 publish.properties
+.mvn/
 
 # eclipse
 .factorypath
