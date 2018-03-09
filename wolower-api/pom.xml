@@ -47,6 +47,21 @@
 			<artifactId>spring-restdocs-mockmvc</artifactId>
 			<scope>test</scope>
 		</dependency>
+		<dependency>
+			<groupId>com.mastercard.sdk.core</groupId>
+			<artifactId>mastercard-sdk-core</artifactId>
+			<version>2.1.1</version>
+		</dependency>
+		<dependency>
+			<groupId>com.mastercard.sdk.token</groupId>
+			<artifactId>mastercard-sdk-token</artifactId>
+			<version>1.1.0</version>
+		</dependency>
+		<dependency>
+			<groupId>com.mastercard.api</groupId>
+			<artifactId>sdk-api-core</artifactId>
+			<version>1.4.19</version>
+		</dependency>
 	</dependencies>
 
 	<build>
