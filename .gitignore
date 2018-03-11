@@ -15,6 +15,7 @@ bin/
 *.ipr
 *.iws
 publish.properties
+.mvn/
 
 # eclipse
 .factorypath
@@ -24,6 +25,7 @@ publish.properties
 
 # maven
 target/
+out/
 
 # gradle
 build/
