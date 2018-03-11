@@ -25,6 +25,7 @@ publish.properties
 
 # maven
 target/
+out/
 
 # gradle
 build/
