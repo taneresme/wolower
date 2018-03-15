@@ -1,0 +1,74 @@
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head th:replace="fragments/commons :: head" />
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.13.0/moment.min.js"></script>
+
+<script>
+	var ctx = document.getElementById("myChart").getContext('2d');
+	var myChart = new Chart(ctx, {
+		type : 'bar',
+		data : {
+			labels : [ "Red", "Blue", "Yellow", "Green", "Purple", "Orange" ],
+			datasets : [ {
+				label : '# of Votes',
+				data : [ 12, 19, 3, 5, 2, 3 ],
+				backgroundColor : [ 'rgba(255, 99, 132, 0.2)',
+						'rgba(54, 162, 235, 0.2)', 'rgba(255, 206, 86, 0.2)',
+						'rgba(75, 192, 192, 0.2)', 'rgba(153, 102, 255, 0.2)',
+						'rgba(255, 159, 64, 0.2)' ],
+				borderColor : [ 'rgba(255,99,132,1)', 'rgba(54, 162, 235, 1)',
+						'rgba(255, 206, 86, 1)', 'rgba(75, 192, 192, 1)',
+						'rgba(153, 102, 255, 1)', 'rgba(255, 159, 64, 1)' ],
+				borderWidth : 1
+			} ]
+		},
+		options : {
+			scales : {
+				yAxes : [ {
+					ticks : {
+						beginAtZero : true
+					}
+				} ]
+			}
+		}
+	});
+</script>
+<body>
+
+	<div class="jumbotron">
+		<div class="container">
+			<h1>
+				<b>wolower</b>
+			</h1>
+			<p>Your trusted, secure, and automated payment mechanism for
+				Twitter.</p>
+
+			<a class="btn btn-outline btn-lg"> <span class="fa fa-twitter"></span>
+				<b>Sign in with Twitter</b>
+			</a>
+
+		</div>
+	</div>
+
+	<div class="container">
+		<div class="panel panel-default">
+			<div class="panel-body">
+				Do you know that it is possible to use your Twitter account to sell
+				your unused belongings. Yes you can, but there is a significant
+				problem when you want to sell and buy something on Twitter, that is
+				payment. Twitter does not provide a social payment infrastructure.
+				Sure you consider that there is an option to pay at the door, but it
+				is not useful for international sales. You cannot expect from
+				someone abroad to accept the payment on behalf of you, right!. A
+				trusted, secure, and automated payment mechanism is needed. Let's
+				recognize you the <b>wolower</b>.
+			</div>
+		</div>
+
+		<canvas id="myChart"></canvas>
+
+	</div>
+	<th:block th:include="fragments/footer :: footer" />
+</body>
+</html>

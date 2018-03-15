@@ -1,0 +1,32 @@
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<div th:fragment="header">
+
+	<nav class="navbar navbar-default justify-content-between">
+		<div class="container">
+			<div class="navbar-header">
+				<a class="navbar-brand" th:href="index" th:text="wolower" />
+			</div>
+			<ul class="nav navbar-nav">
+				<li class="active"><a href="#">Home</a></li>
+				<li><a href="#">Page 1</a></li>
+				<li><a href="#">Page 2</a></li>
+			</ul>
+			
+			<form class="navbar-form navbar-left" action="/search">
+				<div class="input-group">
+					<input type="text" class="form-control" placeholder="Search"
+						name="search" />
+					<div class="input-group-btn">
+						<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+						<button class="btn btn-primary my-2 my-sm-0" type="submit">
+							<i class="glyphicon glyphicon-search lg"></i>
+						</button>
+					</div>
+				</div>
+			</form>
+		</div>
+	</nav>
+
+</div>
+</html>
