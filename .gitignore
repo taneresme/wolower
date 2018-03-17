@@ -43,3 +43,6 @@ release.properties
 
 log/
 *.log
+
+#Sensitive Configuration files
+app_config/
