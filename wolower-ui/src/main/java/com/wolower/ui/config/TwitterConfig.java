@@ -9,6 +9,8 @@ public class TwitterConfig {
 	private String consumerKey;
 	@Value("${wolower.twitter-api.consumer-secret}")
 	private String consumerSecret;
+	@Value("${wolower.twitter-api.redirect-uri}")
+	private String redirectUri;
 
 	public String getConsumerKey() {
 		return consumerKey;
@@ -24,6 +26,14 @@ public class TwitterConfig {
 
 	public void setConsumerSecret(String consumerSecret) {
 		this.consumerSecret = consumerSecret;
+	}
+
+	public String getRedirectUri() {
+		return redirectUri;
+	}
+
+	public void setRedirectUri(String redirectUri) {
+		this.redirectUri = redirectUri;
 	}
 
 }
