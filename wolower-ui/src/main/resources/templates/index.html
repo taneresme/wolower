@@ -1,0 +1,50 @@
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head th:replace="fragments/commons :: head" />
+
+<body>
+
+	<div class="jumbotron">
+		<div class="container">
+			<h1>
+				<b>wolower</b>
+			</h1>
+			<p>Your trusted, secure, and automated payment mechanism for
+				Twitter.</p>
+
+			<form action="/sign-up" th:action="@{/sign-up}"
+				method="post">
+				<a href="/signup/twitter" class="btn btn-outline btn-lg"> <span class="fa fa-twitter"></span>
+					<b>Sign in with Twitter</b>
+				</a>
+			</form>
+
+
+		</div>
+	</div>
+
+	<div class="container">
+		<div class="panel panel-default">
+			<div class="panel-body">
+				Do you know that it is possible to use your Twitter account to sell
+				your unused belongings. Yes you can, but there is a significant
+				problem when you want to sell and buy something on Twitter, that is
+				payment. Twitter does not provide a social payment infrastructure.
+				Sure you consider that there is an option to pay at the door, but it
+				is not useful for international sales. You cannot expect from
+				someone abroad to accept the payment on behalf of you, right!. A
+				trusted, secure, and automated payment mechanism is needed. Let's
+				recognize you the <b>wolower</b>.
+			</div>
+		</div>
+
+
+
+		<canvas id="myChart"></canvas>
+
+
+
+	</div>
+	<th:block th:include="fragments/footer :: footer" />
+</body>
+</html>
