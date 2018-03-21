@@ -2,17 +2,14 @@ package com.wolower.ui.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.social.connect.Connection;
-import org.springframework.social.connect.ConnectionKey;
 import org.springframework.social.oauth1.AuthorizedRequestToken;
 import org.springframework.social.oauth1.OAuth1Operations;
 import org.springframework.social.oauth1.OAuth1Parameters;
 import org.springframework.social.oauth1.OAuthToken;
 import org.springframework.social.twitter.api.Twitter;
-import org.springframework.social.twitter.api.TwitterProfile;
 import org.springframework.social.twitter.api.impl.TwitterTemplate;
 import org.springframework.social.twitter.connect.TwitterConnectionFactory;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import com.wolower.ui.config.TwitterConfig;
 
@@ -27,16 +24,16 @@ public class TwitterService {
 	private Twitter twitter;
 	private Connection<Twitter> connection;
 	
-	public String getRequestToken() {
+	public String getAuthorizeUrl() {
 		connectionFactoryTwitter = new TwitterConnectionFactory(twitterConfig.getConsumerKey(),
 				twitterConfig.getConsumerSecret());
 		oauth1Operations = connectionFactoryTwitter.getOAuthOperations();
 
-		//OAuth1Parameters oAuth1Parameters = new OAuth1Parameters();
+		OAuth1Parameters oAuth1Parameters = new OAuth1Parameters();
 
 		requestToken = oauth1Operations.fetchRequestToken(twitterConfig.getRedirectUri(), null);
-		//String authorizeUrl = oauth1Operations.buildAuthorizeUrl(requestToken.getValue(), oAuth1Parameters);
-		return requestToken.getValue();
+		String authorizeUrl = oauth1Operations.buildAuthorizeUrl(requestToken.getValue(), oAuth1Parameters);
+		return authorizeUrl;
 	}
 
 	public void initTwitter(String oauthToken, String oauthVerifier) {

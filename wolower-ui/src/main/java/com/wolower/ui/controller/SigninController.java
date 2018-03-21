@@ -15,8 +15,8 @@ public class SigninController {
 
 	@GetMapping(value = "/signup/twitter")
 	public String twitterSignup(WebRequest request) {
-		String value = twitterService.getRequestToken();
-		return String.format("redirect:https://api.twitter.com/oauth/authenticate?oauth_token=%s", value);
+		String authorizeUrl = twitterService.getAuthorizeUrl();
+		return String.format("redirect:%s", authorizeUrl);
 	}
 
 	@GetMapping("/signup/twitter-callback")

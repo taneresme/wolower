@@ -16,9 +16,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception {
 		http
 			.authorizeRequests()
-				.antMatchers("/api/session").permitAll()
-				.antMatchers("/h2-console/**").permitAll()
-				.antMatchers("/api/**").authenticated()
+				.antMatchers("/").permitAll()
+				.antMatchers("/index").permitAll()
+				.antMatchers("/signup/twitter").permitAll()
+				.antMatchers("/signup/twitter-callback").permitAll()
+				.antMatchers("/css/**").permitAll()
+				.antMatchers("/js/**").permitAll()
+				.antMatchers("/fonts/**").permitAll()
+				.antMatchers("/img/**").permitAll()
+				.antMatchers("/**").authenticated()
+			.and()
+				.formLogin().loginPage("/index")
 			.and()
 				.headers()
 				.frameOptions().disable() // for h2
