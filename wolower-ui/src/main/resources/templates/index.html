@@ -4,6 +4,15 @@
 
 <body>
 
+	<div class="alert alert-warning alert-dismissible" role="alert"
+		id="myAlert">
+		<button type="button" class="close" data-dismiss="alert"
+			aria-label="Close">X
+		</button>
+		<strong>Warning!</strong> Better check yourself, you're not looking
+		too good.
+	</div>
+
 	<div class="jumbotron">
 		<div class="container">
 			<h1>
@@ -12,13 +21,8 @@
 			<p>Your trusted, secure, and automated payment mechanism for
 				Twitter.</p>
 
-			<form action="/sign-up" th:action="@{/sign-up}"
-				method="post">
-				<a href="/signup/twitter" class="btn btn-outline btn-lg"> <span
-					class="fa fa-twitter"></span> <b>Sign in with Twitter</b>
-				</a>
-			</form>
-
+			<a href="/twitter/signup" class="btn btn-outline btn-lg"><span
+				class="fa fa-twitter"></span> <b>Sign in with Twitter</b> </a>
 
 		</div>
 	</div>
@@ -38,13 +42,19 @@
 			</div>
 		</div>
 
-
-
 		<canvas id="myChart"></canvas>
-
-
 
 	</div>
 	<th:block th:include="fragments/footer :: footer" />
+
+	<script>
+		$(document).ready(function() {
+			$(".close").alert()
+			
+			$(".close").click(function() {
+				$("#myAlert").alert('close');
+			});
+		});
+	</script>
 </body>
 </html>
