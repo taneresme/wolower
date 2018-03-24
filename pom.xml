@@ -5,6 +5,7 @@
 
 	<modules>
 		<module>wolower-ui</module>
+		<module>wolower-persistance</module>
 	</modules>
 
 	<groupId>com.wolower</groupId>

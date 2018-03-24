@@ -23,7 +23,7 @@ public class TwitterService {
 	private OAuthToken requestToken;
 	private Twitter twitter;
 	private Connection<Twitter> connection;
-	
+
 	public String getAuthorizeUrl() {
 		connectionFactoryTwitter = new TwitterConnectionFactory(twitterConfig.getConsumerKey(),
 				twitterConfig.getConsumerSecret());
@@ -37,14 +37,17 @@ public class TwitterService {
 	}
 
 	public void initTwitter(String oauthToken, String oauthVerifier) {
+		/* Obtain access token */
 		OAuthToken accessToken = oauth1Operations
 				.exchangeForAccessToken(new AuthorizedRequestToken(requestToken, oauthVerifier), null);
-		
+
+		/* Create twitter connection */
 		connection = connectionFactoryTwitter.createConnection(accessToken);
 		twitter = connection != null ? connection.getApi() : new TwitterTemplate(accessToken.getValue());
-
-		//TwitterProfile twitterProfile = twitter.userOperations().getUserProfile();
-		//ConnectionKey connectionKey = connection.getKey();
 	}
 
+	/* GETTERS and SETTERS */
+	public Twitter getTwitter() {
+		return twitter;
+	}
 }
