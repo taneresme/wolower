@@ -5,7 +5,7 @@
 
 	<modules>
 		<module>wolower-ui</module>
-		<module>wolower-persistance</module>
+		<module>wolower-persistence</module>
 	</modules>
 
 	<groupId>com.wolower</groupId>
@@ -23,6 +23,7 @@
 		<spring.boot.version>1.4.3.RELEASE</spring.boot.version>
 		<commons.logging.version>1.2</commons.logging.version>
 		<spring.version>4.3.14.RELEASE</spring.version>
+		<slf4j.version>1.7.25</slf4j.version>
 	</properties>
 
 	<parent>
@@ -86,6 +87,24 @@
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-aop</artifactId>
 			<version>${spring.version}</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-simple -->
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-simple</artifactId>
+			<version>${slf4j.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-api -->
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<version>${slf4j.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-jdk14</artifactId>
+			<version>${slf4j.version}</version>
 		</dependency>
 
 		<!-- Testing Dependencies -->
