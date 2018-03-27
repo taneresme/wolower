@@ -11,4 +11,5 @@ import com.wolower.persistence.model.SocialConnection;
 @Transactional
 public interface SocialConnectionDao extends CrudRepository<SocialConnection, Integer> {
 	public SocialConnection findOneBySocialMediaAndSocialUserId(String socialMedia, String socialUserId);
+	public SocialConnection findOneBySocialMediaAndTUserId(String socialMedia, int tUserId);
 }

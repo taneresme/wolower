@@ -5,9 +5,60 @@
 	<th:block th:include="fragments/header :: header" />
 
 	<div class="container">
+
+		<div class="alert">
+			<button type="button" class="close" data-dismiss="alert">&times;</button>
+			<strong>Warning!</strong> Best check yo self, you're not looking too
+			good.
+		</div>
+
+		<!-- 		<div class="alert alert-success" role="alert" th:if="${firstTime}"> -->
+		<div class="alert alert-success" role="alert">
+			<h4 class="alert-heading">Thank you!</h4>
+			<p>Yes, we know that this is your first time :). Hmmm are you a
+				little concerned? Do not worry my friend!</p>
+			<p>
+				Do you want to learn what we can do for you, what about looking at
+				the "<a href="/what-we-do">What we do</a>" page.
+			</p>
+			<hr />
+			<p>
+				It is good to see you here <span class="font-weight-bold"
+					th:text="${username}" />...
+			</p>
+		</div>
+
+
+		<div class="well">
+			<div class="page-header">
+				<h1>
+					Heey, <span class="font-bold" th:text="${username}" /> <small>Welcome
+						to your trusted, secure, and automated payment world.</small>
+				</h1>
+			</div>
+			<p>Here is wolower dashboard page...</p>
+			<p>
+				Do you know that it is possible to use your Twitter account to sell
+				your unused belongings. Yes you can, but there is a significant
+				problem when you want to sell and buy something on Twitter, that is
+				payment. Twitter does not provide a social payment infrastructure.
+				Sure you consider that there is an option to pay at the door, but it
+				is not useful for international sales. You cannot expect from
+				someone abroad to accept the payment on behalf of you, right!. A
+				trusted, secure, and automated payment mechanism is needed. Let's
+				recognize you the <b>wolower</b>.
+			</p>
+
+		</div>
+
 		<div class="panel panel-default">
 			<div class="panel-body">
-				<h1>wolower</h1>
+				<div class="page-header">
+					<h1>
+						Heey, <span class="font-bold" th:text="${username}" /> <small>Welcome
+							to your trusted, secure, and automated payment world.</small>
+					</h1>
+				</div>
 				<p>Here is wolower dashboard page...</p>
 				<p>
 					Do you know that it is possible to use your Twitter account to sell
@@ -22,11 +73,35 @@
 				</p>
 			</div>
 		</div>
-		<p>This is some text.</p>
-		<p>This is another text.</p>
+
+
+
 	</div>
 
-
 	<th:block th:include="fragments/footer :: footer" />
+
+	<script>
+		$(document).ready(function() {
+			$(".alert").alert();
+
+			$(".close").alert();
+			$(".alert").alert('close');
+
+			$(".alert").click(function() {
+				$("#myAlert").alert('close');
+				$(".alert").alert('close');
+			});
+			
+			$(".alert.close").click(function() {
+				$("#myAlert").alert('close');
+				$(".alert").alert('close');
+			});
+
+			$(".close").click(function() {
+				$("#myAlert").alert('close');
+				$(".alert").alert('close');
+			});
+		});
+	</script>
 </body>
 </html>

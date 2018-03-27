@@ -26,10 +26,10 @@ public class MasterpassController {
 			@RequestParam(name = "pairing_token", required = false) String pairingToken,
 			@RequestParam(name = "mpstatus", required = false) String mpstatus) {
 
-		LOGGER.info("MASTERPASS called back... oauth_token: %s", oauthToken);
-		LOGGER.info("MASTERPASS called back... pairing_verifier: %s", pairingVerifier);
-		LOGGER.info("MASTERPASS called back... pairing_token: %s", pairingToken);
-		LOGGER.info("MASTERPASS called back... mpstatus: %s", mpstatus);
+		LOGGER.info("MASTERPASS called back... oauth_token: " + oauthToken);
+		LOGGER.info("MASTERPASS called back... pairing_verifier: " + pairingVerifier);
+		LOGGER.info("MASTERPASS called back... pairing_token: " + pairingToken);
+		LOGGER.info("MASTERPASS called back... mpstatus: " + mpstatus);
 
 		// MasterCardApiConfig.setSandBox(false); // to use production environment else
 		MasterCardApiConfig.setSandBox(true); // to use sandbox environment

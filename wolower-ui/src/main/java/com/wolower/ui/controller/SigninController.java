@@ -2,6 +2,8 @@ package com.wolower.ui.controller;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -13,16 +15,29 @@ import org.springframework.web.context.request.WebRequest;
 import org.thymeleaf.util.StringUtils;
 
 import com.wolower.persistence.model.User;
+import com.wolower.ui.services.SocialConnectionService;
 import com.wolower.ui.services.TwitterService;
+import com.wolower.ui.services.UserService;
+import com.wolower.ui.social.SocialProfile;
 
 @Controller
 public class SigninController {
+	private static final Logger LOGGER = LoggerFactory.getLogger(MasterpassController.class);
+
 	@Autowired
 	private TwitterService twitterService;
-	
+
+	@Autowired
+	private UserService userService;
+
+	@Autowired
+	private SocialConnectionService socialConnectionService;
+
 	@GetMapping(value = "/twitter/signup")
 	public String twitterSignup(WebRequest request) {
 		String authorizeUrl = twitterService.getAuthorizeUrl();
+
+		LOGGER.info("Twitter authorizeUrl: " + authorizeUrl);
 
 		/* Redirect to twitter authorization page */
 		return String.format("redirect:%s", authorizeUrl);
@@ -32,16 +47,24 @@ public class SigninController {
 	public String twitterCallback(Model model, @RequestParam(name = "oauth_token", required = false) String oauthToken,
 			@RequestParam(name = "oauth_verifier", required = false) String oauthVerifier,
 			@RequestParam(name = "denied", required = false) String denied, HttpServletRequest request) {
+		LOGGER.info("Twitter oauthToken: " + oauthToken);
+		LOGGER.info("Twitter oauthVerifier: " + oauthVerifier);
+		LOGGER.info("Twitter denied: " + denied);
+
 		/* If it is not denied. */
 		if (StringUtils.isEmpty(oauthToken) || StringUtils.isEmpty(oauthVerifier)) {
 			return "redirect:/";
 		}
 
 		/* Initialize twitter object */
-		User user = twitterService.initTwitter(oauthToken, oauthVerifier);
-
-		SecurityContextHolder.getContext()
-				.setAuthentication(new UsernamePasswordAuthenticationToken(user, null, null));
+		SocialProfile profile = twitterService.initTwitter(oauthToken, oauthVerifier);
+		/* Save user profile */
+		User user = userService.saveUser(profile);
+		/* Save social connection details */
+		socialConnectionService.saveSocialConnection(user, profile, oauthToken, oauthVerifier,
+				twitterService.getAccessToken());
+		/* Set session information */
+		SecurityContextHolder.getContext().setAuthentication(new UsernamePasswordAuthenticationToken(user, null, null));
 
 		return "redirect:/dashboard";
 	}
