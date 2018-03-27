@@ -2,31 +2,39 @@
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <div th:fragment="header">
 
-	<nav class="navbar navbar-default justify-content-between">
-		<div class="container">
-			<div class="navbar-header">
-				<a class="navbar-brand" th:href="index" th:text="wolower" />
-			</div>
-			<ul class="nav navbar-nav">
-				<li class="active"><a href="#">Home</a></li>
-				<li><a href="#">Page 1</a></li>
-				<li><a href="#">Page 2</a></li>
-			</ul>
-			
-			<form class="navbar-form navbar-left" action="/search">
-				<div class="input-group">
-					<input type="text" class="form-control" placeholder="Search"
-						name="search" />
-					<div class="input-group-btn">
-						<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-						<button class="btn btn-primary my-2 my-sm-0" type="submit">
-							<i class="glyphicon glyphicon-search lg"></i>
-						</button>
-					</div>
+	<div class="jumbotron">
+		<nav class="navbar navbar-inverse justify-content-between fixed-top">
+			<div class="container">
+				<div class="navbar-header">
+					<a class="navbar-brand" th:href="dashboard" th:text="wolower" />
 				</div>
-			</form>
-		</div>
-	</nav>
+				<ul class="nav navbar-nav">
+					<li class="active"><a href="/dashboard">Your dashboard</a></li>
+					<li><a href="#">Your reports</a></li>
+					<li><a href="#">What we do</a></li>
+				</ul>
+
+				<!-- 			<form class="navbar-form navbar-left" action="/search"> -->
+				<!-- 				<div class="input-group"> -->
+				<!-- 					<input type="text" class="form-control" placeholder="Search" -->
+				<!-- 						name="search" /> -->
+				<!-- 					<div class="input-group-btn"> -->
+				<!-- 						<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button> -->
+				<!-- 						<button class="btn btn-primary my-2 my-sm-0" type="submit"> -->
+				<!-- 							<i class="glyphicon glyphicon-search lg"></i> -->
+				<!-- 						</button> -->
+				<!-- 					</div> -->
+				<!-- 				</div> -->
+				<!-- 			</form> -->
+
+				<div class="nav navbar-right" th:if="${header != null}">
+					<span class="navbar-brand" th:text="${header.username}" /> <img
+						th:src="${header.profilePictureUrl}" class="img-circle" width="45"
+						height="45" />
+				</div>
+			</div>
+		</nav>
+	</div>
 
 </div>
 </html>
