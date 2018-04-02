@@ -3,12 +3,11 @@
 <head th:replace="fragments/commons :: head" />
 
 <body>
-
 	<div th:if="${showWarning}"
-		class="alert alert-warning alert-dismissible" role="alert"
-		id="myAlert">
+		class="row alert alert-warning alert-dismissible fade in" role="alert"
+		style="margin: 0 auto;">
 		<button type="button" class="close" data-dismiss="alert"
-			aria-label="Close">x</button>
+			aria-label="Close">&times;</button>
 		<strong>Warning!</strong> <span th:text="${warningMessage}" />
 	</div>
 
@@ -20,9 +19,17 @@
 			<p>Your trusted, secure, and automated payment mechanism for
 				Twitter.</p>
 
-			<a href="/twitter/signup" class="btn btn-outline btn-lg"><span
-				class="fa fa-twitter"></span> <b>Sign in with Twitter</b> </a>
-
+			<div th:if="${authenticated == null}">
+				<a href="/twitter/signup" class="btn btn-outline btn-lg"><span
+					class="fa fa-twitter"></span> <b>Sign in with Twitter</b> </a>
+			</div>
+			<div th:if="${authenticated != null}">
+				<p>
+					You have signed in as <b th:text="${username}" />
+				</p>
+				<a href="/dashboard" class="btn btn-outline btn-lg"><b>Go to
+						dashboard</b> </a>
+			</div>
 		</div>
 	</div>
 
@@ -41,38 +48,28 @@
 			</div>
 		</div>
 
-		<canvas id="myChart"></canvas>
-
-<div class="container mx-auto">
-<div class="container">
-		<blockquote class="twitter-tweet">
-			<p lang="en" dir="ltr">
-				Sunsets don&#39;t get much better than this one over <a
-					href="https://twitter.com/GrandTetonNPS?ref_src=twsrc%5Etfw">@GrandTetonNPS</a>.
-				<a
-					href="https://twitter.com/hashtag/nature?src=hash&amp;ref_src=twsrc%5Etfw">#nature</a>
-				<a
-					href="https://twitter.com/hashtag/sunset?src=hash&amp;ref_src=twsrc%5Etfw">#sunset</a>
-				<a href="http://t.co/YuKy2rcjyU">pic.twitter.com/YuKy2rcjyU</a>
-			</p>
-			&mdash; US Department of the Interior (@Interior) <a
-				href="https://twitter.com/Interior/status/463440424141459456?ref_src=twsrc%5Etfw">May
-				5, 2014</a>
-		</blockquote>
-</div></div>
-
+		<div class="container mx-auto">
+			<div class="container">
+				<blockquote class="twitter-tweet">
+					<p lang="en" dir="ltr">
+						Sunsets don&#39;t get much better than this one over <a
+							href="https://twitter.com/GrandTetonNPS?ref_src=twsrc%5Etfw">@GrandTetonNPS</a>.
+						<a
+							href="https://twitter.com/hashtag/nature?src=hash&amp;ref_src=twsrc%5Etfw">#nature</a>
+						<a
+							href="https://twitter.com/hashtag/sunset?src=hash&amp;ref_src=twsrc%5Etfw">#sunset</a>
+						<a href="http://t.co/YuKy2rcjyU">pic.twitter.com/YuKy2rcjyU</a>
+					</p>
+					&mdash; US Department of the Interior (@Interior) <a
+						href="https://twitter.com/Interior/status/463440424141459456?ref_src=twsrc%5Etfw">May
+						5, 2014</a>
+				</blockquote>
+			</div>
+		</div>
 
 	</div>
+
 	<th:block th:include="fragments/footer :: footer" />
 
-	<script>
-		$(document).ready(function() {
-			$(".close").alert()
-
-			$(".close").click(function() {
-				$("#myAlert").alert('close');
-			});
-		});
-	</script>
 </body>
 </html>

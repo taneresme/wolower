@@ -6,10 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import com.wolower.ui.models.Header;
-import com.wolower.ui.services.SocialConnectionService;
+import com.wolower.ui.services.SessionService;
 import com.wolower.ui.services.UserService;
 
 @Controller
@@ -18,18 +17,17 @@ public class DashboardController {
 	private UserService userService;
 
 	@Autowired
-	private SocialConnectionService socialConnectionService;
+	private SessionService sessionService;
 
 	@GetMapping("/dashboard")
-	public String index(Model model, @RequestParam(name = "firstTime", required = false) String firstTime,
-			HttpServletRequest request) {
-		Header header = new Header(socialConnectionService);
+	public String index(Model model, HttpServletRequest request) {
+		Header header = new Header(sessionService);
 
 		model.addAttribute("header", header);
 		model.addAttribute("username", header.getUsername());
 
 		if (userService.getFirstTime()) {
-			model.addAttribute("firstTime", firstTime);
+			model.addAttribute("firstTime", userService.getFirstTime());
 		}
 
 		return "/views/dashboard";

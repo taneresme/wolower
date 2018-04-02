@@ -6,11 +6,12 @@
 
 	<div class="container">
 
-		<div class="alert">
+		<div class="alert alert-danger alert-dismissible" role="alert">
 			<button type="button" class="close" data-dismiss="alert">&times;</button>
 			<strong>Warning!</strong> Best check yo self, you're not looking too
 			good.
 		</div>
+
 
 		<!-- 		<div class="alert alert-success" role="alert" th:if="${firstTime}"> -->
 		<div class="alert alert-success" role="alert">
@@ -36,7 +37,6 @@
 						to your trusted, secure, and automated payment world.</small>
 				</h1>
 			</div>
-			<p>Here is wolower dashboard page...</p>
 			<p>
 				Do you know that it is possible to use your Twitter account to sell
 				your unused belongings. Yes you can, but there is a significant
@@ -74,34 +74,79 @@
 			</div>
 		</div>
 
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<h1>Your transactions</h1>
+			</div>
+			<div class="panel-body">
+				<table class="table">
+					<thead>
+						<tr>
+							<th>Firstname</th>
+							<th>Lastname</th>
+							<th>Email</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>Default</td>
+							<td>Defaultson</td>
+							<td>def@somemail.com</td>
+						</tr>
+						<tr class="primary">
+							<td>Primary</td>
+							<td>Joe</td>
+							<td>joe@example.com</td>
+						</tr>
+						<tr class="success">
+							<td>Success</td>
+							<td>Doe</td>
+							<td>john@example.com</td>
+						</tr>
+						<tr class="danger">
+							<td>Danger</td>
+							<td>Moe</td>
+							<td>mary@example.com</td>
+						</tr>
+						<tr class="info">
+							<td>Info</td>
+							<td>Dooley</td>
+							<td>july@example.com</td>
+						</tr>
+						<tr class="warning">
+							<td>Warning</td>
+							<td>Refs</td>
+							<td>bo@example.com</td>
+						</tr>
+						<tr class="success">
+							<td>Active</td>
+							<td>Activeson</td>
+							<td>act@example.com</td>
+						</tr>
+						<tr class="secondary">
+							<td>Secondary</td>
+							<td>Secondson</td>
+							<td>sec@example.com</td>
+						</tr>
+						<tr class="light">
+							<td>Light</td>
+							<td>Angie</td>
+							<td>angie@example.com</td>
+						</tr>
+						<tr class="dark">
+							<td>Dark</td>
+							<td>Bo</td>
+							<td>bo@example.com</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+
 
 
 	</div>
 
 	<th:block th:include="fragments/footer :: footer" />
-
-	<script>
-		$(document).ready(function() {
-			$(".alert").alert();
-
-			$(".close").alert();
-			$(".alert").alert('close');
-
-			$(".alert").click(function() {
-				$("#myAlert").alert('close');
-				$(".alert").alert('close');
-			});
-			
-			$(".alert.close").click(function() {
-				$("#myAlert").alert('close');
-				$(".alert").alert('close');
-			});
-
-			$(".close").click(function() {
-				$("#myAlert").alert('close');
-				$(".alert").alert('close');
-			});
-		});
-	</script>
 </body>
 </html>

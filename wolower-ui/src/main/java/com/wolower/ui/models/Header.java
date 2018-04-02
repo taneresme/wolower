@@ -2,23 +2,20 @@ package com.wolower.ui.models;
 
 import org.springframework.security.core.context.SecurityContextHolder;
 
-import com.wolower.persistence.model.SocialConnection;
 import com.wolower.persistence.model.User;
-import com.wolower.ui.services.SocialConnectionService;
+import com.wolower.ui.services.SessionService;
 
 public class Header {
 	private String username;
 	private String profilePictureUrl;
 
-	public Header(SocialConnectionService socialConnectionService) {
+	public Header(SessionService session) {
 		if (SecurityContextHolder.getContext() == null)
 			return;
 
-		User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		this.username = user.getDisplayName();
-
-		SocialConnection sc = socialConnectionService.getSocialConnection(user);
-		this.profilePictureUrl = sc.getImageUrl();
+		User user = session.user();
+		this.username = session.userDisplayName();
+		this.profilePictureUrl = user.getImageUrl();
 	}
 
 	public String getUsername() {

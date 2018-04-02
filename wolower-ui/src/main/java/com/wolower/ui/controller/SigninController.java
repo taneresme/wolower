@@ -5,8 +5,6 @@ import javax.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,8 +13,8 @@ import org.springframework.web.context.request.WebRequest;
 import org.thymeleaf.util.StringUtils;
 
 import com.wolower.persistence.model.User;
-import com.wolower.ui.services.SocialConnectionService;
-import com.wolower.ui.services.TwitterService;
+import com.wolower.ui.services.SessionService;
+import com.wolower.ui.services.TwitterSigninService;
 import com.wolower.ui.services.UserService;
 import com.wolower.ui.social.SocialProfile;
 
@@ -25,17 +23,17 @@ public class SigninController {
 	private static final Logger LOGGER = LoggerFactory.getLogger(MasterpassController.class);
 
 	@Autowired
-	private TwitterService twitterService;
+	private TwitterSigninService twitterSigninService;
 
 	@Autowired
 	private UserService userService;
-
+	
 	@Autowired
-	private SocialConnectionService socialConnectionService;
+	private SessionService sessionService;
 
 	@GetMapping(value = "/twitter/signup")
 	public String twitterSignup(WebRequest request) {
-		String authorizeUrl = twitterService.getAuthorizeUrl();
+		String authorizeUrl = twitterSigninService.getAuthenticationUrl();
 
 		LOGGER.info("Twitter authorizeUrl: " + authorizeUrl);
 
@@ -51,20 +49,17 @@ public class SigninController {
 		LOGGER.info("Twitter oauthVerifier: " + oauthVerifier);
 		LOGGER.info("Twitter denied: " + denied);
 
-		/* If it is not denied. */
+		/* If it not denied. */
 		if (StringUtils.isEmpty(oauthToken) || StringUtils.isEmpty(oauthVerifier)) {
 			return "redirect:/";
 		}
 
 		/* Initialize twitter object */
-		SocialProfile profile = twitterService.initTwitter(oauthToken, oauthVerifier);
+		SocialProfile profile = twitterSigninService.initTwitter(oauthToken, oauthVerifier);
 		/* Save user profile */
-		User user = userService.saveUser(profile);
-		/* Save social connection details */
-		socialConnectionService.saveSocialConnection(user, profile, oauthToken, oauthVerifier,
-				twitterService.getAccessToken());
+		User user = userService.saveUser(profile, oauthToken, oauthVerifier, twitterSigninService.getAccessToken());
 		/* Set session information */
-		SecurityContextHolder.getContext().setAuthentication(new UsernamePasswordAuthenticationToken(user, null, null));
+		sessionService.setSession(user);
 
 		return "redirect:/dashboard";
 	}
