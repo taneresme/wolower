@@ -6,15 +6,43 @@
 
 	<div class="container">
 
-		<div class="alert alert-danger alert-dismissible" role="alert">
-			<button type="button" class="close" data-dismiss="alert">&times;</button>
-			<strong>Warning!</strong> Best check yo self, you're not looking too
-			good.
+		<div class="card-deck mb-4">
+			<div class="card border-dark">
+				<div class="card-body">
+					<h5 class="card-title">Card title</h5>
+					<p class="card-text">This is a longer card with supporting text
+						below as a natural lead-in to additional content. This content is
+						a little bit longer.</p>
+					<p class="card-text">
+						<small class="text-muted">Last updated 3 mins ago</small>
+					</p>
+				</div>
+			</div>
+			<div class="card border-dark">
+				<div class="card-body">
+					<h5 class="card-title">Card title</h5>
+					<p class="card-text">This card has supporting text below as a
+						natural lead-in to additional content.</p>
+					<p class="card-text">
+						<small class="text-muted">Last updated 3 mins ago</small>
+					</p>
+				</div>
+			</div>
+			<div class="card border-dark">
+				<div class="card-body">
+					<h5 class="card-title">Card title</h5>
+					<p class="card-text">This is a wider card with supporting text
+						below as a natural lead-in to additional content. This card has
+						even longer content than the first to show that equal height
+						action.</p>
+					<p class="card-text">
+						<small class="text-muted">Last updated 3 mins ago</small>
+					</p>
+				</div>
+			</div>
 		</div>
 
-
-		<!-- 		<div class="alert alert-success" role="alert" th:if="${firstTime}"> -->
-		<div class="alert alert-success" role="alert">
+		<div class="alert alert-success" role="alert" th:if="${firstTime}">
 			<h4 class="alert-heading">Thank you!</h4>
 			<p>Yes, we know that this is your first time :). Hmmm are you a
 				little concerned? Do not worry my friend!</p>
@@ -25,41 +53,19 @@
 			<hr />
 			<p>
 				It is good to see you here <span class="font-weight-bold"
-					th:text="${username}" />...
+					th:text="${name}" />...
 			</p>
 		</div>
 
 
-		<div class="well">
-			<div class="page-header">
-				<h1>
-					Heey, <span class="font-bold" th:text="${username}" /> <small>Welcome
-						to your trusted, secure, and automated payment world.</small>
-				</h1>
-			</div>
-			<p>
-				Do you know that it is possible to use your Twitter account to sell
-				your unused belongings. Yes you can, but there is a significant
-				problem when you want to sell and buy something on Twitter, that is
-				payment. Twitter does not provide a social payment infrastructure.
-				Sure you consider that there is an option to pay at the door, but it
-				is not useful for international sales. You cannot expect from
-				someone abroad to accept the payment on behalf of you, right!. A
-				trusted, secure, and automated payment mechanism is needed. Let's
-				recognize you the <b>wolower</b>.
-			</p>
-
-		</div>
-
-		<div class="panel panel-default">
-			<div class="panel-body">
-				<div class="page-header">
+		<div class="card bg-light mb-4">
+			<div class="card-body">
+				<div class="card-title">
 					<h1>
-						Heey, <span class="font-bold" th:text="${username}" /> <small>Welcome
+						Heey <span class="font-bold" th:text="${name}" />, <small>Welcome
 							to your trusted, secure, and automated payment world.</small>
 					</h1>
 				</div>
-				<p>Here is wolower dashboard page...</p>
 				<p>
 					Do you know that it is possible to use your Twitter account to sell
 					your unused belongings. Yes you can, but there is a significant
@@ -69,16 +75,22 @@
 					it is not useful for international sales. You cannot expect from
 					someone abroad to accept the payment on behalf of you, right!. A
 					trusted, secure, and automated payment mechanism is needed. Let's
-					recognize you the <b>wolower</b>.
+					recognize you the <strong>wolower</strong>.
 				</p>
 			</div>
 		</div>
 
-		<div class="panel panel-default">
-			<div class="panel-heading">
+		<div class="card border-dark mb-4">
+			<div class="card-header">
 				<h1>Your transactions</h1>
 			</div>
-			<div class="panel-body">
+			<div class="card-body" th:if="${transactions.isEmpty()}">
+				<div class="alert alert-warning" role="alert">
+					<strong th:text="${name}" />, we could not find any transations.
+					Do you need help?
+				</div>
+			</div>
+			<div class="panel-body" th:if="${!transactions.isEmpty()}">
 				<table class="table">
 					<thead>
 						<tr>
@@ -140,6 +152,13 @@
 						</tr>
 					</tbody>
 				</table>
+			</div>
+			<div class="panel-footer" th:if="${!transactions.isEmpty()}">
+				<p>
+					You see your last <span th:text="${transactions.size()}" />
+					transactions above. For more, please visit <a href="/reports">Reports</a>
+					page.
+				</p>
 			</div>
 		</div>
 

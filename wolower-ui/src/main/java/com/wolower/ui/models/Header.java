@@ -6,7 +6,8 @@ import com.wolower.persistence.model.User;
 import com.wolower.ui.services.SessionService;
 
 public class Header {
-	private String username;
+	private String name;
+	private String fullName;
 	private String profilePictureUrl;
 
 	public Header(SessionService session) {
@@ -14,16 +15,22 @@ public class Header {
 			return;
 
 		User user = session.user();
-		this.username = session.userDisplayName();
+		this.fullName = session.userDisplayName();
 		this.profilePictureUrl = user.getImageUrl();
+		
+		try {
+			this.name = this.fullName.split(" ")[0];
+		} catch (Throwable ex) {
+			this.name = this.fullName;
+		}
 	}
 
-	public String getUsername() {
-		return username;
+	public String getName() {
+		return name;
 	}
 
-	public void setUsername(String username) {
-		this.username = username;
+	public String getFullName() {
+		return fullName;
 	}
 
 	public String getProfilePictureUrl() {

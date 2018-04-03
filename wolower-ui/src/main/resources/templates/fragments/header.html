@@ -3,37 +3,48 @@
 <div th:fragment="header">
 
 	<div class="jumbotron">
-		<nav class="navbar navbar-inverse justify-content-between fixed-top">
-			<div class="container">
-				<div class="navbar-header">
-					<a class="navbar-brand" th:href="dashboard" th:text="wolower" />
-				</div>
-				<ul class="nav navbar-nav">
-					<li class="active"><a href="/dashboard">Your dashboard</a></li>
-					<li><a href="#">Your reports</a></li>
-					<li><a href="#">What we do</a></li>
-				</ul>
-
-				<!-- 			<form class="navbar-form navbar-left" action="/search"> -->
-				<!-- 				<div class="input-group"> -->
-				<!-- 					<input type="text" class="form-control" placeholder="Search" -->
-				<!-- 						name="search" /> -->
-				<!-- 					<div class="input-group-btn"> -->
-				<!-- 						<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button> -->
-				<!-- 						<button class="btn btn-primary my-2 my-sm-0" type="submit"> -->
-				<!-- 							<i class="glyphicon glyphicon-search lg"></i> -->
-				<!-- 						</button> -->
-				<!-- 					</div> -->
-				<!-- 				</div> -->
-				<!-- 			</form> -->
-
-				<div class="nav navbar-right" th:if="${header != null}">
-					<span class="navbar-brand" th:text="${header.username}" /> <img
-						th:src="${header.profilePictureUrl}" class="img-circle" width="45"
-						height="45" />
+		<nav class="navbar navbar-expand-lg navbar-light bg-light">
+			<a class="navbar-brand" href="/dashboard">wolower</a>
+			<button class="navbar-toggler" type="button" data-toggle="collapse"
+				data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup"
+				aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+				<div class="navbar-nav">
+					<a class="nav-item nav-link active" href="#">Home <span
+						class="sr-only">(current)</span></a> <a class="nav-item nav-link"
+						href="#">Features</a> <a class="nav-item nav-link" href="#">Pricing</a>
+					<a class="nav-item nav-link disabled" href="#">Disabled</a>
 				</div>
 			</div>
+			<div class="nav navbar-right" th:if="${header != null}">
+				<span class="navbar-brand" th:text="${header.name}" /> <img
+					th:src="${header.profilePictureUrl}" class="img-circle" />
+			</div>
 		</nav>
+
+
+		<!-- 		<nav class="navbar navbar-light fixed-top" -->
+		<!-- 			style="background-color: #e3f2fd;"> -->
+		<!-- 			<div class="container"> -->
+		<!-- 				<div class="navbar-header"> -->
+		<!-- 					<a class="navbar-brand" th:href="dashboard" th:text="wolower" /> -->
+		<!-- 				</div> -->
+		<!-- 				<ul class="nav navbar-nav"> -->
+		<!-- 					<li class="active"><a href="/dashboard">Your dashboard</a></li> -->
+		<!-- 					<li><a href="#">Your reports</a></li> -->
+		<!-- 					<li><a href="#">What we do</a></li> -->
+		<!-- 				</ul> -->
+
+
+		<!-- 				<div class="nav navbar-right" th:if="${header != null}"> -->
+		<!-- 					<span class="navbar-brand" th:text="${header.name}" /> <img -->
+		<!-- 						th:src="${header.profilePictureUrl}" class="img-circle" width="45" -->
+		<!-- 						height="45" /> -->
+		<!-- 				</div> -->
+		<!-- 			</div> -->
+		<!-- 		</nav> -->
 	</div>
 
 </div>

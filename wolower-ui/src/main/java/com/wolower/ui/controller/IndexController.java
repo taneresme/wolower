@@ -19,7 +19,7 @@ public class IndexController {
 	public String root(Model model, HttpServletRequest request) {
 		if (sessionService.authenticated()) {
 			model.addAttribute("authenticated", "true");
-			model.addAttribute("username", sessionService.userDisplayName());
+			model.addAttribute("fullName", sessionService.userDisplayName());
 		}
 		return "index";
 	}
@@ -30,14 +30,14 @@ public class IndexController {
 
 		if ("invalidSession".equals(reason)) {
 			model.addAttribute("showWarning", true);
-			model.addAttribute("warningMessage", "Encountered an invalid session!");
+			model.addAttribute("warningMessage", "We had a problem with your session details. Do you think to log in again?");
 		} else if ("authenticationError".equals(reason)) {
 			model.addAttribute("showWarning", true);
-			model.addAttribute("warningMessage", "Authentication failed!");
+			model.addAttribute("warningMessage", "Hmmm, there was an error when we were trying to authenticate you. Please try it again!");
 		}
 		else if (sessionService.authenticated()) {
 			model.addAttribute("authenticated", "true");
-			model.addAttribute("username", sessionService.userDisplayName());
+			model.addAttribute("fullName", sessionService.userDisplayName());
 		}
 		
 		return "index";
