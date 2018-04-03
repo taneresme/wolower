@@ -1,4 +1,4 @@
-package com.wolower.ui.services;
+package com.wolower.ui.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.social.oauth1.OAuthToken;
@@ -10,10 +10,14 @@ import com.wolower.ui.social.SocialProfile;
 
 @Service
 public class UserService {
-	@Autowired
-	private UserDao userDao;
 
+	private UserDao userDao;
 	private Boolean firstTime = false;
+
+	@Autowired
+	public UserService(UserDao userDao) {
+		this.userDao = userDao;
+	}
 
 	public Boolean getFirstTime() {
 		return firstTime;
@@ -34,6 +38,8 @@ public class UserService {
 		user.setAccessToken(accessToken.getValue());
 		user.setAccessSecret(accessToken.getSecret());
 		user.setImageUrl(profile.getProfileImageUrl());
+		user.setBackgroundImageUrl(profile.getBackgroundImageUrl());
+		user.setProfileBannerUrl(profile.getProfileBannerUrl());
 		user.setOauthToken(oauthToken);
 		user.setOauthVerifier(oauthVerifier);
 		user.setProfileUrl(profile.getProfileUrl());

@@ -38,9 +38,14 @@ public class User {
 	@Column(name = "profileUrl")
 	private String profileUrl;
 
-	@NotNull
 	@Column(name = "imageUrl")
 	private String imageUrl;
+
+	@Column(name = "backgroundImageUrl")
+	private String backgroundImageUrl;
+
+	@Column(name = "profileBannerUrl")
+	private String profileBannerUrl;
 
 	@NotNull
 	@Column(name = "oauthToken")
@@ -125,6 +130,22 @@ public class User {
 
 	public void setImageUrl(String imageUrl) {
 		this.imageUrl = imageUrl;
+	}
+
+	public String getBackgroundImageUrl() {
+		return backgroundImageUrl;
+	}
+
+	public void setBackgroundImageUrl(String backgroundImageUrl) {
+		this.backgroundImageUrl = backgroundImageUrl;
+	}
+
+	public String getProfileBannerUrl() {
+		return profileBannerUrl;
+	}
+
+	public void setProfileBannerUrl(String profileBannerUrl) {
+		this.profileBannerUrl = profileBannerUrl;
 	}
 
 	public String getOauthToken() {

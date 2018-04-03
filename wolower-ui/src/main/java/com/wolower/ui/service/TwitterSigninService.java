@@ -1,4 +1,4 @@
-package com.wolower.ui.services;
+package com.wolower.ui.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.social.connect.Connection;
@@ -18,9 +18,7 @@ import com.wolower.ui.social.TwitterSocialProfile;
 
 @Service
 public class TwitterSigninService {
-	@Autowired
 	private TwitterConfig twitterConfig;
-
 	private OAuth1Operations oauth1Operations;
 	private TwitterConnectionFactory connectionFactoryTwitter;
 	private OAuthToken requestToken;
@@ -28,6 +26,11 @@ public class TwitterSigninService {
 	private String oauthVerifier;
 	private OAuthToken accessToken;
 	private SocialProfile socialProfile;
+
+	@Autowired
+	public TwitterSigninService(TwitterConfig twitterConfig) {
+		this.twitterConfig = twitterConfig;
+	}
 
 	public OAuthToken getRequestToken() {
 		return requestToken;

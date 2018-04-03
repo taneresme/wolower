@@ -9,10 +9,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
-import com.wolower.ui.models.Header;
-import com.wolower.ui.models.Transaction;
-import com.wolower.ui.services.SessionService;
-import com.wolower.ui.services.UserService;
+import com.wolower.ui.model.Header;
+import com.wolower.ui.model.Transaction;
+import com.wolower.ui.service.SessionService;
+import com.wolower.ui.service.UserService;
 
 @Controller
 public class DashboardController {

@@ -8,7 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.wolower.ui.services.SessionService;
+import com.wolower.ui.service.SessionService;
 
 @Controller
 public class IndexController {

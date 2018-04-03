@@ -13,9 +13,9 @@ import org.springframework.web.context.request.WebRequest;
 import org.thymeleaf.util.StringUtils;
 
 import com.wolower.persistence.model.User;
-import com.wolower.ui.services.SessionService;
-import com.wolower.ui.services.TwitterSigninService;
-import com.wolower.ui.services.UserService;
+import com.wolower.ui.service.SessionService;
+import com.wolower.ui.service.TwitterSigninService;
+import com.wolower.ui.service.UserService;
 import com.wolower.ui.social.SocialProfile;
 
 @Controller

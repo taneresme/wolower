@@ -1,4 +1,4 @@
-package com.wolower.ui.models;
+package com.wolower.ui.model;
 
 public class Transaction {
 	

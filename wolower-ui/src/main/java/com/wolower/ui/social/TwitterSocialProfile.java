@@ -49,4 +49,14 @@ public class TwitterSocialProfile implements SocialProfile {
 		return profile.getProfileUrl();
 	}
 
+	@Override
+	public String getBackgroundImageUrl() {
+		return profile.getBackgroundImageUrl();
+	}
+
+	@Override
+	public String getProfileBannerUrl() {
+		return (String) profile.getExtraData().getOrDefault("profile_banner_url", "");
+	}
+
 }

@@ -1,4 +1,4 @@
-package com.wolower.ui.services;
+package com.wolower.ui.service;
 
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -13,7 +13,8 @@ public class SessionService {
 	}
 
 	public Boolean authenticated() {
-		return !(SecurityContextHolder.getContext().getAuthentication() == null);
+		return !(SecurityContextHolder.getContext().getAuthentication() == null
+				|| SecurityContextHolder.getContext().getAuthentication().getPrincipal() == "anonymousUser");
 	}
 
 	public String userDisplayName() {
