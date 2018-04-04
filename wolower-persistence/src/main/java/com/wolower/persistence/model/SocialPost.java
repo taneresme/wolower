@@ -47,7 +47,7 @@ public class SocialPost {
 	private String postId;
 
 	@Column(name = "postDate")
-	private String postDate;
+	private LocalDateTime postDate;
 
 	@Column(name = "postText")
 	private String postText;
@@ -55,10 +55,6 @@ public class SocialPost {
 	@NotNull
 	@Column(name = "postUrl")
 	private String postUrl;
-
-	@NotNull
-	@Column(name = "postJson")
-	private String postJson;
 
 	@NotNull
 	@Column(name = "timestamp")
@@ -124,11 +120,11 @@ public class SocialPost {
 		this.postId = postId;
 	}
 
-	public String getPostDate() {
+	public LocalDateTime getPostDate() {
 		return postDate;
 	}
 
-	public void setPostDate(String postDate) {
+	public void setPostDate(LocalDateTime postDate) {
 		this.postDate = postDate;
 	}
 
@@ -146,14 +142,6 @@ public class SocialPost {
 
 	public void setPostUrl(String postUrl) {
 		this.postUrl = postUrl;
-	}
-
-	public String getPostJson() {
-		return postJson;
-	}
-
-	public void setPostJson(String postJson) {
-		this.postJson = postJson;
 	}
 
 	public LocalDateTime getTimestamp() {

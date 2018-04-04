@@ -1,7 +1,7 @@
 <html xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <head th:replace="fragments/commons :: head" />
-<body>
+<body th:background="${header.backgroundImageUrl}">
 	<th:block th:include="fragments/header :: header" />
 
 	<div class="container">
@@ -41,7 +41,7 @@
 			<hr />
 			<p>
 				It is good to see you here <span class="font-weight-bold"
-					th:text="${name}" />...
+					th:text="${dashboard.name}" />...
 			</p>
 		</div>
 
@@ -50,7 +50,7 @@
 			<div class="card-body">
 				<div class="card-title">
 					<h1>
-						Heey <span class="font-bold" th:text="${name}" />,
+						Heey <span class="font-bold" th:text="${dashboard.name}" />,
 					</h1>
 					<h1>
 						<small>Welcome to your trusted, secure, and automated
@@ -77,7 +77,7 @@
 			<div class="card-body">
 				<div class="card-title">
 					<h1>
-						Heey <span class="font-bold" th:text="${name}" />,
+						Heey <span class="font-bold" th:text="${dashboard.name}" />,
 					</h1>
 					<h1>
 						<small>Welcome to your trusted, secure, and automated
@@ -107,7 +107,7 @@
 			</div>
 			<div class="card-body" th:if="${transactions.isEmpty()}">
 				<div class="alert alert-danger" role="alert">
-					<strong th:text="${name}" />, we could not find any transactions.
+					<strong th:text="${dashboard.name}" />, we could not find any transactions.
 					Do you need help?
 				</div>
 			</div>

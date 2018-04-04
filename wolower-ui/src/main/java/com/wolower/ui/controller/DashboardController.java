@@ -9,9 +9,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
-import com.wolower.ui.model.Header;
+import com.wolower.ui.model.Dashboard;
 import com.wolower.ui.model.Transaction;
-import com.wolower.ui.service.SessionService;
+import com.wolower.ui.service.HeaderService;
 import com.wolower.ui.service.UserService;
 
 @Controller
@@ -20,17 +20,19 @@ public class DashboardController {
 	private UserService userService;
 
 	@Autowired
-	private SessionService sessionService;
+	private HeaderService headerService;
 
 	@GetMapping("/dashboard")
 	public String index(Model model, HttpServletRequest request) {
-		Header header = new Header(sessionService);
-		model.addAttribute("header", header);
-		model.addAttribute("name", header.getName());
+		model.addAttribute("header", headerService.getHeader());
 		
 		if (userService.getFirstTime()) {
 			model.addAttribute("firstTime", userService.getFirstTime());
 		}
+
+		Dashboard dashboard = new Dashboard();
+		dashboard.setName(headerService.getHeader().getName());
+		model.addAttribute("dashboard", dashboard);
 		
 		model.addAttribute("transactions", new ArrayList<Transaction>());
 

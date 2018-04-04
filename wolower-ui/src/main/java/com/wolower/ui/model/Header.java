@@ -1,46 +1,50 @@
 package com.wolower.ui.model;
 
-import org.springframework.security.core.context.SecurityContextHolder;
-
-import com.wolower.persistence.model.User;
-import com.wolower.ui.service.SessionService;
-
 public class Header {
 	private String name;
 	private String fullName;
 	private String profilePictureUrl;
 	private String profileBannerUrl;
-
-	public Header(SessionService session) {
-		if (SecurityContextHolder.getContext() == null)
-			return;
-
-		User user = session.user();
-		this.fullName = session.userDisplayName();
-		this.profilePictureUrl = user.getImageUrl();
-		this.profileBannerUrl = user.getProfileBannerUrl();
-
-		try {
-			this.name = this.fullName.split(" ")[0];
-		} catch (Throwable ex) {
-			this.name = this.fullName;
-		}
-	}
+	private String backgroundImageUrl;
 
 	public String getName() {
 		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public String getFullName() {
 		return fullName;
 	}
 
+	public void setFullName(String fullName) {
+		this.fullName = fullName;
+	}
+
 	public String getProfilePictureUrl() {
 		return profilePictureUrl;
 	}
 
+	public void setProfilePictureUrl(String profilePictureUrl) {
+		this.profilePictureUrl = profilePictureUrl;
+	}
+
 	public String getProfileBannerUrl() {
 		return profileBannerUrl;
+	}
+
+	public void setProfileBannerUrl(String profileBannerUrl) {
+		this.profileBannerUrl = profileBannerUrl;
+	}
+
+	public String getBackgroundImageUrl() {
+		return backgroundImageUrl;
+	}
+
+	public void setBackgroundImageUrl(String backgroundImageUrl) {
+		this.backgroundImageUrl = backgroundImageUrl;
 	}
 
 }
