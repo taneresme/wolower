@@ -10,8 +10,8 @@ public class Extractor {
 		Matcher matcher = pattern.matcher(post);
 		Boolean matches = matcher.find();
 		if (matches) {
-			String amountStr = matcher.group(1);
-			return Long.valueOf(amountStr.substring(1));
+			String amountStr = matcher.group(1).replace(".", "").replace(",", "");
+			return Long.valueOf(amountStr);
 		}
 		return null;
 	}

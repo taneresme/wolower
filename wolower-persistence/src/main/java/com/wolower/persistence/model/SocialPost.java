@@ -28,7 +28,7 @@ public class SocialPost {
 
 	@NotNull
 	@Column(name = "socialUserId")
-	private String socialUserId;
+	private Long socialUserId;
 
 	@NotNull
 	@Column(name = "amount")
@@ -44,17 +44,13 @@ public class SocialPost {
 	private PostTypes postType;
 
 	@Column(name = "postId")
-	private String postId;
+	private Long postId;
 
 	@Column(name = "postDate")
 	private LocalDateTime postDate;
 
 	@Column(name = "postText")
 	private String postText;
-
-	@NotNull
-	@Column(name = "postUrl")
-	private String postUrl;
 
 	@NotNull
 	@Column(name = "timestamp")
@@ -80,11 +76,11 @@ public class SocialPost {
 		this.socialMedia = socialMedia;
 	}
 
-	public String getSocialUserId() {
+	public Long getSocialUserId() {
 		return socialUserId;
 	}
 
-	public void setSocialUserId(String socialUserId) {
+	public void setSocialUserId(Long socialUserId) {
 		this.socialUserId = socialUserId;
 	}
 
@@ -112,11 +108,11 @@ public class SocialPost {
 		this.postType = postType;
 	}
 
-	public String getPostId() {
+	public Long getPostId() {
 		return postId;
 	}
 
-	public void setPostId(String postId) {
+	public void setPostId(Long postId) {
 		this.postId = postId;
 	}
 
@@ -134,14 +130,6 @@ public class SocialPost {
 
 	public void setPostText(String postText) {
 		this.postText = postText;
-	}
-
-	public String getPostUrl() {
-		return postUrl;
-	}
-
-	public void setPostUrl(String postUrl) {
-		this.postUrl = postUrl;
 	}
 
 	public LocalDateTime getTimestamp() {
