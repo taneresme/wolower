@@ -5,7 +5,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.EnableScheduling;
 
-import com.wolower.ui.service.SocialPostScheduler;
+import com.wolower.ui.service.TwitterPostScheduler;
 import com.wolower.ui.service.TwitterService;
 
 @Configuration

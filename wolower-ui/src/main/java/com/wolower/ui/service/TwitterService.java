@@ -27,6 +27,35 @@ public class TwitterService implements SocialService {
 		this.twitter = twitter;
 	}
 
+	private Boolean checkTweet(Tweet tweet) {
+		/* Do not care tweets from wolower */
+		if (tweet.getFromUser() == "wolower_payment") {
+			return false;
+		}
+		/* Can we extract amount from tweet? */
+		if (Extractor.extractPrice(tweet.getText()) == null) {
+			reply(tweet.getFromUser(), Long.valueOf(tweet.getId()),
+					"I cannot extract the price from your tweet. Please type your price like $25.50");
+			return false;
+		}
+		return true;
+	}
+
+	private SocialPost newPost(Tweet tweet) {
+		SocialPost post = new SocialPost();
+		post.setAmount(Extractor.extractPrice(tweet.getText()));
+		post.setCurrency("USD");
+		post.setPostDate(LocalDateTime.ofInstant(tweet.getCreatedAt().toInstant(), ZoneId.systemDefault()));
+		post.setPostId(tweet.getId());
+		post.setPostText(tweet.getText());
+		/* If this is not a reply then it is a selling post */
+		post.setPostType(tweet.getInReplyToStatusId() == null ? PostTypes.SELLING : PostTypes.BUYING);
+		post.setSocialMedia(SOCIAL_MEDIA);
+		post.setSocialUserId(tweet.getFromUserId());
+		post.setSocialUserName(tweet.getFromUser());
+		return post;
+	}
+
 	@Override
 	public void post(String post) {
 		twitter.timelineOperations().updateStatus(post);
@@ -39,41 +68,29 @@ public class TwitterService implements SocialService {
 
 		for (Tweet tweet : mentions) {
 			if (checkTweet(tweet)) {
-				SocialPost post = new SocialPost();
-				post.setAmount(Extractor.extractPrice(tweet.getText()));
-				post.setCurrency("USD");
-				post.setPostDate(LocalDateTime.ofInstant(tweet.getCreatedAt().toInstant(), ZoneId.systemDefault()));
-				post.setPostId(tweet.getId());
-				post.setPostText(tweet.getText());
-				post.setPostType(tweet.getInReplyToStatusId() == null ? PostTypes.SELLING : PostTypes.BUYING);
-				post.setSocialMedia(SOCIAL_MEDIA);
-				post.setSocialUserId(tweet.getFromUserId());
-				posts.add(post);
+				posts.add(newPost(tweet));
 			}
 		}
 
 		return posts;
 	}
 
-	private Boolean checkTweet(Tweet tweet) {
-		if (tweet.getFromUser() == "wolower_payment") {
-			return false;
-		}
-		/* Can we extract amount from tweet? */
-		if (Extractor.extractPrice(tweet.getText()) == null) {
-			reply(tweet, "I cannot extract price from your tweet. Please type your price like $25,50");
-			return false;
-		}
-		return true;
-	}
-
-	private Tweet reply(Tweet tweet, String reply) {
-		reply = String.format("@%s %s", tweet.getFromUser(), reply);
+	public Tweet reply(String fromUser, Long postId, String reply) {
+		/* reply format would be like : @wolower_payment this is a reply */
+		reply = String.format("@%s %s", fromUser, reply);
 		TweetData td = new TweetData(reply);
-		td.inReplyToStatus(Long.valueOf(tweet.getId()));
-		// td.inReplyToUser(tweet.getFromUserId());
-		// td.inReplyToScreenName(tweet.getFromUser());
+		td.inReplyToStatus(postId);
 		Tweet replyTweet = twitter.timelineOperations().updateStatus(td);
 		return replyTweet;
+	}
+
+	@Override
+	public SocialPost reply(SocialPost post, String reply) {
+		/* reply format would be like : @wolower_payment this is a reply */
+		reply = String.format("@%s %s", post.getSocialUserName(), reply);
+		TweetData td = new TweetData(reply);
+		td.inReplyToStatus(post.getPostId());
+		Tweet replyTweet = twitter.timelineOperations().updateStatus(td);
+		return newPost(replyTweet);
 	}
 }

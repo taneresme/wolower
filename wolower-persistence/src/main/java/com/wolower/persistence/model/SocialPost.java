@@ -31,6 +31,10 @@ public class SocialPost {
 	private Long socialUserId;
 
 	@NotNull
+	@Column(name = "socialUserName")
+	private String socialUserName;
+
+	@NotNull
 	@Column(name = "amount")
 	private Long amount;
 
@@ -82,6 +86,14 @@ public class SocialPost {
 
 	public void setSocialUserId(Long socialUserId) {
 		this.socialUserId = socialUserId;
+	}
+
+	public String getSocialUserName() {
+		return socialUserName;
+	}
+
+	public void setSocialUserName(String socialUserName) {
+		this.socialUserName = socialUserName;
 	}
 
 	public Long getAmount() {
