@@ -7,6 +7,11 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
 @Entity
 @Table(name = "tParameters")
 public class Parameter {
@@ -29,30 +34,6 @@ public class Parameter {
 
 	public Parameter(@NotNull String parameterKey, @NotNull String parameterValue) {
 		this.parameterKey = parameterKey;
-		this.parameterValue = parameterValue;
-	}
-
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
-
-	public String getParameterKey() {
-		return parameterKey;
-	}
-
-	public void setParameterKey(String parameterKey) {
-		this.parameterKey = parameterKey;
-	}
-
-	public String getParameterValue() {
-		return parameterValue;
-	}
-
-	public void setParameterValue(String parameterValue) {
 		this.parameterValue = parameterValue;
 	}
 

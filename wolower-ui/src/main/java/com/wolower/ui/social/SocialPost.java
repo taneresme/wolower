@@ -2,89 +2,38 @@ package com.wolower.ui.social;
 
 import java.time.LocalDateTime;
 
+import lombok.Getter;
+import lombok.Setter;
+
 public class SocialPost {
+	@Getter
+	@Setter
 	private String socialMedia;
+	@Getter
+	@Setter
 	private Long socialUserId;
+	@Getter
+	@Setter
 	private String socialUserName;
+	@Getter
+	@Setter
 	private Long amount;
+	@Getter
+	@Setter
 	private String currency;
+	@Getter
+	@Setter
 	private LocalDateTime postDate;
+	@Getter
+	@Setter
 	private Long postId;
+	@Getter
+	@Setter
 	private String postText;
+	@Getter
 	private Boolean isReply;
+	@Getter
 	private Long repliedPostId;
-
-	public String getSocialMedia() {
-		return socialMedia;
-	}
-
-	public void setSocialMedia(String socialMedia) {
-		this.socialMedia = socialMedia;
-	}
-
-	public Long getSocialUserId() {
-		return socialUserId;
-	}
-
-	public void setSocialUserId(Long socialUserId) {
-		this.socialUserId = socialUserId;
-	}
-
-	public String getSocialUserName() {
-		return socialUserName;
-	}
-
-	public void setSocialUserName(String socialUserName) {
-		this.socialUserName = socialUserName;
-	}
-
-	public Long getAmount() {
-		return amount;
-	}
-
-	public void setAmount(Long amount) {
-		this.amount = amount;
-	}
-
-	public String getCurrency() {
-		return currency;
-	}
-
-	public void setCurrency(String currency) {
-		this.currency = currency;
-	}
-
-	public LocalDateTime getPostDate() {
-		return postDate;
-	}
-
-	public void setPostDate(LocalDateTime postDate) {
-		this.postDate = postDate;
-	}
-
-	public Long getPostId() {
-		return postId;
-	}
-
-	public void setPostId(Long postId) {
-		this.postId = postId;
-	}
-
-	public String getPostText() {
-		return postText;
-	}
-
-	public void setPostText(String postText) {
-		this.postText = postText;
-	}
-
-	public Boolean getIsReply() {
-		return isReply;
-	}
-
-	public Long getRepliedPostId() {
-		return repliedPostId;
-	}
 
 	public void setRepliedPostId(Long repliedPostId) {
 		this.repliedPostId = repliedPostId;

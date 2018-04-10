@@ -9,6 +9,11 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
 @Entity
 @Table(name = "tOrder")
 public class Order {
@@ -67,109 +72,4 @@ public class Order {
 		this.timestamp = LocalDateTime.now();
 		this.count = 1;
 	}
-
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
-
-	public int getUserId() {
-		return userId;
-	}
-
-	public void setUserId(int userId) {
-		this.userId = userId;
-	}
-
-	public int getProductId() {
-		return productId;
-	}
-
-	public void setProductId(int productId) {
-		this.productId = productId;
-	}
-
-	public String getSocialMedia() {
-		return socialMedia;
-	}
-
-	public void setSocialMedia(String socialMedia) {
-		this.socialMedia = socialMedia;
-	}
-
-	public Long getSocialUserId() {
-		return socialUserId;
-	}
-
-	public void setSocialUserId(Long socialUserId) {
-		this.socialUserId = socialUserId;
-	}
-
-	public String getSocialUserName() {
-		return socialUserName;
-	}
-
-	public void setSocialUserName(String socialUserName) {
-		this.socialUserName = socialUserName;
-	}
-
-	public Long getPrice() {
-		return price;
-	}
-
-	public void setPrice(Long price) {
-		this.price = price;
-	}
-
-	public String getCurrency() {
-		return currency;
-	}
-
-	public void setCurrency(String currency) {
-		this.currency = currency;
-	}
-
-	public Long getPostId() {
-		return postId;
-	}
-
-	public void setPostId(Long postId) {
-		this.postId = postId;
-	}
-
-	public LocalDateTime getPostDate() {
-		return postDate;
-	}
-
-	public void setPostDate(LocalDateTime postDate) {
-		this.postDate = postDate;
-	}
-
-	public String getPostText() {
-		return postText;
-	}
-
-	public void setPostText(String postText) {
-		this.postText = postText;
-	}
-
-	public LocalDateTime getTimestamp() {
-		return timestamp;
-	}
-
-	public void setTimestamp(LocalDateTime timestamp) {
-		this.timestamp = timestamp;
-	}
-
-	public int getCount() {
-		return count;
-	}
-
-	public void setCount(int count) {
-		this.count = count;
-	}
-
 }

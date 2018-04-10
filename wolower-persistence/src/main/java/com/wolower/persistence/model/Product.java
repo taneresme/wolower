@@ -11,6 +11,11 @@ import javax.validation.constraints.NotNull;
 
 import org.hibernate.annotations.ColumnDefault;
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
 @Entity
 @Table(name = "tProducts")
 public class Product {
@@ -43,7 +48,7 @@ public class Product {
 	@NotNull
 	@Column(name = "currency")
 	private String currency;
-	
+
 	@NotNull
 	@ColumnDefault(value = "true")
 	@Column(name = "sold")
@@ -65,94 +70,6 @@ public class Product {
 	public Product() {
 		this.timestamp = LocalDateTime.now();
 		this.sold = false;
-	}
-
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
-
-	public int getUserId() {
-		return userId;
-	}
-
-	public void setUserId(int userId) {
-		this.userId = userId;
-	}
-
-	public String getSocialMedia() {
-		return socialMedia;
-	}
-
-	public void setSocialMedia(String socialMedia) {
-		this.socialMedia = socialMedia;
-	}
-
-	public Long getSocialUserId() {
-		return socialUserId;
-	}
-
-	public void setSocialUserId(Long socialUserId) {
-		this.socialUserId = socialUserId;
-	}
-
-	public String getSocialUserName() {
-		return socialUserName;
-	}
-
-	public void setSocialUserName(String socialUserName) {
-		this.socialUserName = socialUserName;
-	}
-
-	public Long getPrice() {
-		return price;
-	}
-
-	public void setPrice(Long price) {
-		this.price = price;
-	}
-
-	public String getCurrency() {
-		return currency;
-	}
-
-	public void setCurrency(String currency) {
-		this.currency = currency;
-	}
-
-	public Long getPostId() {
-		return postId;
-	}
-
-	public void setPostId(Long postId) {
-		this.postId = postId;
-	}
-
-	public LocalDateTime getPostDate() {
-		return postDate;
-	}
-
-	public void setPostDate(LocalDateTime postDate) {
-		this.postDate = postDate;
-	}
-
-	public String getPostText() {
-		return postText;
-	}
-
-	public void setPostText(String postText) {
-		this.postText = postText;
-	}
-
-	public LocalDateTime getTimestamp() {
-		return timestamp;
-	}
-
-	public void setTimestamp(LocalDateTime timestamp) {
-		this.timestamp = timestamp;
 	}
 
 }
