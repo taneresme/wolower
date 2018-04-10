@@ -10,31 +10,32 @@
 			<div class="card border-dark text-center">
 				<p class="card-header h4">Active Sales</p>
 				<div class="card-body">
-					<p class="display-3">5</p>
+					<p class="display-3" th:text="${dashboard.activeSales}" />
 					<span class="text-muted"> pieces</span>
 				</div>
 			</div>
 			<div class="card border-dark text-center">
 				<p class="card-header h4">Total Transactions</p>
 				<div class="card-body">
-					<p class="display-3">11</p>
-					<span class="text-muted"> pieces</span>
+					<p class="display-3" th:text="${dashboard.totalTransactions}" />
+						<span class="text-muted"> pieces</span>
 				</div>
 			</div>
 			<div class="card border-dark text-center">
 				<p class="card-header h4">Total Purchase</p>
 				<div class="card-body">
-					<p class="display-3">1128,65</p>
-					<span class="text-muted"> TL</span>
+					<p class="display-3"
+						th:text="${#numbers.formatDecimal(dashboard.totalPurchase,1,2)}" />
+					<span class="text-muted"> USD</span>
 				</div>
 			</div>
 		</div>
 
 		<div class="alert alert-success" role="alert" th:if="${firstTime}">
 			<h4 class="alert-heading">Thank you!</h4>
-			<p>Yes, we know that this is your first time :). Hmmm, are you a
-				little concerned? Do not worry my friend!</p>
-			<p>
+			<p class="lead">Yes, we know that this is your first time :).
+				Hmmm, are you a little concerned? Do not worry my friend!</p>
+			<p class="lead">
 				Do you want to learn what we can do for you, what about looking at
 				the "<a href="/what-we-do">What we do</a>" page.
 			</p>
@@ -73,30 +74,30 @@
 
 
 
-		<div class="card bg-light mb-4">
-			<div class="card-body">
-				<div class="card-title">
-					<h1>
-						Heey <span class="font-bold" th:text="${dashboard.name}" />,
-					</h1>
-					<h1>
-						<small>Welcome to your trusted, secure, and automated
-							payment world.</small>
-					</h1>
-				</div>
-				<p class="lead">
-					Do you know that it is possible to use your Twitter account to sell
-					your unused belongings. Yes you can, but there is a significant
-					problem when you want to sell and buy something on Twitter, that is
-					payment. Twitter does not provide a social payment infrastructure.
-					Sure you consider that there is an option to pay at the door, but
-					it is not useful for international sales. You cannot expect from
-					someone abroad to accept the payment on behalf of you, right!. A
-					trusted, secure, and automated payment mechanism is needed. Let's
-					recognize you the <strong>wolower</strong>.
-				</p>
-			</div>
-		</div>
+		<!-- 		<div class="card bg-light mb-4"> -->
+		<!-- 			<div class="card-body"> -->
+		<!-- 				<div class="card-title"> -->
+		<!-- 					<h1> -->
+		<!-- 						Heey <span class="font-bold" th:text="${dashboard.name}" />, -->
+		<!-- 					</h1> -->
+		<!-- 					<h1> -->
+		<!-- 						<small>Welcome to your trusted, secure, and automated -->
+		<!-- 							payment world.</small> -->
+		<!-- 					</h1> -->
+		<!-- 				</div> -->
+		<!-- 				<p class="lead"> -->
+		<!-- 					Do you know that it is possible to use your Twitter account to sell -->
+		<!-- 					your unused belongings. Yes you can, but there is a significant -->
+		<!-- 					problem when you want to sell and buy something on Twitter, that is -->
+		<!-- 					payment. Twitter does not provide a social payment infrastructure. -->
+		<!-- 					Sure you consider that there is an option to pay at the door, but -->
+		<!-- 					it is not useful for international sales. You cannot expect from -->
+		<!-- 					someone abroad to accept the payment on behalf of you, right!. A -->
+		<!-- 					trusted, secure, and automated payment mechanism is needed. Let's -->
+		<!-- 					recognize you the <strong>wolower</strong>. -->
+		<!-- 				</p> -->
+		<!-- 			</div> -->
+		<!-- 		</div> -->
 
 
 
@@ -107,8 +108,8 @@
 			</div>
 			<div class="card-body" th:if="${transactions.isEmpty()}">
 				<div class="alert alert-danger" role="alert">
-					<strong th:text="${dashboard.name}" />, we could not find any transactions.
-					Do you need help?
+					<strong th:text="${dashboard.name}" />, we could not find any
+					transactions. Do you need help?
 				</div>
 			</div>
 			<div class="panel-body" th:if="${!transactions.isEmpty()}">

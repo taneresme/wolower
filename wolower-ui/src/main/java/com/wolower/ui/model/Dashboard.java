@@ -2,9 +2,9 @@ package com.wolower.ui.model;
 
 public class Dashboard {
 	private String name;
-	private int activeSales;
-	private int totalTransactions;
-	private long totalPurchase;
+	private Long activeSales;
+	private Long totalTransactions;
+	private Long totalPurchase;
 
 	public String getName() {
 		return name;
@@ -14,27 +14,27 @@ public class Dashboard {
 		this.name = name;
 	}
 
-	public int getActiveSales() {
+	public Long getActiveSales() {
 		return activeSales;
 	}
 
-	public void setActiveSales(int activeSales) {
+	public void setActiveSales(Long activeSales) {
 		this.activeSales = activeSales;
 	}
 
-	public int getTotalTransactions() {
+	public Long getTotalTransactions() {
 		return totalTransactions;
 	}
 
-	public void setTotalTransactions(int totalTransactions) {
+	public void setTotalTransactions(Long totalTransactions) {
 		this.totalTransactions = totalTransactions;
 	}
 
-	public long getTotalPurchase() {
+	public Long getTotalPurchase() {
 		return totalPurchase;
 	}
 
-	public void setTotalPurchase(long totalPurchase) {
+	public void setTotalPurchase(Long totalPurchase) {
 		this.totalPurchase = totalPurchase;
 	}
 

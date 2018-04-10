@@ -4,18 +4,14 @@ import java.time.LocalDateTime;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
-import com.wolower.persistence.enums.PostTypes;
-
 @Entity
-@Table(name = "tSocialPosts")
-public class SocialPost {
+@Table(name = "tTransactions")
+public class Transaction {
 	@Id
 	@GeneratedValue
 	@NotNull
@@ -23,7 +19,27 @@ public class SocialPost {
 	private int id;
 
 	@NotNull
-	@Column(name = "socialMedia")
+	@Column(name = "userId")
+	private int userId;
+
+	@NotNull
+	@Column(name = "orderId")
+	private int orderId;
+
+	@NotNull
+	@Column(name = "masterpassId")
+	private int masterpassId;
+
+	@NotNull
+	@Column(name = "masterpassPairingId")
+	private int masterpassPairingId;
+
+	@NotNull
+	@Column(name = "authorizationCode")
+	private String authorizationCode;
+
+	@NotNull
+	@Column(name = "socialPostId")
 	private String socialMedia;
 
 	@NotNull
@@ -42,11 +58,6 @@ public class SocialPost {
 	@Column(name = "currency")
 	private String currency;
 
-	@NotNull
-	@Column(name = "postType")
-	@Enumerated(EnumType.STRING)
-	private PostTypes postType;
-
 	@Column(name = "postId")
 	private Long postId;
 
@@ -60,7 +71,7 @@ public class SocialPost {
 	@Column(name = "timestamp")
 	private LocalDateTime timestamp;
 
-	public SocialPost() {
+	public Transaction() {
 		this.timestamp = LocalDateTime.now();
 	}
 
@@ -70,6 +81,46 @@ public class SocialPost {
 
 	public void setId(int id) {
 		this.id = id;
+	}
+
+	public int getUserId() {
+		return userId;
+	}
+
+	public void setUserId(int userId) {
+		this.userId = userId;
+	}
+
+	public int getOrderId() {
+		return orderId;
+	}
+
+	public void setOrderId(int orderId) {
+		this.orderId = orderId;
+	}
+
+	public int getMasterpassId() {
+		return masterpassId;
+	}
+
+	public void setMasterpassId(int masterpassId) {
+		this.masterpassId = masterpassId;
+	}
+
+	public int getMasterpassPairingId() {
+		return masterpassPairingId;
+	}
+
+	public void setMasterpassPairingId(int masterpassPairingId) {
+		this.masterpassPairingId = masterpassPairingId;
+	}
+
+	public String getAuthorizationCode() {
+		return authorizationCode;
+	}
+
+	public void setAuthorizationCode(String authorizationCode) {
+		this.authorizationCode = authorizationCode;
 	}
 
 	public String getSocialMedia() {
@@ -110,14 +161,6 @@ public class SocialPost {
 
 	public void setCurrency(String currency) {
 		this.currency = currency;
-	}
-
-	public PostTypes getPostType() {
-		return postType;
-	}
-
-	public void setPostType(PostTypes postType) {
-		this.postType = postType;
 	}
 
 	public Long getPostId() {

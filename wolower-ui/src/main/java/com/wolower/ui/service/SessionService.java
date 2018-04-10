@@ -24,4 +24,5 @@ public class SessionService {
 			return null;
 		return (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 	}
+
 }
