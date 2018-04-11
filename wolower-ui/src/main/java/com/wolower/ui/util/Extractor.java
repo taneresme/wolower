@@ -4,7 +4,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Extractor {
-	private static final Pattern pattern = Pattern.compile("\\$([0-9]+([\\.]|[\\,])[0-9]*)");
+	private static final Pattern pattern = Pattern.compile("\\$((?:[0-9])*(?:[\\\\.]|[\\\\,])?(?:[0-9]{1,2}))");
 
 	public static Long extractPrice(String post) {
 		Matcher matcher = pattern.matcher(post);
