@@ -10,9 +10,7 @@ public class Extractor {
 		Matcher matcher = pattern.matcher(post);
 		Boolean matches = matcher.find();
 		if (matches) {
-			String amountStr = String.format("%.2f", Float.valueOf(matcher.group(1).replace(',', '.')));
-			amountStr = amountStr.replace(".", "").replace(",", "");
-			return Long.valueOf(amountStr);
+			return PriceUtils.toLong(matcher.group(1));
 		}
 		return null;
 	}

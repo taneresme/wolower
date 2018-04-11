@@ -23,6 +23,7 @@ import com.wolower.persistence.model.Product;
 import com.wolower.persistence.model.User;
 import com.wolower.ui.contract.SocialService;
 import com.wolower.ui.social.SocialPost;
+import com.wolower.ui.util.PriceUtils;
 
 @Service
 public class TwitterPostScheduler {
@@ -56,43 +57,49 @@ public class TwitterPostScheduler {
 
 		/* gets last 30 mentions */
 		List<SocialPost> posts = socialService.getWoows(lastPostId);
-		List<Order> orders = new ArrayList<>();
-		List<SocialPost> ordersToReply = new ArrayList<>();
-		List<Product> products = new ArrayList<>();
-		List<SocialPost> productsToReply = new ArrayList<>();
+		if (posts.size() > 0) {
+			List<Order> orders = new ArrayList<>();
+			List<SocialPost> ordersToReply = new ArrayList<>();
+			List<Product> products = new ArrayList<>();
+			List<SocialPost> productsToReply = new ArrayList<>();
 
-		/* Process the posts fetched */
-		for (SocialPost post : posts) {
-			User user = userDao.findOneBySocialMediaAndSocialUserName(post.getSocialMedia(), post.getSocialUserName());
-			if (user != null) {
-				if (post.getIsReply() && orderDao.findOneByPostId(post.getPostId()) == null) {
-					/* There is no order with this post ID */
-					ordersToReply.add(post);
-					int productId = productDao.findOneByPostId(post.getRepliedPostId()).getId();
-					orders.add(toOrder(post, productId, user.getId()));
-				} else if (!post.getIsReply() && productDao.findOneByPostId(post.getPostId()) == null) {
-					/* There is no product with this post ID */
-					productsToReply.add(post);
-					products.add(toProduct(post, user.getId()));
-				}
-			} else {
-				logger.debug("User is NULL for SocialMedia: %s and SocialUserName: %s", post.getSocialMedia(),
+			/* Process the posts fetched */
+			for (SocialPost post : posts) {
+				User user = userDao.findOneBySocialMediaAndSocialUserName(post.getSocialMedia(),
 						post.getSocialUserName());
+				if (user != null) {
+					if (post.getIsReply() && orderDao.findOneByPostId(post.getPostId()) == null) {
+						/* There is no order with this post ID */
+						ordersToReply.add(post);
+						int productId = productDao.findOneByPostId(post.getRepliedPostId()).getId();
+						orders.add(toOrder(post, productId, user.getId()));
+					} else if (!post.getIsReply() && productDao.findOneByPostId(post.getPostId()) == null) {
+						/* There is no product with this post ID */
+						productsToReply.add(post);
+						products.add(toProduct(post, user.getId()));
+					}
+				} else {
+					logger.debug("User is NULL for SocialMedia: %s and SocialUserName: %s", post.getSocialMedia(),
+							post.getSocialUserName());
+				}
 			}
-		}
 
-		/* We update the old ones and save the new ones. */
-		orderDao.save(orders);
-		productDao.save(products);
+			/* We update the old ones and save the new ones. */
+			orderDao.save(orders);
+			productDao.save(products);
 
-		/* Reply the posts */
-		for (SocialPost post : ordersToReply) {
-			socialService.reply(post, "Now, we have your order :)");
+			/* Reply the posts */
+			for (SocialPost post : ordersToReply) {
+				socialService.reply(post, "Now, we have your order :)");
+			}
+			for (SocialPost post : productsToReply) {
+				socialService.reply(post, String.format("I got it and store it with %s %s",
+						PriceUtils.toString(post.getAmount()), post.getCurrency()));
+			}
+		} else {
+			logger.info("No tweet fetched!");
 		}
-		for (SocialPost post : productsToReply) {
-			socialService.reply(post, "It is on me :)");
-		}
-
+		
 		/* Save last processed post ID */
 		lastPostIdParameter.setParameterValue(socialService.getLastPostId().toString());
 		parameterDao.save(lastPostIdParameter);
