@@ -19,4 +19,6 @@ public interface TransactionDao extends JpaRepository<Transaction, Integer> {
 	public Long totalPurchaseByUserId(int userId);
 
 	public List<Transaction> findTop20ByUserId(int userId);
+	
+	public List<Transaction> findAllByUserId(int userId);
 }

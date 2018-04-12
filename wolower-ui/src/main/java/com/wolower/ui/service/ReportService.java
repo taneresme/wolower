@@ -21,27 +21,31 @@ public class ReportService {
 	private ProductDao productDao;
 	private TransactionDao transactionDao;
 	private OrderDao orderDao;
+	private SessionService sessionService;
 
-	public ReportService(ProductDao productDao, TransactionDao transactionDao, OrderDao orderDao) {
+	public ReportService(ProductDao productDao, TransactionDao transactionDao, OrderDao orderDao,
+			SessionService sessionService) {
 		this.productDao = productDao;
 		this.transactionDao = transactionDao;
 		this.orderDao = orderDao;
+		this.sessionService = sessionService;
 	}
 
 	public Report getReport() {
 		Report report = new Report();
+		int userId = sessionService.user().getId();
 
-		List<Product> products = productDao.findAllBySold(false);
+		List<Product> products = productDao.findAllBySoldAndUserId(false, userId);
 		List<ProductModel> productModels = new ArrayList<>();
 		for (Product product : products) {
 			productModels.add(new ProductModel(product));
 		}
 		report.setProducts(productModels);
 
-		List<Order> orders = orderDao.findAll();
+		List<Order> orders = orderDao.findAllByUserId(userId);
 		report.setOrders(orders);
 
-		List<Transaction> transactions = transactionDao.findAll();
+		List<Transaction> transactions = transactionDao.findAllByUserId(userId);
 		report.setTransactions(transactions);
 
 		return report;
