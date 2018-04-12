@@ -1,6 +1,5 @@
 package com.wolower.ui.social;
 
-import org.springframework.social.twitter.api.Twitter;
 import org.springframework.social.twitter.api.TwitterProfile;
 import org.springframework.stereotype.Component;
 
@@ -9,11 +8,9 @@ public class TwitterSocialProfile implements SocialProfile {
 	private final String SOCIAL_MEDIA = "TWITTER";
 
 	private TwitterProfile profile;
-	private Twitter twitter;
 
-	public TwitterSocialProfile(TwitterProfile profile, Twitter twitter) {
+	public TwitterSocialProfile(TwitterProfile profile) {
 		this.profile = profile;
-		this.twitter = twitter;
 	}
 
 	public TwitterSocialProfile() {
@@ -47,6 +44,16 @@ public class TwitterSocialProfile implements SocialProfile {
 	@Override
 	public String getProfileUrl() {
 		return profile.getProfileUrl();
+	}
+
+	@Override
+	public String getBackgroundImageUrl() {
+		return profile.getBackgroundImageUrl();
+	}
+
+	@Override
+	public String getProfileBannerUrl() {
+		return (String) profile.getExtraData().getOrDefault("profile_banner_url", "");
 	}
 
 }

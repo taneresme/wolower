@@ -1,7 +1,9 @@
 package com.wolower.ui.config;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.social.twitter.api.impl.TwitterTemplate;
 
 @Configuration
 public class TwitterConfig {
@@ -9,31 +11,36 @@ public class TwitterConfig {
 	private String consumerKey;
 	@Value("${wolower.twitter-api.consumer-secret}")
 	private String consumerSecret;
+	@Value("${wolower.twitter-api.access-token}")
+	private String accessToken;
+	@Value("${wolower.twitter-api.access-token-secret}")
+	private String accessTokenSecret;
 	@Value("${wolower.twitter-api.redirect-uri}")
 	private String redirectUri;
 
-	public String getConsumerKey() {
-		return consumerKey;
+	@Bean
+	public TwitterTemplate twitter() {
+		return new TwitterTemplate(consumerKey, consumerSecret, accessToken, accessTokenSecret);
 	}
 
-	public void setConsumerKey(String consumerKey) {
-		this.consumerKey = consumerKey;
+	public String getConsumerKey() {
+		return consumerKey;
 	}
 
 	public String getConsumerSecret() {
 		return consumerSecret;
 	}
 
-	public void setConsumerSecret(String consumerSecret) {
-		this.consumerSecret = consumerSecret;
+	public String getAccessToken() {
+		return accessToken;
+	}
+
+	public String getAccessTokenSecret() {
+		return accessTokenSecret;
 	}
 
 	public String getRedirectUri() {
 		return redirectUri;
-	}
-
-	public void setRedirectUri(String redirectUri) {
-		this.redirectUri = redirectUri;
 	}
 
 }

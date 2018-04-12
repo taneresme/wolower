@@ -13,4 +13,6 @@ public interface UserDao extends CrudRepository<User, Integer> {
 	public User findOneBySocialMediaAndSocialUserName(String socialMedia, String socialUserName);
 	
 	public User findOneBySocialUserName(String socialUserName);
+	
+	public User findOneBySocialUserId(String socialUserId);
 }

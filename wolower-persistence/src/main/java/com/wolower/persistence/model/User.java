@@ -1,5 +1,7 @@
 package com.wolower.persistence.model;
 
+import java.time.LocalDateTime;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -7,6 +9,11 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
 @Entity
 @Table(name = "tUsers")
 public class User {
@@ -28,36 +35,49 @@ public class User {
 	@Column(name = "displayName")
 	private String displayName;
 
-	public int getId() {
-		return id;
-	}
+	@NotNull
+	@Column(name = "socialUserId")
+	private String socialUserId;
 
-	public void setId(int id) {
-		this.id = id;
-	}
+	@NotNull
+	@Column(name = "profileUrl")
+	private String profileUrl;
 
-	public String getSocialMedia() {
-		return socialMedia;
-	}
+	@Column(name = "imageUrl")
+	private String imageUrl;
 
-	public void setSocialMedia(String socialMedia) {
-		this.socialMedia = socialMedia;
-	}
+	@Column(name = "backgroundImageUrl")
+	private String backgroundImageUrl;
 
-	public String getSocialUserName() {
-		return socialUserName;
-	}
+	@Column(name = "profileBannerUrl")
+	private String profileBannerUrl;
 
-	public void setSocialUserName(String socialUserName) {
-		this.socialUserName = socialUserName;
-	}
+	@NotNull
+	@Column(name = "oauthToken")
+	private String oauthToken;
 
-	public String getDisplayName() {
-		return displayName;
-	}
+	@NotNull
+	@Column(name = "oauthVerifier")
+	private String oauthVerifier;
 
-	public void setDisplayName(String displayName) {
-		this.displayName = displayName;
-	}
+	@NotNull
+	@Column(name = "accessToken")
+	private String accessToken;
 
+	@NotNull
+	@Column(name = "accessSecret")
+	private String accessSecret;
+
+	@NotNull
+	@Column(name = "timestamp")
+	private LocalDateTime timestamp;
+
+	@NotNull
+	@Column(name = "enabled")
+	private Boolean enabled;
+
+	public User() {
+		this.enabled = true;
+		this.timestamp = LocalDateTime.now();
+	}
 }
