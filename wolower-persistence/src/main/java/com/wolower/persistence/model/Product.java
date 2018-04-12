@@ -50,7 +50,7 @@ public class Product {
 	private String currency;
 
 	@NotNull
-	@ColumnDefault(value = "true")
+	@ColumnDefault(value = "false")
 	@Column(name = "sold")
 	private Boolean sold;
 

@@ -1,5 +1,7 @@
 package com.wolower.persistence.dao;
 
+import java.util.List;
+
 import javax.transaction.Transactional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -15,4 +17,6 @@ public interface TransactionDao extends JpaRepository<Transaction, Integer> {
 
 	@Query(value = "SELECT SUM(t.amount) as total FROM Transaction t", nativeQuery = true)
 	public Long totalPurchaseByUserId(int userId);
+
+	public List<Transaction> findTop20ByUserId(int userId);
 }

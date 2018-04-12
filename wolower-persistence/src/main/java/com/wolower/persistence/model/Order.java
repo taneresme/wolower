@@ -9,6 +9,8 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
+import org.hibernate.annotations.ColumnDefault;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -67,6 +69,11 @@ public class Order {
 	@NotNull
 	@Column(name = "timestamp")
 	private LocalDateTime timestamp;
+
+	@NotNull
+	@ColumnDefault(value = "false")
+	@Column(name = "paid")
+	private Boolean paid;
 
 	public Order() {
 		this.timestamp = LocalDateTime.now();

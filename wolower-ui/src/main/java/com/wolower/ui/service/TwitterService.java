@@ -5,6 +5,8 @@ import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.social.twitter.api.Tweet;
 import org.springframework.social.twitter.api.TweetData;
@@ -19,6 +21,8 @@ import com.wolower.ui.util.Extractor;
 
 @Service
 public class TwitterService implements SocialService {
+	private Logger logger = LoggerFactory.getLogger(TwitterService.class);
+
 	private static String SOCIAL_MEDIA = "TWITTER";
 	private static String USER_NAME = "wolower_payment";
 
@@ -79,20 +83,24 @@ public class TwitterService implements SocialService {
 
 	@Override
 	public List<SocialPost> getWoows(Long sinceId) {
-		// List<Tweet> mentions = twitter.timelineOperations().getMentions();
-		List<Tweet> mentions = twitter.searchOperations().search("@" + USER_NAME, 30, sinceId, Long.MAX_VALUE)
-				.getTweets();
 		List<SocialPost> posts = new ArrayList<>();
+		try {
+			List<Tweet> mentions = twitter.searchOperations().search("@" + USER_NAME, 30, sinceId, Long.MAX_VALUE)
+					.getTweets();
 
-		for (Tweet tweet : mentions) {
-			if (checkTweet(tweet)) {
-				posts.add(newPost(tweet));
+			for (Tweet tweet : mentions) {
+				if (checkTweet(tweet)) {
+					posts.add(newPost(tweet));
+				}
 			}
-		}
 
-		/* Set last post ID for further uses. */
-		if (mentions.size() > 0) {
-			lastPostId = mentions.stream().map(x -> x.getId()).max(Long::compare).get();
+			/* Set last post ID for further uses. */
+			if (mentions.size() > 0) {
+				lastPostId = mentions.stream().map(x -> x.getId()).max(Long::compare).get();
+			}
+
+		} catch (Throwable ex) {
+			logger.error(ex.toString());
 		}
 		return posts;
 	}

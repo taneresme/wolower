@@ -7,28 +7,23 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
-import com.wolower.ui.service.DashboardService;
 import com.wolower.ui.service.HeaderService;
-import com.wolower.ui.service.UserService;
+import com.wolower.ui.service.ReportService;
 
 @Controller
-public class DashboardController {
-	@Autowired
-	private UserService user;
-
+public class ReportController {
 	@Autowired
 	private HeaderService header;
 
 	@Autowired
-	private DashboardService dashboard;
+	private ReportService report;
 
-	@GetMapping("/dashboard")
+	@GetMapping("/report")
 	public String get(Model model, HttpServletRequest request) {
 		/* Set header */
 		model.addAttribute("header", header.getHeader());
-		model.addAttribute("firstTime", user.getFirstTime());
-		model.addAttribute("dashboard", dashboard.getDashboard());
-		
-		return "/views/dashboard";
+		model.addAttribute("report", report.getReport());
+
+		return "/views/report";
 	}
 }
