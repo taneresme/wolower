@@ -69,7 +69,7 @@ public class TwitterSigninService {
 		Twitter twitter = connection != null ? connection.getApi() : new TwitterTemplate(accessToken.getValue());
 
 		TwitterProfile twitterProfile = twitter.userOperations().getUserProfile();
-		SocialProfile socialProfile = new TwitterSocialProfile(twitterProfile, twitter);
+		SocialProfile socialProfile = new TwitterSocialProfile(twitterProfile);
 		return socialProfile;
 	}
 }

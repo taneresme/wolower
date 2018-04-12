@@ -1,6 +1,5 @@
 package com.wolower.ui.social;
 
-import org.springframework.social.twitter.api.Twitter;
 import org.springframework.social.twitter.api.TwitterProfile;
 import org.springframework.stereotype.Component;
 
@@ -10,7 +9,7 @@ public class TwitterSocialProfile implements SocialProfile {
 
 	private TwitterProfile profile;
 
-	public TwitterSocialProfile(TwitterProfile profile, Twitter twitter) {
+	public TwitterSocialProfile(TwitterProfile profile) {
 		this.profile = profile;
 	}
 
