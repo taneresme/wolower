@@ -89,8 +89,12 @@ public class TwitterService implements SocialService {
 					.getTweets();
 
 			for (Tweet tweet : mentions) {
-				if (checkTweet(tweet)) {
-					posts.add(newPost(tweet));
+				try {
+					if (checkTweet(tweet)) {
+						posts.add(newPost(tweet));
+					}
+				} catch (Throwable ex) {
+					logger.error(String.format("PostId: %s Exception: %s", tweet.getId(), ex.toString()));
 				}
 			}
 
