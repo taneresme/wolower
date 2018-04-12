@@ -9,11 +9,9 @@ public class TwitterSocialProfile implements SocialProfile {
 	private final String SOCIAL_MEDIA = "TWITTER";
 
 	private TwitterProfile profile;
-	private Twitter twitter;
 
 	public TwitterSocialProfile(TwitterProfile profile, Twitter twitter) {
 		this.profile = profile;
-		this.twitter = twitter;
 	}
 
 	public TwitterSocialProfile() {

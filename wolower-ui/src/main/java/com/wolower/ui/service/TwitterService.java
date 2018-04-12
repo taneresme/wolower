@@ -107,8 +107,8 @@ public class TwitterService implements SocialService {
 
 	public Tweet reply(String fromUser, Long postId, String reply) {
 		/* reply format would be like : @wolower_payment this is a reply */
-		reply = String.format("@%s %s", fromUser, reply);
-		TweetData td = new TweetData(reply);
+		String inReply = String.format("@%s %s", fromUser, reply);
+		TweetData td = new TweetData(inReply);
 		td.inReplyToStatus(postId);
 		Tweet replyTweet = twitter.timelineOperations().updateStatus(td);
 		return replyTweet;
@@ -117,8 +117,8 @@ public class TwitterService implements SocialService {
 	@Override
 	public SocialPost reply(SocialPost post, String reply) {
 		/* reply format would be like : @wolower_payment this is a reply */
-		reply = String.format("@%s %s", post.getSocialUserName(), reply);
-		TweetData td = new TweetData(reply);
+		String inReply = String.format("@%s %s", post.getSocialUserName(), reply);
+		TweetData td = new TweetData(inReply);
 		td.inReplyToStatus(post.getPostId());
 		Tweet replyTweet = twitter.timelineOperations().updateStatus(td);
 		return newPost(replyTweet);

@@ -10,7 +10,6 @@ import com.wolower.ui.model.Dashboard;
 @SessionScope
 @Service
 public class DashboardService {
-	private Dashboard dashboard;
 	private HeaderService headerService;
 	private ProductDao productDao;
 	private TransactionDao transactionDao;
@@ -25,7 +24,7 @@ public class DashboardService {
 	}
 
 	public Dashboard getDashboard() {
-		dashboard = new Dashboard();
+		Dashboard dashboard = new Dashboard();
 		dashboard.setName(headerService.getHeader().getName());
 		dashboard.setActiveSales(productDao.countByUserIdAndSold(sessionService.user().getId(), false));
 		dashboard.setTotalTransactions(transactionDao.countByUserId(sessionService.user().getId()));

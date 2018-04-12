@@ -25,7 +25,6 @@ public class TwitterSigninService {
 	private String oauthToken;
 	private String oauthVerifier;
 	private OAuthToken accessToken;
-	private SocialProfile socialProfile;
 
 	@Autowired
 	public TwitterSigninService(TwitterConfig twitterConfig) {
@@ -70,7 +69,7 @@ public class TwitterSigninService {
 		Twitter twitter = connection != null ? connection.getApi() : new TwitterTemplate(accessToken.getValue());
 
 		TwitterProfile twitterProfile = twitter.userOperations().getUserProfile();
-		socialProfile = new TwitterSocialProfile(twitterProfile, twitter);
+		SocialProfile socialProfile = new TwitterSocialProfile(twitterProfile, twitter);
 		return socialProfile;
 	}
 }

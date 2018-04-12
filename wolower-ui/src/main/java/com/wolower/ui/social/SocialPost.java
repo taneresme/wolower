@@ -37,7 +37,7 @@ public class SocialPost {
 
 	public void setRepliedPostId(Long repliedPostId) {
 		this.repliedPostId = repliedPostId;
-		this.isReply = !(repliedPostId == null);
+		this.isReply = repliedPostId != null;
 	}
 
 }

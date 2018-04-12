@@ -16,7 +16,7 @@ public class SessionService {
 
 	public Boolean authenticated() {
 		return !(SecurityContextHolder.getContext().getAuthentication() == null
-				|| SecurityContextHolder.getContext().getAuthentication().getPrincipal() == "anonymousUser");
+				|| "anonymousUser".equals((SecurityContextHolder.getContext().getAuthentication().getPrincipal())));
 	}
 
 	public User user() {

@@ -12,28 +12,19 @@ import com.wolower.persistence.dao.TransactionDao;
 import com.wolower.persistence.model.Order;
 import com.wolower.persistence.model.Product;
 import com.wolower.persistence.model.Transaction;
-import com.wolower.ui.model.Dashboard;
 import com.wolower.ui.model.Report;
 import com.wolower.ui.model.Report.ProductModel;
 
 @SessionScope
 @Service
 public class ReportService {
-	private UserService userService;
-	private Dashboard dashboard;
-	private HeaderService headerService;
 	private ProductDao productDao;
 	private TransactionDao transactionDao;
-	private SessionService sessionService;
 	private OrderDao orderDao;
 
-	public ReportService(UserService userService, HeaderService headerService, ProductDao productDao,
-			TransactionDao transactionDao, SessionService sessionService, OrderDao orderDao) {
-		this.userService = userService;
-		this.headerService = headerService;
+	public ReportService(ProductDao productDao, TransactionDao transactionDao, OrderDao orderDao) {
 		this.productDao = productDao;
 		this.transactionDao = transactionDao;
-		this.sessionService = sessionService;
 		this.orderDao = orderDao;
 	}
 
@@ -41,7 +32,7 @@ public class ReportService {
 		Report report = new Report();
 
 		List<Product> products = productDao.findAllBySold(false);
-		List<ProductModel> productModels = new ArrayList<>(); 
+		List<ProductModel> productModels = new ArrayList<>();
 		for (Product product : products) {
 			productModels.add(new ProductModel(product));
 		}

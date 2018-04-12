@@ -8,8 +8,8 @@ public class PriceUtils {
 	}
 
 	public static Long toLong(String price) {
-		price = price.replace(',', '.');
-		String amountStr = String.format(PRICE_STRING_FORMAT, Float.valueOf(price));
+		String inPrice = price.replace(',', '.');
+		String amountStr = String.format(PRICE_STRING_FORMAT, Float.valueOf(inPrice));
 		amountStr = amountStr.replace(".", "").replace(",", "");
 		return Long.valueOf(amountStr);
 	}
