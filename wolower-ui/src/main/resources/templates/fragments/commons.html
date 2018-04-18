@@ -6,12 +6,23 @@
 <title th:text="wolower" />
 
 <!-- <link rel="stylesheet" th:href="@{/css/bootstrap.css}" />  -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.css" />
-<link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap4.min.css" />
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.css" />
+<link rel="stylesheet"
+	href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap4.min.css" />
 <!-- <link rel="stylesheet" th:href="@{/css/bootstrap-social.css}" /> -->
 <link rel="stylesheet" th:href="@{/css/docs.css}" />
 <link rel="stylesheet" th:href="@{/css/font-awesome.css}" />
 <link rel="stylesheet" th:href="@{/css/custom.css}" />
 
 </head>
+
+<div th:fragment="loading">
+	<div class="mx-auto" style="width: 150px;">
+		<p class="lead">
+			<i class="fa fa-spinner fa-spin" style="font-size: 2em;"> </i>
+			Loading...
+		</p>
+	</div>
+</div>
 </html>

@@ -27,7 +27,7 @@ public class SigninController {
 
 	@Autowired
 	private UserService userService;
-	
+
 	@Autowired
 	private SessionService sessionService;
 
@@ -62,5 +62,14 @@ public class SigninController {
 		sessionService.setSession(user);
 
 		return "redirect:/dashboard";
+	}
+
+	@GetMapping("/logout")
+	public String twitterCallback(Model model, HttpServletRequest request) {
+		LOGGER.info("Loging out: " + sessionService.user().getSocialUserName());
+
+		sessionService.logout();
+
+		return "redirect:/";
 	}
 }

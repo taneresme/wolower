@@ -1,7 +1,6 @@
 package com.wolower.ui.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.context.annotation.SessionScope;
 
@@ -20,9 +19,6 @@ public class HeaderService {
 	}
 
 	public Header getHeader() {
-		if (SecurityContextHolder.getContext() == null)
-			return this.header;
-
 		User user = session.user();
 		this.header.setFullName(user.getDisplayName());
 		this.header.setProfilePictureUrl(user.getImageUrl());

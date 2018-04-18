@@ -25,4 +25,8 @@ public class SessionService {
 		return (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 	}
 
+	public void logout() {
+		SecurityContextHolder.clearContext();
+	}
+	
 }

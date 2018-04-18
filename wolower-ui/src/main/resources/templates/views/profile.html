@@ -1,0 +1,244 @@
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head th:replace="fragments/commons :: head" />
+<body th:background="${header.backgroundImageUrl}">
+
+	<th:block th:include="fragments/header :: header" />
+
+	<div class="container" style="margin-bottom: 150px; margin-top: 90px;">
+		<div class="card bg-light mb-4">
+			<div class="card-body">
+				<div class="row">
+					<nav class="col-md-3 hidden-xs-down bg-faded sidebar mb-4">
+						<ul class="nav nav-pills flex-column">
+							<li class="nav-item"><a id="personal-information"
+								class="nav-link active" data-toggle="tab"
+								href="#personal-information-tab" role="tab">Personal
+									Information</a></li>
+							<li class="nav-item"><a id="payment-method" class="nav-link"
+								data-toggle="tab" href="#payment-method-tab" role="tab">Payment
+									Method</a></li>
+						</ul>
+					</nav>
+
+					<!-- panes -->
+					<div id="tabs" class="tab-content col-md-9">
+						<div class="tab-pane active show" id="personal-information-tab"
+							role="tabpanel">
+
+							<div class="row">
+								<div class="col-sm-6 col-md-4">
+									<img th:src="${profile.user.imageUrl}"
+										class="rounded float-left" width="200" height="200" />
+								</div>
+								<div class="col-sm-6 col-md-8">
+									<h4 th:text="${profile.user.displayName}" />
+									<p>
+										<br /> <i class="fa fa-twitter" /> <a
+											th:href="${profile.user.profileUrl}"
+											th:text="${profile.user.profileUrl}" /> <br /> <i
+											class="fa fa-save" /> <span
+											th:text="${profile.user.timestamp}" />
+									</p>
+									<a href="https://twitter.com/settings/applications"
+										class="btn btn-danger btn-lg"> <span
+										class="fa fa-sign-out"></span> <b>Sign me out</b>
+									</a>
+								</div>
+							</div>
+
+						</div>
+						<div class="tab-pane" id="payment-method-tab" role="tabpanel">
+
+							<div
+								th:if="${profile.masterpassPairingStatus.name() == 'COMPLETED'}">
+								<div class="row">
+									<div class="alert alert-success mb-4" role="alert">
+										<h4 class="alert-heading">
+											<i class="fa fa-check" style="font-size: 2em;"> </i> <span>Your
+												Masterpass account has been paired!</span>
+										</h4>
+									</div>
+
+								</div>
+								<p class="lead">
+									Payment Method: Masterpass <br /> Payment Card: <span /> <br />
+									Shipping Address: <span />
+								</p>
+								<button type="button" class="btn btn-primary btn-lg">
+									<i class="fa fa-edit"></i> Change
+								</button>
+							</div>
+
+							<div
+								th:if="${profile.masterpassPairingStatus.name() == 'PRECHECKOUT_PENDING'}">
+								<div class="row">
+									<div class="alert alert-warning mb-4" role="alert">
+										<h4 class="alert-heading">
+											<i class="fa fa-spinner" style="font-size: 2em;"> </i> Your
+											Masterpass account pairing in progress!
+										</h4>
+									</div>
+
+									<p class="lead">You have to choose you default card and
+										shipping address. To make your choices, please click the
+										button below</p>
+									<button type="button" class="btn btn-primary btn-lg"
+										data-toggle="modal" data-target="#cardAndShippingAddress"
+										onclick="getMasterpassPrecheckout()">
+										<i class="fa fa-cog"></i> Continue
+									</button>
+								</div>
+							</div>
+
+							<div th:if="${profile.masterpassPairingStatus.name() == 'NONE'}">
+								<div class="row">
+									<div class="alert alert-danger mb-4" role="alert">
+										<h4 class="alert-heading">
+											<i class="fa fa-close" style="font-size: 2em;"> </i> <span>Your
+												Masterpass account has not been paired!</span>
+										</h4>
+									</div>
+									<p class="lead">If you want to make payment via wolower,
+										you have to pair the wolower with your Masterpass account. To
+										pair it, please click the button below</p>
+									<p>
+									<div>
+										<img onclick="{ pair() }"
+											src="https://static.masterpass.com/dyn/img/btn/global/mp_chk_btn_147x034px.svg" />
+										<mark>
+											ATTENTION!, You will be redirecting to Masterpass <strong>TEST</strong>
+											Environment!
+										</mark>
+									</div>
+									</p>
+								</div>
+							</div>
+
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- Modal -->
+		<div class="modal fade" id="cardAndShippingAddress" tabindex="-1"
+			role="dialog" aria-labelledby="cardAndShippingAddressLabel"
+			aria-hidden="true">
+			<div class="modal-dialog modal-dialog-centered" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="cardAndShippingAddressLabel">Select
+							card and shipping address</h5>
+						<button type="button" class="close" data-dismiss="modal"
+							aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<div class="d-block" id="loading">
+							<th:block th:include="fragments/commons :: loading" />
+						</div>
+						<div class="d-none" id="error">
+							<div class="alert alert-danger mb-4" role="alert">
+								<h4 class="alert-heading">
+									<i class="fa fa-close" style="font-size: 2em;"> </i> <span>We
+										could not fetch your card and shipping address details!</span>
+								</h4>
+							</div>
+						</div>
+						<div class="d-none" id="success">
+							<!-- 							<div class="btn-group" id="div-card-radios" data-toggle="buttons"> -->
+							<!-- 								<label th:each="card : ${profile..transactions}" -->
+							<!-- 									class="btn btn-primary"> <input type="radio" -->
+							<!-- 									name="card-options" autocomplete="false" /> -->
+							<!-- 								</label> -->
+							<!-- 							</div> -->
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary"
+							data-dismiss="modal">
+							<i class="fa fa-close"></i> Close
+						</button>
+						<button type="button" class="btn btn-primary">
+							<i class="fa fa-check"></i> Save changes
+						</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<th:block th:include="fragments/footer :: footer" />
+
+	<script th:inline="javascript">
+		/*<![CDATA[*/
+
+		var checkoutId = /*[[${profile.masterpassCheckoutId}]]*/'default';
+		var userId = /*[[${profile.user.id}]]*/'default';
+
+		/*]]>*/
+	</script>
+
+	<script type="text/javascript">
+		$(document).ready(function() {
+			var uri = new URI();
+			var tab = uri.query(true).tab;
+			if (tab !== undefined) {
+				$('#' + tab).click();
+			}
+		});
+
+		function pair() {
+			masterpass.pair({
+				"checkoutId" : checkoutId, // This is a unique, 32-character alphanumeric identifier generated by Masterpass, which identifies your settings during a checkout.  You can find this value in your Mastercard Developers account.
+				"userId" : "mpassUserId"
+			// The unique consumer user identifier from the Merchant site.
+			});
+		}
+
+		function getMasterpassPrecheckout() {
+			alert("messaage");
+			var request = {}
+
+			$.ajax({
+				type : "POST",
+				contentType : "application/json",
+				url : "/masterpass/precheckout",
+				data : JSON.stringify(request),
+				dataType : 'json',
+				cache : false,
+				timeout : 30000,
+				success : function(data) {
+					/* Invisible all */
+					$("#loading").removeClass('d-block').addClass('d-none');
+					$("#success").removeClass('d-block').addClass('d-none');
+					$("#error").removeClass('d-block').addClass('d-none');
+
+					alert(JSON.stringify(data));
+
+					var json = "<h4>Ajax Response</h4><pre>"
+							+ JSON.stringify(data, null, 4) + "</pre>";
+					$('#div-card-radios').html(json);
+
+					console.log("SUCCESS : ", data);
+					$("#btn-search").prop("disabled", false);
+
+					/* Visible only success */
+					$("#success").addClass('d-block');
+				},
+				error : function(e) {
+					/* Invisible all */
+					$("#loading").removeClass('d-block').addClass('d-none');
+					$("#success").removeClass('d-block').addClass('d-none');
+					$("#error").removeClass('d-block').addClass('d-none');
+					/* Visible only error */
+					$("#error").addClass('d-block');
+				}
+			});
+		}
+	</script>
+
+</body>
+</html>
