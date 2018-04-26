@@ -2,9 +2,6 @@
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <div th:fragment="header">
 
-	<!-- 	<div class="jumbotron" style="margin: 0;"> -->
-	<!-- 		<img th:src="${header.profileBannerUrl}" /> -->
-	<!-- 	</div> -->
 	<div class="fixed-top mb-4">
 		<nav class="navbar navbar-expand-lg navbar-dark navbar-custom">
 			<div class="container">
@@ -17,12 +14,12 @@
 				</button>
 				<div class="collapse navbar-collapse" id="navbarNavAltMarkup">
 					<ul class="nav navbar-nav">
-						<li class="nav-item"><a class="nav-item nav-link"
-							href="/dashboard">dashboard</a></li>
-						<li class="nav-item"><a class="nav-item nav-link"
-							href="/report">report</a></li>
-						<li class="nav-item"><a class="nav-item nav-link"
-							href="what-we-do">what we do</a></li>
+						<li id="nav-dashboard" class="nav-item" onclick="activate()"><a
+							class="nav-item nav-link" href="/dashboard">dashboard</a></li>
+						<li id="nav-report" class="nav-item" onclick="activate()"><a
+							class="nav-item nav-link" href="/report">report</a></li>
+						<li id="nav-what-we-do" class="nav-item" onclick="activate()"><a
+							class="nav-item nav-link" href="what-we-do">what we do</a></li>
 					</ul>
 				</div>
 				<div class="nav navbar-right" th:if="${header != null}">
@@ -31,8 +28,7 @@
 					</span>
 					<div class="dropdown show">
 						<img th:src="${header.profilePictureUrl}"
-							class="rounded float-left" /> 
-						<a class="btn dropdown-toggle"
+							class="rounded float-left" /> <a class="btn dropdown-toggle"
 							id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
 							aria-expanded="false"> </a>
 						<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
@@ -45,5 +41,24 @@
 			</div>
 		</nav>
 	</div>
+
+	<script>
+		// 		$(document).ready(function() {
+		// 			var uri = new URI();
+		// 			activate(uri.pathname().replace('/'));
+		// 		});
+
+		// 		function activate(id) {
+		// 			$('#nav-dashboard').removeClass('active');
+		// 			$('#nav-report').removeClass('active');
+		// 			$('#nav-what-we-do').removeClass('active');
+		// 			$('#nav-' + id).addClass('active');
+		// 		}
+
+		function activate() {
+
+		}
+	</script>
+
 </div>
 </html>

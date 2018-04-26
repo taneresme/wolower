@@ -45,11 +45,17 @@ public class Masterpass {
 	@Column(name = "mpStatus")
 	private String mpStatus;
 
+	@Column(name = "recipientName")
+	private String recipientName;
+
+	@Column(name = "recipientPhone")
+	private String recipientPhone;
+
 	@Column(name = "defaultCardId")
 	private String defaultCardId;
 
-	@Column(name = "defaultCard")
-	private String defaultCard;
+	@Column(name = "defaultCardLast4")
+	private String defaultCardLast4;
 
 	@Column(name = "defaultShippingAddressId")
 	private String defaultShippingAddressId;

@@ -2,6 +2,7 @@ package com.wolower.ui.controller;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -66,9 +67,13 @@ public class SigninController {
 
 	@GetMapping("/logout")
 	public String twitterCallback(Model model, HttpServletRequest request) {
-		LOGGER.info("Loging out: " + sessionService.user().getSocialUserName());
-
-		sessionService.logout();
+		try {
+			LOGGER.info("Loging out: " + sessionService.user().getSocialUserName());
+			request.logout();
+		} catch (Exception ex) {
+			LOGGER.error(ExceptionUtils.getStackTrace(ex));
+		}
+		// sessionService.logout();
 
 		return "redirect:/";
 	}

@@ -46,7 +46,6 @@
 									</a>
 								</div>
 							</div>
-
 						</div>
 						<div class="tab-pane" id="payment-method-tab" role="tabpanel">
 
@@ -62,14 +61,25 @@
 
 								</div>
 								<p class="lead">
-									Payment Method: Masterpass <br /> Payment Card: <span /> <br />
-									Shipping Address: <span />
+									Payment Method: Masterpass <br /> Payment Card: Card ending in
+									<span th:text="${profile.masterpass.defaultCardLast4}" /> <br />
+									Shipping Address: <span
+										th:text="${profile.masterpass.defaultShippingAddresss}" />
 								</p>
-								<button type="button" class="btn btn-primary btn-lg">
+								<p>
+									<strong></strong>
+								</p>
+								<button type="button" class="btn btn-primary btn-lg"
+									data-toggle="modal"
+									data-target="#modal-card-and-ahipping-address"
+									onclick="getMasterpassPrecheckout()">
 									<i class="fa fa-edit"></i> Change
 								</button>
+								<button type="button" class="btn btn-danger btn-lg"
+									data-toggle="modal" data-target="#modal-prompt">
+									<i class="fa fa-remove"></i> Remove Pairing
+								</button>
 							</div>
-
 							<div
 								th:if="${profile.masterpassPairingStatus.name() == 'PRECHECKOUT_PENDING'}">
 								<div class="row">
@@ -80,17 +90,17 @@
 										</h4>
 									</div>
 
-									<p class="lead">You have to choose you default card and
+									<p class="lead">You have to choose your default card and
 										shipping address. To make your choices, please click the
 										button below</p>
 									<button type="button" class="btn btn-primary btn-lg"
-										data-toggle="modal" data-target="#cardAndShippingAddress"
+										data-toggle="modal"
+										data-target="#modal-card-and-ahipping-address"
 										onclick="getMasterpassPrecheckout()">
 										<i class="fa fa-cog"></i> Continue
 									</button>
 								</div>
 							</div>
-
 							<div th:if="${profile.masterpassPairingStatus.name() == 'NONE'}">
 								<div class="row">
 									<div class="alert alert-danger mb-4" role="alert">
@@ -107,138 +117,102 @@
 										<img onclick="{ pair() }"
 											src="https://static.masterpass.com/dyn/img/btn/global/mp_chk_btn_147x034px.svg" />
 										<mark>
-											ATTENTION!, You will be redirecting to Masterpass <strong>TEST</strong>
-											Environment!
+											<span style="color: red;">ATTENTION!, You will be
+												redirecting to Masterpass <strong>TEST</strong> Environment!
+											</span>
 										</mark>
 									</div>
 									</p>
 								</div>
 							</div>
-
 						</div>
 					</div>
+					<!-- End of tabs -->
 				</div>
+				<!-- End of row -->
 			</div>
+			<!-- End of card body -->
 		</div>
+		<!-- End of card -->
+	</div>
+	<!-- End of container -->
 
-		<!-- Modal -->
-		<div class="modal fade" id="cardAndShippingAddress" tabindex="-1"
-			role="dialog" aria-labelledby="cardAndShippingAddressLabel"
-			aria-hidden="true">
-			<div class="modal-dialog modal-dialog-centered" role="document">
-				<div class="modal-content">
-					<div class="modal-header">
-						<h5 class="modal-title" id="cardAndShippingAddressLabel">Select
-							card and shipping address</h5>
-						<button type="button" class="close" data-dismiss="modal"
-							aria-label="Close">
-							<span aria-hidden="true">&times;</span>
-						</button>
+	<!-- Modal -->
+	<div class="modal fade" id="modal-card-and-ahipping-address"
+		tabindex="-1" role="dialog"
+		aria-labelledby="cardAndShippingAddressLabel" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered  modal-lg"
+			role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="cardAndShippingAddressLabel">Select
+						card and shipping address</h5>
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<div class="d-block" id="modal-loading">
+						<th:block th:include="fragments/commons :: loading" />
 					</div>
-					<div class="modal-body">
-						<div class="d-block" id="loading">
-							<th:block th:include="fragments/commons :: loading" />
-						</div>
-						<div class="d-none" id="error">
-							<div class="alert alert-danger mb-4" role="alert">
-								<h4 class="alert-heading">
-									<i class="fa fa-close" style="font-size: 2em;"> </i> <span>We
-										could not fetch your card and shipping address details!</span>
-								</h4>
-							</div>
-						</div>
-						<div class="d-none" id="success">
-							<!-- 							<div class="btn-group" id="div-card-radios" data-toggle="buttons"> -->
-							<!-- 								<label th:each="card : ${profile..transactions}" -->
-							<!-- 									class="btn btn-primary"> <input type="radio" -->
-							<!-- 									name="card-options" autocomplete="false" /> -->
-							<!-- 								</label> -->
-							<!-- 							</div> -->
+					<div class="d-none" id="modal-error">
+						<div class="alert alert-danger" role="alert">
+							<h4 class="alert-heading">
+								<i class="fa fa-close" style="font-size: 2em;"> </i> <span
+									id="modal-error-message"></span>
+							</h4>
 						</div>
 					</div>
-					<div class="modal-footer">
+					<div class="d-none" id="save-changes-error">
+						<div class="alert alert-danger alert-dismissible fade show"
+							role="alert">
+							<strong>Failed!</strong> <span></span>
+							<button type="button" class="close" data-dismiss="alert"
+								aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+						</div>
+					</div>
+					<div class="d-none" id="modal-success">
+						<h5>Your cards</h5>
+						<hr />
+						<div class="card-deck mb-4" id="cards"></div>
+						<h5>Your addresses</h5>
+						<hr />
+						<div class="card-deck mb-4" id="shipping-addresses"></div>
+					</div>
+					<div class="modal-footer d-none" id="modal-footer">
 						<button type="button" class="btn btn-secondary"
 							data-dismiss="modal">
 							<i class="fa fa-close"></i> Close
 						</button>
-						<button type="button" class="btn btn-primary">
-							<i class="fa fa-check"></i> Save changes
+						<button type="button" class="btn btn-primary"
+							onclick="saveChanges()">
+							<i class="fa fa-check"></i> Save Details
 						</button>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
+	<!-- End of modal -->
 
+	<th:block th:include="fragments/commons :: prompt-modal" />
 	<th:block th:include="fragments/footer :: footer" />
 
+	<script th:src="@{/js/views/profile.js}"></script>
 	<script th:inline="javascript">
 		/*<![CDATA[*/
 
 		var checkoutId = /*[[${profile.masterpassCheckoutId}]]*/'default';
-		var userId = /*[[${profile.user.id}]]*/'default';
+		var userId = /*[[${#strings.toString(profile.user.id)}]]*/'default';
+		var precheckoutLoaded = false;
 
 		/*]]>*/
 	</script>
-
 	<script type="text/javascript">
-		$(document).ready(function() {
-			var uri = new URI();
-			var tab = uri.query(true).tab;
-			if (tab !== undefined) {
-				$('#' + tab).click();
-			}
-		});
-
-		function pair() {
-			masterpass.pair({
-				"checkoutId" : checkoutId, // This is a unique, 32-character alphanumeric identifier generated by Masterpass, which identifies your settings during a checkout.  You can find this value in your Mastercard Developers account.
-				"userId" : "mpassUserId"
-			// The unique consumer user identifier from the Merchant site.
-			});
-		}
-
-		function getMasterpassPrecheckout() {
-			alert("messaage");
-			var request = {}
-
-			$.ajax({
-				type : "POST",
-				contentType : "application/json",
-				url : "/masterpass/precheckout",
-				data : JSON.stringify(request),
-				dataType : 'json',
-				cache : false,
-				timeout : 30000,
-				success : function(data) {
-					/* Invisible all */
-					$("#loading").removeClass('d-block').addClass('d-none');
-					$("#success").removeClass('d-block').addClass('d-none');
-					$("#error").removeClass('d-block').addClass('d-none');
-
-					alert(JSON.stringify(data));
-
-					var json = "<h4>Ajax Response</h4><pre>"
-							+ JSON.stringify(data, null, 4) + "</pre>";
-					$('#div-card-radios').html(json);
-
-					console.log("SUCCESS : ", data);
-					$("#btn-search").prop("disabled", false);
-
-					/* Visible only success */
-					$("#success").addClass('d-block');
-				},
-				error : function(e) {
-					/* Invisible all */
-					$("#loading").removeClass('d-block').addClass('d-none');
-					$("#success").removeClass('d-block').addClass('d-none');
-					$("#error").removeClass('d-block').addClass('d-none');
-					/* Visible only error */
-					$("#error").addClass('d-block');
-				}
-			});
-		}
+		
 	</script>
-
 </body>
 </html>

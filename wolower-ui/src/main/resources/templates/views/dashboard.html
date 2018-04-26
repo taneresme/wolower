@@ -4,7 +4,7 @@
 <body th:background="${header.backgroundImageUrl}">
 	<th:block th:include="fragments/header :: header" />
 
-	<div class="container" style="margin-bottom:150px; margin-top:90px;">
+	<div class="container" style="margin-bottom: 150px; margin-top: 90px;">
 
 		<div class="card-deck mb-4">
 			<div class="card border-dark text-center">
@@ -31,7 +31,8 @@
 			</div>
 		</div>
 
-		<div class="alert alert-success mb-4" role="alert" th:if="${firstTime}">
+		<div class="alert alert-success mb-4" role="alert"
+			th:if="${firstTime}">
 			<h4 class="alert-heading">Thank you!</h4>
 			<p class="lead">Yes, we know that this is your first time :).
 				Hmmm, are you a little concerned? Do not worry my friend!</p>
@@ -75,13 +76,15 @@
 			<div class="card-header">
 				<h1>Your transactions</h1>
 			</div>
-			<div class="card-body" th:if="${#lists.isEmpty(dashboard.transactions)}">
+			<div class="card-body"
+				th:if="${#lists.isEmpty(dashboard.transactions)}">
 				<div class="alert alert-danger" role="alert">
 					<strong th:text="${dashboard.name}" />, we could not find any
 					transactions. Do you need help?
 				</div>
 			</div>
-			<div class="card-body" th:if="${#lists.isEmpty(dashboard.transactions)}">
+			<div class="card-body"
+				th:unless="${#lists.isEmpty(dashboard.transactions)}">
 				<table class="table">
 					<thead>
 						<tr>
@@ -93,27 +96,6 @@
 						</tr>
 					</thead>
 					<tbody>
-						<tr>
-							<th>Social Media</th>
-							<th>Amount</th>
-							<th>Timestamp</th>
-							<th>Authorization Code</th>
-							<th>Response Code</th>
-						</tr>
-							<tr>
-							<th>Social Media</th>
-							<th>Amount</th>
-							<th>Timestamp</th>
-							<th>Authorization Code</th>
-							<th>Response Code</th>
-						</tr>
-							<tr>
-							<th>Social Media</th>
-							<th>Amount</th>
-							<th>Timestamp</th>
-							<th>Authorization Code</th>
-							<th>Response Code</th>
-						</tr>
 						<tr th:each="transaction : ${dashboard.transactions}"
 							th:class="${transaction.responseCode == '00'}? #{success} : #{danger}">
 							<td th:text="${transaction.socialMedia}" />
@@ -125,7 +107,8 @@
 					</tbody>
 				</table>
 			</div>
-			<div class="card-footer" th:unless="${#lists.isEmpty(dashboard.transactions)}">
+			<div class="card-footer"
+				th:unless="${#lists.isEmpty(dashboard.transactions)}">
 				<p>
 					You see your last <span th:text="${transactions.size()}" />
 					transactions above. For more, please visit <a href="/reports">Reports</a>
@@ -136,6 +119,14 @@
 	</div>
 
 	<th:block th:include="fragments/footer :: footer" />
+
+	<script>
+		$(document).ready(function() {
+			$('#tbl-products').DataTable();
+			$('#tbl-orders').DataTable();
+			$('#tbl-transactions').DataTable();
+		});
+	</script>
 
 </body>
 </html>

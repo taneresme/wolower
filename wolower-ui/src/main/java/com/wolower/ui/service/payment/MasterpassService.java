@@ -49,7 +49,7 @@ public class MasterpassService {
 		this.masterpassExpressCheckoutDao = masterpassExpressCheckoutDao;
 	}
 
-	public static void masterpassExcetion(Exception ex, Logger logger) {
+	public static void masterpassException(Exception ex, Logger logger) {
 		if (ex instanceof SDKErrorResponseException) {
 			String errorMessage = "";
 			SDKErrorResponseException sdkException = (SDKErrorResponseException) ex;
@@ -67,49 +67,49 @@ public class MasterpassService {
 		}
 	}
 
-	public void savePairingId(String pairingId, PairingIdSources source, User user) {
+	public void savePairingId(String pairingId, PairingIdSources source, User user, Masterpass masterpass) {
 		/* TODO: Do in transaction belows */
 
-		/* We are wasting all pairing Ids. */
-		masterpassPairingIdDao.wasteThemAllByUserId(user.getId());
+		wasteAllPairingIds(user);
 		/* Save new one */
 		MasterpassPairingId masterpassPairingId = new MasterpassPairingId();
 		masterpassPairingId.setPairingId(pairingId);
 		masterpassPairingId.setSource(source);
 		masterpassPairingId.setUserId(user.getId());
+		masterpassPairingId.setMasterpassId(masterpass.getId());
 		masterpassPairingIdDao.save(masterpassPairingId);
 	}
-
-	public void savePrecheckout(User user, PreCheckoutData precheckoutData) {
-		MasterpassPrecheckout precheckout = new MasterpassPrecheckout();
-		precheckout.setConsumerWalletId(precheckoutData.getConsumerWalletId());
-		precheckout.setMasterpassId(masterpassDao.findOneByUserIdAndEnabled(user.getId(), true).getId());
-		precheckout.setPrecheckoutTransactionId(precheckoutData.getPreCheckoutTransactionId());
-		precheckout.setUserId(user.getId());
-		precheckout.setWalletName(precheckoutData.getWalletName());
-		masterpassPrecheckoutDao.save(precheckout);
-	}
-
-	public void saveExpressCheckout(User user, PaymentData precheckoutData) {
-		MasterpassExpressCheckout expressCheckout = new MasterpassExpressCheckout();
-		expressCheckout.setMasterpassId(masterpassDao.findOneByUserIdAndEnabled(user.getId(), true).getId());
-		expressCheckout.setUserId(user.getId());
-		masterpassExpressCheckoutDao.save(expressCheckout);
+	
+	public void wasteAllPairingIds(User user) {
+		/* We are wasting all pairing Ids. */
+		masterpassPairingIdDao.wasteThemAllByUserId(user.getId(), true);
 	}
 
 	public PreCheckoutData getPrecheckoutData(User user) {
 		try {
+			Masterpass masterpass = getMasterpass(user);
+
 			String pairingId = getPairingId(user);
 			PreCheckoutData precheckoutData = PreCheckoutDataApi.show(pairingId);
 
 			/* TODO: Do in transaction belows */
-			savePairingId(precheckoutData.getPairingId(), PairingIdSources.PRECHECKOUT, user);
-			savePrecheckout(user, precheckoutData);
+			savePairingId(precheckoutData.getPairingId(), PairingIdSources.PRECHECKOUT, user, masterpass);
+			savePrecheckout(user, precheckoutData, masterpass);
 			return precheckoutData;
 		} catch (Exception ex) {
-			MasterpassService.masterpassExcetion(ex, LOGGER);
+			MasterpassService.masterpassException(ex, LOGGER);
 			throw ex;
 		}
+	}
+
+	public void savePrecheckout(User user, PreCheckoutData precheckoutData, Masterpass masterpass) {
+		MasterpassPrecheckout precheckout = new MasterpassPrecheckout();
+		precheckout.setConsumerWalletId(precheckoutData.getConsumerWalletId());
+		precheckout.setMasterpassId(masterpass.getId());
+		precheckout.setPrecheckoutTransactionId(precheckoutData.getPreCheckoutTransactionId());
+		precheckout.setUserId(user.getId());
+		precheckout.setWalletName(precheckoutData.getWalletName());
+		masterpassPrecheckoutDao.save(precheckout);
 	}
 
 	public Masterpass getMasterpass(User user) {
@@ -135,11 +135,24 @@ public class MasterpassService {
 					.shippingAddressId(masterpass.getDefaultShippingAddressId());
 
 			PaymentData paymentData = ExpressCheckoutApi.create(expressCheckoutRequest);
+
+			savePairingId(paymentData.getPairingId(), PairingIdSources.EXPRESSCHECKOUT, user, masterpass);
+			saveExpressCheckout(user, paymentData, masterpass);
+
 			return paymentData;
 		} catch (Exception ex) {
-			MasterpassService.masterpassExcetion(ex, LOGGER);
+			MasterpassService.masterpassException(ex, LOGGER);
 			throw ex;
 		}
+	}
+
+	public void saveExpressCheckout(User user, PaymentData paymentData, Masterpass masterpass) {
+		MasterpassExpressCheckout expressCheckout = new MasterpassExpressCheckout();
+		expressCheckout.setMasterpassId(masterpass.getId());
+		expressCheckout.setUserId(user.getId());
+		expressCheckout.setWalletId(paymentData.getWalletId());
+		expressCheckout.setWalletName(paymentData.getWalletName());
+		masterpassExpressCheckoutDao.save(expressCheckout);
 	}
 
 }

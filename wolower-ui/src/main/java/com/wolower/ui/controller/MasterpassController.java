@@ -1,7 +1,9 @@
 package com.wolower.ui.controller;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
+import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,12 +12,16 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.mastercard.merchant.checkout.model.Pairing;
 import com.mastercard.merchant.checkout.model.PreCheckoutData;
-import com.wolower.persistence.enums.PairingStatuses;
+import com.wolower.ui.model.request.SavePrecheckoutRequest;
+import com.wolower.ui.model.responses.BaseResponse;
 import com.wolower.ui.service.MasterpassInitializationService;
+import com.wolower.ui.service.SessionService;
+import com.wolower.ui.util.ResponseCodes;
 
 @Controller
 public class MasterpassController {
@@ -23,6 +29,9 @@ public class MasterpassController {
 
 	@Autowired
 	private MasterpassInitializationService masterpass;
+
+	@Autowired
+	private SessionService session;
 
 	@GetMapping("/masterpass/pairing")
 	public String pairing(Model model, HttpServletRequest request) {
@@ -34,45 +43,54 @@ public class MasterpassController {
 			@RequestParam(name = "pairing_verifier", required = false) String pairingVerifier,
 			@RequestParam(name = "pairing_token", required = false) String pairingToken,
 			@RequestParam(name = "mpstatus", required = false) String mpstatus, HttpServletRequest request) {
-
 		LOGGER.info("MASTERPASS called back... oauth_token: " + oauthToken);
 		LOGGER.info("MASTERPASS called back... pairing_verifier: " + pairingVerifier);
 		LOGGER.info("MASTERPASS called back... pairing_token: " + pairingToken);
 		LOGGER.info("MASTERPASS called back... mpstatus: " + mpstatus);
 
-		// MasterCardApiConfig.setSandBox(false); // to use production environment else
-		// MasterCardApiConfig.setSandBox(true); // to use sandbox environment
-		// MasterCardApiConfig.setConsumerKey("YOUR_CONSUMER_KEY");
-		// MasterCardApiConfig.setPrivateKey(YOUR_PRIVATE_KEY);
-
-		// Set up Proxy (optional)
-		// MasterCardApiConfig.setProxy(new Proxy(Proxy.Type.HTTP, new
-		// InetSocketAddress("127.0.0.1", 8888)));
-
-		// You can set a specific TLS version to use for the Masterpass SDK connections
-		// as follows:
-
-		// MasterCardApiConfig.setTlsProtocol("TLSv1.2");
-
-		// All versions of TLS offered by the http client are supported e.g.
-		// "TLSv1.3", "TLSv1.2", "TLSv1.1", "TLSv1.0". If no TLS version is supplied
-		// then the SDK may use
-		// any TLS version from 1.3 to 1.0
-
 		/* If user canceled authentication redirect to pairing page again */
-		if ("cancel".equals(mpstatus)) {
-			return "redirect:/profile?tab=payment-method";
-		} else {
+		if (!"cancel".equals(mpstatus)) {
 			Pairing pairing = masterpass.obtainAPairingId(pairingVerifier);
-			masterpass.saveMasterpass(pairing, oauthToken, pairingVerifier, pairingToken, mpstatus,
-					PairingStatuses.PRECHECKOUT_PENDING);
+			masterpass.initMasterpass(pairing, oauthToken, pairingVerifier, pairingToken, mpstatus);
 		}
-		return "redirect:/profile";
+		return "redirect:/profile?tab=payment-method";
 	}
 
 	@PostMapping("/masterpass/precheckout")
 	public ResponseEntity<PreCheckoutData> precheckout(HttpServletRequest request) {
-		PreCheckoutData response = masterpass.getPrecheckoutData();
-		return ResponseEntity.ok(response);
+		try {
+			PreCheckoutData response = masterpass.getPrecheckoutData();
+
+			HttpSession session = request.getSession();
+			session.setAttribute("precheckout", response);
+
+			return ResponseEntity.ok(response);
+		} catch (Exception e) {
+			LOGGER.error("MASTERPASS precheckout exception: " + ExceptionUtils.getStackTrace(e));
+			return ResponseEntity.ok(null);
+			// return ResponseEntity
+			// .ok(new BaseResponse(ResponseCodes.PRECHECKOUT_FAILED, "We cannot retrieve
+			// precheckout details!"));
+		}
+	}
+
+	@PostMapping("/masterpass/save-precheckout")
+	public ResponseEntity<BaseResponse> savePrecheckout(@RequestBody SavePrecheckoutRequest precheckout,
+			HttpServletRequest request) {
+		try {
+			masterpass.saveCardAndAddress(precheckout);
+			return ResponseEntity.ok(new BaseResponse());
+		} catch (Exception e) {
+			LOGGER.error("MASTERPASS savePrecheckout exception: " + ExceptionUtils.getStackTrace(e));
+			return ResponseEntity.ok(
+					new BaseResponse(ResponseCodes.PRECHECKOUT_SAVING_FAILED, "We cannot save precheckout details!"));
+		}
+	}
+
+	@GetMapping("/masterpass/remove-pairing")
+	public String removePairing(HttpServletRequest request) {
+		LOGGER.info("MASTERPASS remove-pairing for user: " + session.user().getSocialUserName());
+		masterpass.removePairing();
+		return "redirect:/profile?tab=payment-method";
 	}
 }

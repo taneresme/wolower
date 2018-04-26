@@ -1,8 +1,5 @@
 package com.wolower.ui.service;
 
-import java.util.List;
-
-import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,14 +9,13 @@ import org.springframework.web.context.annotation.SessionScope;
 import com.mastercard.merchant.checkout.PairingIdApi;
 import com.mastercard.merchant.checkout.model.Pairing;
 import com.mastercard.merchant.checkout.model.PreCheckoutData;
-import com.mastercard.sdk.core.exceptions.SDKErrorResponseException;
-import com.mastercard.sdk.core.models.Errors;
-import com.mastercard.sdk.core.models.Error;
 import com.mastercard.sdk.core.util.QueryParams;
 import com.wolower.persistence.dao.MasterpassDao;
+import com.wolower.persistence.enums.PairingIdSources;
 import com.wolower.persistence.enums.PairingStatuses;
 import com.wolower.persistence.model.Masterpass;
 import com.wolower.ui.config.MasterpassConfig;
+import com.wolower.ui.model.request.SavePrecheckoutRequest;
 import com.wolower.ui.service.payment.MasterpassService;
 
 /* This service is used when first pairing with Masterpass
@@ -49,17 +45,23 @@ public class MasterpassInitializationService {
 		return config.getCheckoutId();
 	}
 
-	public void saveMasterpass(Pairing pairing, String oauthToken, String pairingVerifier, String pairingToken,
-			String mpstatus, PairingStatuses status) {
-		this.masterpass = getMasterpass() == null ? new Masterpass() : masterpass;
+	public void initMasterpass(Pairing pairing, String oauthToken, String pairingVerifier, String pairingToken,
+			String mpstatus) {
+		this.masterpass = getMasterpass() == null ? new Masterpass() : this.masterpass;
 		this.masterpass.setUserId(session.user().getId());
 		this.masterpass.setMpStatus(mpstatus);
 		this.masterpass.setOauthToken(oauthToken);
 		this.masterpass.setPairingToken(pairingToken);
 		this.masterpass.setPairingVerifier(pairingVerifier);
-		this.masterpass.setPairingStatus(status);
+		this.masterpass.setPairingStatus(PairingStatuses.NONE);
+		this.masterpass = masterpassDao.save(this.masterpass);
 
-		this.masterpass = masterpassDao.save(masterpass);
+		this.masterpassService.savePairingId(pairing.getPairingId(), PairingIdSources.INITIALIZATION, session.user(),
+				this.masterpass);
+
+		/* If we save pairing id successfully */
+		this.masterpass.setPairingStatus(PairingStatuses.PRECHECKOUT_PENDING);
+		this.masterpass = masterpassDao.save(this.masterpass);
 	}
 
 	public Masterpass getMasterpass() {
@@ -77,17 +79,33 @@ public class MasterpassInitializationService {
 	public Pairing obtainAPairingId(String pairingVerifier) {
 		try {
 			QueryParams queryParams = new QueryParams().add("pairingTransactionId", pairingVerifier).add("userId",
-					"mpassUserId");
+					String.valueOf(session.user().getId()));
 
 			Pairing pairingId = PairingIdApi.show(queryParams);
 			return pairingId;
 		} catch (Exception ex) {
-			MasterpassService.masterpassExcetion(ex, LOGGER);
+			MasterpassService.masterpassException(ex, LOGGER);
 			throw ex;
 		}
 	}
 
 	public PreCheckoutData getPrecheckoutData() {
 		return masterpassService.getPrecheckoutData(session.user());
+	}
+
+	public void saveCardAndAddress(SavePrecheckoutRequest precheckout) {
+		this.masterpass.setRecipientName(precheckout.getRecipientName());
+		this.masterpass.setRecipientPhone(precheckout.getRecipientPhone());
+		this.masterpass.setDefaultCardLast4(precheckout.getCardLast4());
+		this.masterpass.setDefaultCardId(precheckout.getCardId());
+		this.masterpass.setDefaultShippingAddresss(precheckout.getAddress());
+		this.masterpass.setDefaultShippingAddressId(precheckout.getAddressId());
+		this.masterpass.setPairingStatus(PairingStatuses.COMPLETED);
+		this.masterpassDao.save(this.masterpass);
+	}
+
+	public void removePairing() {
+		this.masterpassDao.disableByUserId(session.user().getId(), false);
+		this.masterpass = null;
 	}
 }

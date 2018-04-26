@@ -34,6 +34,10 @@ public class MasterpassExpressCheckout {
 	@NotNull
 	@Column(name = "walletId")
 	private String walletId;
+	
+	@NotNull
+	@Column(name = "walletName")
+	private String walletName;
 
 	@NotNull
 	@Column(name = "timestamp")
