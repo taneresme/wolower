@@ -1,6 +1,6 @@
 $(document).ready(function() {
 	/* Initialize modal */
-	$("#modal-prompt-model-message").text("Are you sure to remove Masterpass pairing?")
+	$("#modal-prompt-model-message").text("Are you sure to remove Masterpass pairing?");
 	
 	
 	var uri = URI(window.location);
@@ -38,28 +38,6 @@ function show(id){
 	}
 }
 
-function getMasterpassPrecheckout() {
-	if (precheckoutLoaded) {
-		return;
-	}
-	
-	/* Error message setting */
-	$("#modal-error-message").html("We cannot fetch your card details!");
-	
-	var request = {};
-	$.ajax({
-		type : "POST",
-		contentType : "application/json",
-		url : "/masterpass/precheckout",
-		data : JSON.stringify(request),
-		dataType : 'json',
-		cache : false,
-		timeout : 30000,
-		success : precheckoutSuccess,
-		error : error
-	});
-}
-
 function precheckoutSuccess(data) {
 	console.log("Response : ", JSON.stringify(data));
 
@@ -84,7 +62,7 @@ function precheckoutSuccess(data) {
 		var month = item.expiryMonth;
 		var year = item.expiryYear;
 		var isDefault = item.default;
-		var cardId = item.cardId
+		var cardId = item.cardId;
 		cardsHtml += card.format([ id, last4, brand, cardHolder, month,
 				year, isDefault, cardId ]);
 	});
@@ -137,6 +115,33 @@ function error(e) {
 	show("#modal-error");
 }
 
+function getMasterpassPrecheckout() {
+	if (precheckoutLoaded) {
+		return;
+	}
+	
+	/* Error message setting */
+	$("#modal-error-message").html("We cannot fetch your card details!");
+	
+	var request = {};
+	$.ajax({
+		type : "POST",
+		contentType : "application/json",
+		url : "/masterpass/precheckout",
+		data : JSON.stringify(request),
+		dataType : "json",
+		cache : false,
+		timeout : 30000,
+		success : precheckoutSuccess,
+		error : error
+	});
+}
+
+function saveChangesSuccess(){
+	$("#modal-card-and-ahipping-address").modal("hide");
+	location.reload();
+}
+
 function saveChanges(){
 	show("#modal-loading");
 	
@@ -173,11 +178,6 @@ function saveChanges(){
 	});
 }
 
-function saveChangesSuccess(){
-	$("#modal-card-and-ahipping-address").modal("hide");
-	location.reload();
-}
-
-function promptModal_YesButtonClicked(){
+function promptModalYesButtonClicked(){
 	window.location.href="/masterpass/remove-pairing";	
 }
