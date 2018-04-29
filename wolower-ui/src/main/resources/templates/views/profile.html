@@ -257,15 +257,15 @@
 		console.log("Response : ", JSON.stringify(data));
 
 		var card = "";
-		card = '<div class="card bg-light">';
-		card += '<div class="card-body">';
-		card += '<div class="custom-control custom-radio">';
-		card += '<input type="radio" name="radio-card" class="custom-control-input" id="{0}" checked="{6}">';
-		card += '<label class="custom-control-label" for="{0}">';
-		card += '<h5 class="card-title">Card ending in <span id="{0}-masterpass-card-last4">{1}</span></h5>';
-		card += '<p class="card-text">{2} issued to {3} untill {4}. month of {5}</p>';
-		card += '<span class="d-none" id="{0}-masterpass-card-id">{7}</span>';
-		card += '</label></input></div></div></div>';
+		card = "<div class='card bg-light'>";
+		card += "<div class='card-body'>";
+		card += "<div class='custom-control custom-radio'>";
+		card += "<input type='radio' name='radio-card' class='custom-control-input' id='{0}' checked='{6}'>";
+		card += "<label class='custom-control-label' for='{0}'>";
+		card += "<h5 class='card-title'>Card ending in <span id='{0}-masterpass-card-last4'>{1}</span></h5>";
+		card += "<p class='card-text'>{2} issued to {3} untill {4}. month of {5}</p>";
+		card += "<span class='d-none' id='{0}-masterpass-card-id'>{7}</span>";
+		card += "</label></input></div></div></div>";
 		var cardsHtml = "";
 
 		/* populate cards */
@@ -284,16 +284,16 @@
 		$("#cards").html(cardsHtml);
 		
 		var address = "";
-		address = '<div class="card bg-light">';
-		address += '<div class="card-body">';
-		address += '<div class="custom-control custom-radio">';
-		address += '<input type="radio" name="radio-address" class="custom-control-input" id="{0}" checked="{7}">';
-		address += '<label class="custom-control-label" for="{0}">';
-		address += '<h5 class="card-title" id="{0}-masterpass-recipient-name">{1}</h5>';
-		address += '<p class="card-text">{3}<br />{4}{5}, {6}<br /><span id="{0}-masterpass-recipient-phone">{2}</span></p>';
-		address += '<span class="d-none" id="{0}-masterpass-address-id">{8}</span>';
-		address += '<span class="d-none" id="{0}-masterpass-address">{9}</span>';
-		address += '</label></input></div></div></div>';
+		address = "<div class='card bg-light'>";
+		address += "<div class='card-body'>";
+		address += "<div class='custom-control custom-radio'>";
+		address += "<input type='radio' name='radio-address' class='custom-control-input' id='{0}' checked='{7}'>";
+		address += "<label class='custom-control-label' for='{0}'>";
+		address += "<h5 class='card-title' id='{0}-masterpass-recipient-name'>{1}</h5>";
+		address += "<p class='card-text'>{3}<br />{4}{5}, {6}<br /><span id='{0}-masterpass-recipient-phone'>{2}</span></p>";
+		address += "<span class='d-none' id='{0}-masterpass-address-id'>{8}</span>";
+		address += "<span class='d-none' id='{0}-masterpass-address'>{9}</span>";
+		address += "</label></input></div></div></div>";
 		var addressesHtml = "";
 
 		/* populate shipping addresses */
