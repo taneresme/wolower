@@ -36,7 +36,7 @@
 										<th>Post</th>
 										<th>Price</th>
 										<th>Sold</th>
-										<th>Link</th>
+										<th>Details</th>
 									</tr>
 								</thead>
 								<tbody>
@@ -46,7 +46,9 @@
 										<td th:text="${product.postText}" />
 										<td th:text="${product.price}" />
 										<td th:text="${product.sold}" />
-										<td><a th:href="${product.link}" target="blank"> <i class="fa fa-external-link" ></i> Go</a></td>
+										<td><a th:href="${product.link}" target="blank"> <i
+												class="fa fa-external-link"></i> Details
+										</a></td>
 									</tr>
 								</tbody>
 							</table>
@@ -60,7 +62,7 @@
 										<th>Social Media</th>
 										<th>Post</th>
 										<th>Price</th>
-										<th>Link</th>
+										<th>Details</th>
 									</tr>
 								</thead>
 								<tbody>
@@ -69,7 +71,9 @@
 										<td th:text="${order.socialMedia}" />
 										<td th:text="${order.postText}" />
 										<td th:text="${order.price}" />
-										<td><a th:href="${order.link}" target="blank"> <i class="fa fa-external-link" ></i> Go</a></td>
+										<td><a th:href="${order.link}" target="blank"> <i
+												class="fa fa-external-link"></i> Details
+										</a></td>
 									</tr>
 								</tbody>
 							</table>

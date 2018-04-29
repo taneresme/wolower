@@ -113,12 +113,14 @@ function precheckoutSuccess(data) {
 
 function error(e) {
 	show("#modal-error");
+	precheckoutLoaded = false;
 }
 
 function getMasterpassPrecheckout() {
 	if (precheckoutLoaded) {
 		return;
 	}
+	show("#modal-loading");
 	
 	/* Error message setting */
 	$("#modal-error-message").html("We cannot fetch your card details!");
