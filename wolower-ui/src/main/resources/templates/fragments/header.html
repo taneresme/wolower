@@ -23,7 +23,8 @@
 					</ul>
 				</div>
 				<div class="nav navbar-right" th:if="${header != null}">
-					<span class="navbar-brand">Hey, <span
+					<span class="navbar-brand">(<span th:text="${header.balance}" />)
+					</span> <span class="navbar-brand">Hey, <span
 						th:text="${header.name}" />
 					</span>
 					<div class="dropdown show">

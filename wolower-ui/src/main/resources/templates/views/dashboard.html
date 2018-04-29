@@ -1,7 +1,7 @@
 <html xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <head th:replace="fragments/commons :: head" />
-<body th:background="${header.backgroundImageUrl}">
+<body>
 	<th:block th:include="fragments/header :: header" />
 
 	<div class="container" style="margin-bottom: 150px; margin-top: 90px;">
@@ -15,17 +15,16 @@
 				</div>
 			</div>
 			<div class="card border-dark text-center">
-				<p class="card-header h4">Total Transactions</p>
+				<p class="card-header h4">Total Orders</p>
 				<div class="card-body">
-					<p class="display-3" th:text="${dashboard.totalTransactions}" />
+					<p class="display-3" th:text="${dashboard.totalOrders}" />
 					<span class="text-muted"> pieces</span>
 				</div>
 			</div>
 			<div class="card border-dark text-center">
 				<p class="card-header h4">Total Purchase</p>
 				<div class="card-body">
-					<p class="display-3"
-						th:text="${#numbers.formatDecimal(dashboard.totalPurchase,1,2)}" />
+					<p class="display-3" th:text="${dashboard.totalPurchase}" />
 					<span class="text-muted"> USD</span>
 				</div>
 			</div>
@@ -97,7 +96,7 @@
 					</thead>
 					<tbody>
 						<tr th:each="transaction : ${dashboard.transactions}"
-							th:class="${transaction.responseCode == '00'}? #{success} : #{danger}">
+							th:class="${transaction.responseCode == '00'} ? #{success} : #{danger}">
 							<td th:text="${transaction.socialMedia}" />
 							<td th:text="${transaction.amount}" />
 							<td th:text="${transaction.timestamp}" />
@@ -110,8 +109,8 @@
 			<div class="card-footer"
 				th:unless="${#lists.isEmpty(dashboard.transactions)}">
 				<p>
-					You see your last <span th:text="${transactions.size()}" />
-					transactions above. For more, please visit <a href="/reports">Reports</a>
+					You see your last <span th:text="${dashboard.transactions.size()}" />
+					transactions above. For more, please visit <a href="/report">Reports</a>
 					page.
 				</p>
 			</div>

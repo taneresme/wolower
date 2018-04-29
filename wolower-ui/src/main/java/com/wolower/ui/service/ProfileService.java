@@ -13,11 +13,13 @@ public class ProfileService {
 	private Profile profile = new Profile();
 	private SessionService session;
 	private MasterpassInitializationService masterpass;
+	private BalanceService balance;
 
 	@Autowired
-	public ProfileService(SessionService session, MasterpassInitializationService masterpass) {
+	public ProfileService(SessionService session, MasterpassInitializationService masterpass, BalanceService balance) {
 		this.session = session;
 		this.masterpass = masterpass;
+		this.balance = balance;
 	}
 
 	public Profile getProfile() {
@@ -26,6 +28,7 @@ public class ProfileService {
 		this.profile.setMasterpassCheckoutId(masterpass.getCheckoutId());
 		this.profile.setMasterpassPairingStatus(masterpass.masterpassPairingStatus());
 		this.profile.setMasterpass(masterpass.getMasterpass());
+		this.profile.setBalance(balance.getBalance(user));
 
 		return this.profile;
 	}

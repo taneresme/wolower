@@ -13,6 +13,8 @@ public interface SocialProfile {
 	public String getSocialId();
 
 	public String getProfileImageUrl();
+	
+	public String getThumbnailImageUrl();
 
 	public String getProfileUrl();
 

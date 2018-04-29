@@ -15,8 +15,8 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-@Table(name = "tMasterpassExpressCheckouts")
-public class MasterpassExpressCheckout {
+@Table(name = "tBalances")
+public class Balance {
 	@Id
 	@GeneratedValue
 	@NotNull
@@ -28,21 +28,19 @@ public class MasterpassExpressCheckout {
 	private int userId;
 
 	@NotNull
-	@Column(name = "masterpassId")
-	private int masterpassId;
-
-	@NotNull
-	@Column(name = "walletId")
-	private String walletId;
+	@Column(name = "balance")
+	private Long balance;
 	
-	@Column(name = "walletName")
-	private String walletName;
+	@NotNull
+	@Column(name = "currency")
+	private String currency;
 
 	@NotNull
-	@Column(name = "timestamp")
-	private LocalDateTime timestamp;
+	@Column(name = "lastUpdateTimestamp")
+	private LocalDateTime lastUpdateTimestamp;
 
-	public MasterpassExpressCheckout() {
-		this.timestamp = LocalDateTime.now();
+	public Balance() {
+		this.lastUpdateTimestamp = LocalDateTime.now();
 	}
+
 }

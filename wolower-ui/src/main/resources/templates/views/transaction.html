@@ -1,0 +1,57 @@
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head th:replace="fragments/commons :: head" />
+<body>
+	<th:block th:include="fragments/header :: header" />
+
+	<div class="container" style="margin-bottom: 150px; margin-top: 90px;">
+
+F		<div class="card border-dark">
+			<div class="card-header">
+				<h1>Your transactions</h1>
+			</div>
+			<div class="card-body"
+				th:if="${#lists.isEmpty(dashboard.transactions)}">
+				<div class="alert alert-danger" role="alert">
+					<strong th:text="${dashboard.name}" />, we could not find any
+					transactions. Do you need help?
+				</div>
+			</div>
+			<div class="card-body"
+				th:unless="${#lists.isEmpty(dashboard.transactions)}">
+				<table class="table">
+					<thead>
+						<tr>
+							<th>Social Media</th>
+							<th>Amount</th>
+							<th>Timestamp</th>
+							<th>Authorization Code</th>
+							<th>Response Code</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="transaction : ${dashboard.transactions}"
+							th:class="${transaction.responseCode == '00'} ? #{success} : #{danger}">
+							<td th:text="${transaction.socialMedia}" />
+							<td th:text="${transaction.amount}" />
+							<td th:text="${transaction.timestamp}" />
+							<td th:text="${transaction.authorizationCode}" />
+							<td th:text="${transaction.responseCode}" />
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div class="card-footer"
+				th:unless="${#lists.isEmpty(dashboard.transactions)}">
+				<p>
+					You see your last <span th:text="${dashboard.transactions.size()}" />
+					transactions above. For more, please visit <a href="/report">Reports</a>
+					page.
+				</p>
+			</div>
+		</div>
+	</div>
+
+	<th:block th:include="fragments/footer :: footer" />
+</body>
+</html>

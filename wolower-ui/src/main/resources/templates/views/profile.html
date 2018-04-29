@@ -1,7 +1,7 @@
 <html xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <head th:replace="fragments/commons :: head" />
-<body th:background="${header.backgroundImageUrl}">
+<body>
 
 	<th:block th:include="fragments/header :: header" />
 
@@ -38,7 +38,9 @@
 											th:href="${profile.user.profileUrl}"
 											th:text="${profile.user.profileUrl}" /> <br /> <i
 											class="fa fa-save" /> <span
-											th:text="${profile.user.timestamp}" />
+											th:text="${profile.user.timestamp}" /> <br /> <i
+											class="fa fa-money" /> <span
+											th:text="${profile.balance}" />
 									</p>
 									<a href="https://twitter.com/settings/applications"
 										class="btn btn-danger btn-lg"> <span

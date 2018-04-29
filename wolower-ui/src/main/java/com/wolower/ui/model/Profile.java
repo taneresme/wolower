@@ -14,4 +14,5 @@ public class Profile {
 	private Masterpass masterpass;
 	private String masterpassCheckoutId;
 	private User user;
+	private String balance;
 }

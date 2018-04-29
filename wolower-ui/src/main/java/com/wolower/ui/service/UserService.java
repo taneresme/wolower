@@ -32,6 +32,7 @@ public class UserService {
 		user.setAccessToken(accessToken.getValue());
 		user.setAccessSecret(accessToken.getSecret());
 		user.setImageUrl(profile.getProfileImageUrl());
+		user.setThumbnailUrl(profile.getThumbnailImageUrl());
 		user.setBackgroundImageUrl(profile.getBackgroundImageUrl());
 		user.setProfileBannerUrl(profile.getProfileBannerUrl());
 		user.setOauthToken(oauthToken);

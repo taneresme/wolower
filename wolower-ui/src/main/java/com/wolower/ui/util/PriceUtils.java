@@ -13,4 +13,8 @@ public class PriceUtils {
 		amountStr = amountStr.replace(".", "").replace(",", "");
 		return Long.valueOf(amountStr);
 	}
+
+	public static Double toDouble(Long price) {
+		return Double.valueOf(price / 100);
+	}
 }

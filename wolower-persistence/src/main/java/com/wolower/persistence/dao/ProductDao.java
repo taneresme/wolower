@@ -20,5 +20,5 @@ public interface ProductDao extends JpaRepository<Product, Integer> {
 
 	public Long countByUserIdAndSold(int userId, Boolean sold);
 
-	public List<Product> findAllBySoldAndUserId(Boolean sold, int userId);
+	public List<Product> findAllByUserId(int userId);
 }
