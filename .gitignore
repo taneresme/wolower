@@ -46,6 +46,5 @@ log/
 
 #Sensitive Configuration files
 app_config/
-wolower-db/
 db/
 confidential/
