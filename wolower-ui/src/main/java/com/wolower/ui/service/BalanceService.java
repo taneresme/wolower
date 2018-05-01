@@ -17,16 +17,25 @@ public class BalanceService {
 		this.balanceDao = balanceDao;
 	}
 
-	public String getBalance(User user) {
+	public String getBalanceString(User user) {
 		Balance balance = this.balanceDao.findOneByUserId(user.getId());
 		if (balance == null) {
 			return "0";
 		}
 		return String.format("%s %s", PriceUtils.toString(balance.getBalance()), balance.getCurrency());
 	}
+	
+	public Balance getBalance(User user) {
+		Balance balance = this.balanceDao.findOneByUserId(user.getId());
+		if (balance == null) {
+			balance = new Balance();
+		}
+		return balance;
+	}
+	
 
 	public void updateBalance(User user, Long amount) {
-		Balance balance = balanceDao.findOneByUserId(user.getId());
+		Balance balance = getBalance(user);
 		balance.setBalance(balance.getBalance() + amount);
 		balanceDao.save(balance);
 	}
