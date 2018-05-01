@@ -202,7 +202,6 @@
 	<th:block th:include="fragments/commons :: prompt-modal" />
 	<th:block th:include="fragments/footer :: footer" />
 
-	<!-- 	<script th:src="@{/js/views/profile.js}"></script> -->
 	<script th:inline="javascript">
 		/*<![CDATA[*/
 
@@ -212,6 +211,7 @@
 
 		/*]]>*/
 	</script>
+
 	<script type="text/javascript">
 	$(document).ready(function() {
 		/* Initialize modal */
@@ -278,12 +278,12 @@
 			var year = item.expiryYear;
 			var isDefault = item.default;
 			var cardId = item.cardId;
-			cardsHtml += card.format([ id, last4, brand, cardHolder, month,
-					year, isDefault, cardId ]);
+			cardsHtml += String.format(card, id, last4, brand, cardHolder, month,
+					year, isDefault, cardId);
 		});
 		$("#cards").html(cardsHtml);
 		
-		var address = ''';
+		var address = '';
 		address = '<div class="card bg-light">';
 		address += '<div class="card-body">';
 		address += '<div class="custom-control custom-radio">';
@@ -316,8 +316,8 @@
 			addressLine += " " + item.city;
 			addressLine += " " + item.postalCode;
 			
-			addressesHtml += address.format([ id, recipent, phone, line1, line2,
-				city, postal, isDefault, addressId, addressLine ]);
+			addressesHtml += String.format(address, id, recipent, phone, line1, line2,
+				city, postal, isDefault, addressId, addressLine);
 		});
 		$("#shipping-addresses").html(addressesHtml);
 
