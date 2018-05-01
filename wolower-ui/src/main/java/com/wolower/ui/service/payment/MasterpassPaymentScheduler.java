@@ -64,6 +64,7 @@ public class MasterpassPaymentScheduler {
 
 			/* Update order as paid */
 			order.setPaid(paymentSuccessful);
+			orderDao.save(order);
 
 			/* Set the product as sold */
 			Product product = this.productDao.findOne(order.getProductId());
