@@ -26,7 +26,7 @@ public class HeaderService {
 		this.header.setProfilePictureUrl(user.getThumbnailUrl());
 		this.header.setProfileBannerUrl(user.getProfileBannerUrl());
 		this.header.setBackgroundImageUrl(user.getBackgroundImageUrl());
-		this.header.setBalance(balanceService.getBalance(user));
+		this.header.setBalance(balanceService.getBalanceString(user));
 
 		try {
 			this.header.setName(this.header.getFullName().split(" ")[0]);

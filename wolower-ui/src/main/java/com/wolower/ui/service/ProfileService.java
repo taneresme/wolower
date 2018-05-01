@@ -28,7 +28,7 @@ public class ProfileService {
 		this.profile.setMasterpassCheckoutId(masterpass.getCheckoutId());
 		this.profile.setMasterpassPairingStatus(masterpass.masterpassPairingStatus());
 		this.profile.setMasterpass(masterpass.getMasterpass());
-		this.profile.setBalance(balance.getBalance(user));
+		this.profile.setBalance(balance.getBalanceString(user));
 
 		return this.profile;
 	}
