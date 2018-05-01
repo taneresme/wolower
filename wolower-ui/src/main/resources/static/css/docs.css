@@ -20,6 +20,7 @@ h2 {
 	text-align: center;
 	border-radius: 0;
 	padding-bottom: 80px;
+	background-image: -moz-linear-gradient(left, #26d6f9 0, #6a2dac 100%);
 	background-image: -webkit-linear-gradient(left, #26d6f9 0, #6a2dac 100%);
 	background-image: -o-linear-gradient(left, #26d6f9 0, #6a2dac 100%);
 	background-image: linear-gradient(to right, #26d6f9 0, #6a2dac 100%);
@@ -36,8 +37,8 @@ h2 {
 }
 
 .jumbotron iframe {
-	width: 100px !important;
-	height: 20px !important;
+	width: 100px;
+	height: 20px;
 	border: none;
 	overflow: hidden;
 	margin: 2px
@@ -121,6 +122,7 @@ footer {
 	text-align: center;
 	opacity: .8;
 	padding: 50px;
+	background-image: -moz-linear-gradient(left, #26d6f9 0, #6a2dac 100%);
 	background-image: -webkit-linear-gradient(left, #6a2dac 0, #26d6f9 100%);
 	background-image: -o-linear-gradient(left, #6a2dac 0, #26d6f9 100%);
 	background-image: linear-gradient(to right, #6a2dac 0, #26d6f9 100%);

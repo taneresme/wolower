@@ -12,15 +12,10 @@ import com.wolower.ui.social.SocialProfile;
 public class UserService {
 
 	private UserDao userDao;
-	private Boolean firstTime = false;
 
 	@Autowired
 	public UserService(UserDao userDao) {
 		this.userDao = userDao;
-	}
-
-	public Boolean getFirstTime() {
-		return firstTime;
 	}
 
 	public User saveUser(SocialProfile profile, String oauthToken, String oauthVerifier, OAuthToken accessToken) {
@@ -30,7 +25,6 @@ public class UserService {
 		/* If it does not exist */
 		if (user == null) {
 			user = new User();
-			firstTime = true;
 		}
 		user.setSocialMedia(profile.getSocialMedia());
 		user.setSocialUserName(socialUsername);
@@ -38,6 +32,7 @@ public class UserService {
 		user.setAccessToken(accessToken.getValue());
 		user.setAccessSecret(accessToken.getSecret());
 		user.setImageUrl(profile.getProfileImageUrl());
+		user.setThumbnailUrl(profile.getThumbnailImageUrl());
 		user.setBackgroundImageUrl(profile.getBackgroundImageUrl());
 		user.setProfileBannerUrl(profile.getProfileBannerUrl());
 		user.setOauthToken(oauthToken);

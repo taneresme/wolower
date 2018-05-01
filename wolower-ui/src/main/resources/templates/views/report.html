@@ -1,7 +1,7 @@
 <html xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <head th:replace="fragments/commons :: head" />
-<body th:background="${header.backgroundImageUrl}">
+<body>
 	<th:block th:include="fragments/header :: header" />
 
 	<div class="container" style="margin-bottom: 150px; margin-top: 90px;">
@@ -33,16 +33,22 @@
 									<tr>
 										<th>Date</th>
 										<th>Social Media</th>
+										<th>Post</th>
 										<th>Price</th>
 										<th>Sold</th>
+										<th>Details</th>
 									</tr>
 								</thead>
 								<tbody>
 									<tr th:each="product : ${report.products}">
 										<td th:text="${product.timestamp}" />
 										<td th:text="${product.socialMedia}" />
+										<td th:text="${product.postText}" />
 										<td th:text="${product.price}" />
 										<td th:text="${product.sold}" />
+										<td><a th:href="${product.link}" target="blank"> <i
+												class="fa fa-external-link"></i> Details
+										</a></td>
 									</tr>
 								</tbody>
 							</table>
@@ -54,16 +60,20 @@
 									<tr>
 										<th>Date</th>
 										<th>Social Media</th>
+										<th>Post</th>
 										<th>Price</th>
-										<th>User Ordered</th>
+										<th>Details</th>
 									</tr>
 								</thead>
 								<tbody>
 									<tr th:each="order : ${report.orders}">
 										<td th:text="${order.timestamp}" />
 										<td th:text="${order.socialMedia}" />
+										<td th:text="${order.postText}" />
 										<td th:text="${order.price}" />
-										<td th:text="${order.socialUserName}" />
+										<td><a th:href="${order.link}" target="blank"> <i
+												class="fa fa-external-link"></i> Details
+										</a></td>
 									</tr>
 								</tbody>
 							</table>

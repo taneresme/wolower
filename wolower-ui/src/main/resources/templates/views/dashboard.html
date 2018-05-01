@@ -1,10 +1,10 @@
 <html xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <head th:replace="fragments/commons :: head" />
-<body th:background="${header.backgroundImageUrl}">
+<body>
 	<th:block th:include="fragments/header :: header" />
 
-	<div class="container" style="margin-bottom:150px; margin-top:90px;">
+	<div class="container" style="margin-bottom: 150px; margin-top: 90px;">
 
 		<div class="card-deck mb-4">
 			<div class="card border-dark text-center">
@@ -15,23 +15,23 @@
 				</div>
 			</div>
 			<div class="card border-dark text-center">
-				<p class="card-header h4">Total Transactions</p>
+				<p class="card-header h4">Total Orders</p>
 				<div class="card-body">
-					<p class="display-3" th:text="${dashboard.totalTransactions}" />
+					<p class="display-3" th:text="${dashboard.totalOrders}" />
 					<span class="text-muted"> pieces</span>
 				</div>
 			</div>
 			<div class="card border-dark text-center">
 				<p class="card-header h4">Total Purchase</p>
 				<div class="card-body">
-					<p class="display-3"
-						th:text="${#numbers.formatDecimal(dashboard.totalPurchase,1,2)}" />
+					<p class="display-3" th:text="${dashboard.totalPurchase}" />
 					<span class="text-muted"> USD</span>
 				</div>
 			</div>
 		</div>
 
-		<div class="alert alert-success mb-4" role="alert" th:if="${firstTime}">
+		<div class="alert alert-success mb-4" role="alert"
+			th:if="${firstTime}">
 			<h4 class="alert-heading">Thank you!</h4>
 			<p class="lead">Yes, we know that this is your first time :).
 				Hmmm, are you a little concerned? Do not worry my friend!</p>
@@ -75,13 +75,15 @@
 			<div class="card-header">
 				<h1>Your transactions</h1>
 			</div>
-			<div class="card-body" th:if="${#lists.isEmpty(dashboard.transactions)}">
+			<div class="card-body"
+				th:if="${#lists.isEmpty(dashboard.transactions)}">
 				<div class="alert alert-danger" role="alert">
 					<strong th:text="${dashboard.name}" />, we could not find any
 					transactions. Do you need help?
 				</div>
 			</div>
-			<div class="card-body" th:if="${#lists.isEmpty(dashboard.transactions)}">
+			<div class="card-body"
+				th:unless="${#lists.isEmpty(dashboard.transactions)}">
 				<table class="table">
 					<thead>
 						<tr>
@@ -93,29 +95,8 @@
 						</tr>
 					</thead>
 					<tbody>
-						<tr>
-							<th>Social Media</th>
-							<th>Amount</th>
-							<th>Timestamp</th>
-							<th>Authorization Code</th>
-							<th>Response Code</th>
-						</tr>
-							<tr>
-							<th>Social Media</th>
-							<th>Amount</th>
-							<th>Timestamp</th>
-							<th>Authorization Code</th>
-							<th>Response Code</th>
-						</tr>
-							<tr>
-							<th>Social Media</th>
-							<th>Amount</th>
-							<th>Timestamp</th>
-							<th>Authorization Code</th>
-							<th>Response Code</th>
-						</tr>
 						<tr th:each="transaction : ${dashboard.transactions}"
-							th:class="${transaction.responseCode == '00'}? #{success} : #{danger}">
+							th:class="${transaction.responseCode == '00'} ? #{success} : #{danger}">
 							<td th:text="${transaction.socialMedia}" />
 							<td th:text="${transaction.amount}" />
 							<td th:text="${transaction.timestamp}" />
@@ -125,10 +106,11 @@
 					</tbody>
 				</table>
 			</div>
-			<div class="card-footer" th:unless="${#lists.isEmpty(dashboard.transactions)}">
+			<div class="card-footer"
+				th:unless="${#lists.isEmpty(dashboard.transactions)}">
 				<p>
-					You see your last <span th:text="${transactions.size()}" />
-					transactions above. For more, please visit <a href="/reports">Reports</a>
+					You see your last <span th:text="${dashboard.transactions.size()}" />
+					transactions above. For more, please visit <a href="/report">Reports</a>
 					page.
 				</p>
 			</div>
@@ -136,6 +118,14 @@
 	</div>
 
 	<th:block th:include="fragments/footer :: footer" />
+
+	<script>
+		$(document).ready(function() {
+			$('#tbl-products').DataTable();
+			$('#tbl-orders').DataTable();
+			$('#tbl-transactions').DataTable();
+		});
+	</script>
 
 </body>
 </html>

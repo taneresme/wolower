@@ -46,6 +46,9 @@ public class User {
 	@Column(name = "imageUrl")
 	private String imageUrl;
 
+	@Column(name = "thumbnailUrl")
+	private String thumbnailUrl;
+	
 	@Column(name = "backgroundImageUrl")
 	private String backgroundImageUrl;
 

@@ -1,5 +1,7 @@
 package com.wolower.ui.service;
 
+import java.time.LocalDateTime;
+
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
@@ -25,4 +27,11 @@ public class SessionService {
 		return (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 	}
 
+	public void logout() {
+		SecurityContextHolder.clearContext();
+	}
+	
+	public Boolean getFirstTime() {
+		return user().getTimestamp().plusDays((long)1).isAfter(LocalDateTime.now());
+	}
 }

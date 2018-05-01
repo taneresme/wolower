@@ -1,0 +1,2 @@
+wolower.bot
+wolower.social.payment

@@ -13,7 +13,9 @@ import com.wolower.persistence.model.Order;
 import com.wolower.persistence.model.Product;
 import com.wolower.persistence.model.Transaction;
 import com.wolower.ui.model.Report;
+import com.wolower.ui.model.Report.OrderModel;
 import com.wolower.ui.model.Report.ProductModel;
+import com.wolower.ui.model.Report.TransactionModel;
 
 @SessionScope
 @Service
@@ -35,7 +37,7 @@ public class ReportService {
 		Report report = new Report();
 		int userId = sessionService.user().getId();
 
-		List<Product> products = productDao.findAllBySoldAndUserId(false, userId);
+		List<Product> products = productDao.findAllByUserId(userId);
 		List<ProductModel> productModels = new ArrayList<>();
 		for (Product product : products) {
 			productModels.add(new ProductModel(product));
@@ -43,10 +45,18 @@ public class ReportService {
 		report.setProducts(productModels);
 
 		List<Order> orders = orderDao.findAllByUserId(userId);
-		report.setOrders(orders);
+		List<OrderModel> orderModels = new ArrayList<>();
+		for (Order order : orders) {
+			orderModels.add(new OrderModel(order));
+		}
+		report.setOrders(orderModels);
 
 		List<Transaction> transactions = transactionDao.findAllByUserId(userId);
-		report.setTransactions(transactions);
+		List<TransactionModel> transactionModels = new ArrayList<>();
+		for (Transaction transaction : transactions) {
+			transactionModels.add(new TransactionModel(transaction));
+		}
+		report.setTransactions(transactionModels);
 
 		return report;
 	}

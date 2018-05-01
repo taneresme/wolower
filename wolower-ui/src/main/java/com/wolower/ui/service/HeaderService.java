@@ -1,7 +1,6 @@
 package com.wolower.ui.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.context.annotation.SessionScope;
 
@@ -13,21 +12,21 @@ import com.wolower.ui.model.Header;
 public class HeaderService {
 	private Header header = new Header();
 	private SessionService session;
+	private BalanceService balanceService;
 
 	@Autowired
-	public HeaderService(SessionService session) {
+	public HeaderService(SessionService session, BalanceService balanceService) {
 		this.session = session;
+		this.balanceService = balanceService;
 	}
 
 	public Header getHeader() {
-		if (SecurityContextHolder.getContext() == null)
-			return this.header;
-
 		User user = session.user();
 		this.header.setFullName(user.getDisplayName());
-		this.header.setProfilePictureUrl(user.getImageUrl());
+		this.header.setProfilePictureUrl(user.getThumbnailUrl());
 		this.header.setProfileBannerUrl(user.getProfileBannerUrl());
 		this.header.setBackgroundImageUrl(user.getBackgroundImageUrl());
+		this.header.setBalance(balanceService.getBalance(user));
 
 		try {
 			this.header.setName(this.header.getFullName().split(" ")[0]);
@@ -37,5 +36,4 @@ public class HeaderService {
 
 		return this.header;
 	}
-
 }

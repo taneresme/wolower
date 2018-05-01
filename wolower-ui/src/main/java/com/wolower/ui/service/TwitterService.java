@@ -5,6 +5,7 @@ import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,7 @@ import org.springframework.stereotype.Service;
 import com.wolower.persistence.dao.UserDao;
 import com.wolower.persistence.model.User;
 import com.wolower.ui.contract.SocialService;
+import com.wolower.ui.service.payment.MasterpassService;
 import com.wolower.ui.social.SocialPost;
 import com.wolower.ui.util.Extractor;
 
@@ -28,13 +30,15 @@ public class TwitterService implements SocialService {
 
 	private Twitter twitter;
 	private UserDao userDao;
+	private MasterpassService masterpass;
 
 	private Long lastPostId = (long) 0;
 
 	@Autowired
-	public TwitterService(Twitter twitter, UserDao userDao) {
+	public TwitterService(Twitter twitter, UserDao userDao, MasterpassService masterpass) {
 		this.twitter = twitter;
 		this.userDao = userDao;
+		this.masterpass = masterpass;
 	}
 
 	private Boolean checkTweet(Tweet tweet) {
@@ -58,6 +62,15 @@ public class TwitterService implements SocialService {
 					"I cannot extract the price from your tweet. Please type your price like $25.50");
 			return false;
 		}
+
+		/* If this is an order, then check the masterpass pairing */
+		if (tweet.getInReplyToStatusId() != null && masterpass.getMasterpass(user) == null) {
+			reply(tweet.getFromUser(), Long.valueOf(tweet.getId()), String.format(
+					"Hi %s, no payment method identified for your profile, you can do it by visiting your profile in the wolower!",
+					tweet.getUser().getScreenName()));
+			return false;
+		}
+
 		return true;
 	}
 
@@ -94,7 +107,8 @@ public class TwitterService implements SocialService {
 						posts.add(newPost(tweet));
 					}
 				} catch (Throwable ex) {
-					logger.error(String.format("PostId: %s Exception: %s", tweet.getId(), ex.toString()));
+					logger.error(
+							String.format("PostId: %s Exception: %s", tweet.getId(), ExceptionUtils.getStackTrace(ex)));
 				}
 			}
 
@@ -104,7 +118,7 @@ public class TwitterService implements SocialService {
 			}
 
 		} catch (Throwable ex) {
-			logger.error(ex.toString());
+			logger.error(ExceptionUtils.getStackTrace(ex));
 		}
 		return posts;
 	}

@@ -1,0 +1,403 @@
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head th:replace="fragments/commons :: head" />
+<body>
+
+	<th:block th:include="fragments/header :: header" />
+
+	<div class="container" style="margin-bottom: 150px; margin-top: 90px;">
+		<div class="card bg-light mb-4">
+			<div class="card-body">
+				<div class="row">
+					<nav class="col-md-3 hidden-xs-down bg-faded sidebar mb-4">
+						<ul class="nav nav-pills flex-column">
+							<li class="nav-item"><a id="personal-information"
+								class="nav-link active" data-toggle="tab"
+								href="#personal-information-tab" role="tab">Personal
+									Information</a></li>
+							<li class="nav-item"><a id="payment-method" class="nav-link"
+								data-toggle="tab" href="#payment-method-tab" role="tab">Payment
+									Method</a></li>
+						</ul>
+					</nav>
+
+					<!-- panes -->
+					<div id="tabs" class="tab-content col-md-9">
+						<div class="tab-pane active show" id="personal-information-tab"
+							role="tabpanel">
+
+							<div class="row">
+								<div class="col-sm-6 col-md-4">
+									<img th:src="${profile.user.imageUrl}"
+										class="rounded float-left" width="200" height="200" />
+								</div>
+								<div class="col-sm-6 col-md-8">
+									<h4 th:text="${profile.user.displayName}" />
+									<p>
+										<br /> <i class="fa fa-twitter" /> <a
+											th:href="${profile.user.profileUrl}"
+											th:text="${profile.user.profileUrl}" /> <br /> <i
+											class="fa fa-save" /> <span
+											th:text="${profile.user.timestamp}" /> <br /> <i
+											class="fa fa-money" /> <span th:text="${profile.balance}" />
+									</p>
+									<a href="https://twitter.com/settings/applications"
+										class="btn btn-danger btn-lg"> <span
+										class="fa fa-sign-out"></span> <b>Sign me out</b>
+									</a>
+								</div>
+							</div>
+						</div>
+						<div class="tab-pane" id="payment-method-tab" role="tabpanel">
+
+							<div
+								th:if="${profile.masterpassPairingStatus.name() == 'COMPLETED'}">
+								<div class="row">
+									<div class="alert alert-success mb-4" role="alert">
+										<h4 class="alert-heading">
+											<i class="fa fa-check" style="font-size: 2em;"> </i> <span>Your
+												Masterpass account has been paired!</span>
+										</h4>
+									</div>
+
+								</div>
+								<p class="lead">
+									Payment Method: Masterpass <br /> Payment Card: Card ending in
+									<span th:text="${profile.masterpass.defaultCardLast4}" /> <br />
+									Shipping Address: <span
+										th:text="${profile.masterpass.defaultShippingAddresss}" />
+								</p>
+								<p>
+									<strong></strong>
+								</p>
+								<button type="button" class="btn btn-primary btn-lg"
+									data-toggle="modal"
+									data-target="#modal-card-and-ahipping-address"
+									onclick="getMasterpassPrecheckout()">
+									<i class="fa fa-edit"></i> Change
+								</button>
+								<button type="button" class="btn btn-danger btn-lg"
+									data-toggle="modal" data-target="#modal-prompt">
+									<i class="fa fa-remove"></i> Remove Pairing
+								</button>
+							</div>
+							<div
+								th:if="${profile.masterpassPairingStatus.name() == 'PRECHECKOUT_PENDING'}">
+								<div class="row">
+									<div class="alert alert-warning mb-4" role="alert">
+										<h4 class="alert-heading">
+											<i class="fa fa-spinner" style="font-size: 2em;"> </i> Your
+											Masterpass account pairing in progress!
+										</h4>
+									</div>
+
+									<p class="lead">You have to choose your default card and
+										shipping address. To make your choices, please click the
+										button below</p>
+									<button type="button" class="btn btn-primary btn-lg"
+										data-toggle="modal"
+										data-target="#modal-card-and-ahipping-address"
+										onclick="getMasterpassPrecheckout()">
+										<i class="fa fa-cog"></i> Continue
+									</button>
+								</div>
+							</div>
+							<div th:if="${profile.masterpassPairingStatus.name() == 'NONE'}">
+								<div class="row">
+									<div class="alert alert-danger mb-4" role="alert">
+										<h4 class="alert-heading">
+											<i class="fa fa-close" style="font-size: 2em;"> </i> <span>Your
+												Masterpass account has not been paired!</span>
+										</h4>
+									</div>
+									<p class="lead">If you want to make payment via wolower,
+										you have to pair the wolower with your Masterpass account. To
+										pair it, please click the button below</p>
+									<p>
+									<div>
+										<img onclick="{ pair() }"
+											src="https://static.masterpass.com/dyn/img/btn/global/mp_chk_btn_147x034px.svg" />
+										<mark>
+											<span style="color: red;">ATTENTION!, You will be
+												redirecting to Masterpass <strong>TEST</strong> Environment!
+											</span>
+										</mark>
+									</div>
+									</p>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- End of tabs -->
+				</div>
+				<!-- End of row -->
+			</div>
+			<!-- End of card body -->
+		</div>
+		<!-- End of card -->
+	</div>
+	<!-- End of container -->
+
+	<!-- Modal -->
+	<div class="modal fade" id="modal-card-and-ahipping-address"
+		tabindex="-1" role="dialog"
+		aria-labelledby="cardAndShippingAddressLabel" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered  modal-lg"
+			role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="cardAndShippingAddressLabel">Select
+						card and shipping address</h5>
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<div class="d-block" id="modal-loading">
+						<th:block th:include="fragments/commons :: loading" />
+					</div>
+					<div class="d-none" id="modal-error">
+						<div class="alert alert-danger" role="alert">
+							<h4 class="alert-heading">
+								<i class="fa fa-close" style="font-size: 2em;"> </i> <span
+									id="modal-error-message"></span>
+							</h4>
+						</div>
+					</div>
+					<div class="d-none" id="save-changes-error">
+						<div class="alert alert-danger alert-dismissible fade show"
+							role="alert">
+							<strong>Failed!</strong> <span></span>
+							<button type="button" class="close" data-dismiss="alert"
+								aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+						</div>
+					</div>
+					<div class="d-none" id="modal-success">
+						<h5>Your cards</h5>
+						<hr />
+						<div class="card-deck mb-4" id="cards"></div>
+						<h5>Your addresses</h5>
+						<hr />
+						<div class="card-deck mb-4" id="shipping-addresses"></div>
+					</div>
+					<div class="modal-footer d-none" id="modal-footer">
+						<button type="button" class="btn btn-secondary"
+							data-dismiss="modal">
+							<i class="fa fa-close"></i> Close
+						</button>
+						<button type="button" class="btn btn-primary"
+							onclick="saveChanges()">
+							<i class="fa fa-check"></i> Save Details
+						</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- End of modal -->
+
+	<th:block th:include="fragments/commons :: prompt-modal" />
+	<th:block th:include="fragments/footer :: footer" />
+
+	<script th:inline="javascript">
+		/*<![CDATA[*/
+
+		var checkoutId = /*[[${profile.masterpassCheckoutId}]]*/'default';
+		var userId = /*[[${#strings.toString(profile.user.id)}]]*/'default';
+		var precheckoutLoaded = false;
+
+		/*]]>*/
+	</script>
+
+	<script type="text/javascript">
+	$(document).ready(function() {
+		/* Initialize modal */
+		$("#modal-prompt-model-message").text("Are you sure to remove Masterpass pairing?");
+		
+		
+		var uri = URI(window.location);
+		if (uri.query() != null) {
+			var tab = URI.parseQuery(uri.query()).tab;
+			$("#" + tab).trigger("click");
+		}
+	});
+
+	function pair() {
+		masterpass.pair({
+			"checkoutId" : checkoutId, // This is a unique, 32-character
+										// alphanumeric identifier generated
+										// by Masterpass, which identifies
+										// your settings during a checkout.
+										// You can find this value in your
+										// Mastercard Developers account.
+			"userId" : userId
+		// The unique consumer user identifier from the Merchant site.
+		});
+	}
+
+	function show(id){
+		/* Invisible all */
+		$("#modal-loading").removeClass("d-block").addClass("d-none");
+		$("#modal-success").removeClass("d-block").addClass("d-none");
+		$("#modal-error").removeClass("d-block").addClass("d-none");
+		$("#save-changes-error").removeClass("d-block").addClass("d-none");
+		$("#modal-footer").removeClass("d-block").addClass("d-none");
+		
+		/* Visible */
+		$(id).removeClass("d-none").addClass("d-block");
+		if (id == "#modal-success"){
+			$("#modal-footer").removeClass("d-none").addClass("d-block");
+		}
+	}
+
+	function precheckoutSuccess(data) {
+		console.log("Response : ", JSON.stringify(data));
+
+		var card = '';
+		card = '<div class="card bg-light">';
+		card += '<div class="card-body">';
+		card += '<div class="custom-control custom-radio">';
+		card += '<input type="radio" name="radio-card" class="custom-control-input" id="{0}" checked="{6}">';
+		card += '<label class="custom-control-label" for="{0}">';
+		card += '<h5 class="card-title">Card ending in <span id="{0}-masterpass-card-last4">{1}</span></h5>';
+		card += '<p class="card-text">{2} issued to {3} untill {4}. month of {5}</p>';
+		card += '<span class="d-none" id="{0}-masterpass-card-id">{7}</span>';
+		card += '</label></input></div></div></div>';
+		var cardsHtml = "";
+
+		/* populate cards */
+		data.cards.forEach(function(item) {
+			var id = item.cardId;
+			var last4 = item.lastFour;
+			var brand = item.brandName;
+			var cardHolder = item.cardHolderName;
+			var month = item.expiryMonth;
+			var year = item.expiryYear;
+			var isDefault = item.default;
+			var cardId = item.cardId;
+			cardsHtml += String.format(card, id, last4, brand, cardHolder, month,
+					year, isDefault, cardId);
+		});
+		$("#cards").html(cardsHtml);
+		
+		var address = '';
+		address = '<div class="card bg-light">';
+		address += '<div class="card-body">';
+		address += '<div class="custom-control custom-radio">';
+		address += '<input type="radio" name="radio-address" class="custom-control-input" id="{0}" checked="{7}">';
+		address += '<label class="custom-control-label" for="{0}">';
+		address += '<h5 class="card-title" id="{0}-masterpass-recipient-name">{1}</h5>';
+		address += '<p class="card-text">{3}<br />{4}{5}, {6}<br /><span id="{0}-masterpass-recipient-phone">{2}</span></p>';
+		address += '<span class="d-none" id="{0}-masterpass-address-id">{8}</span>';
+		address += '<span class="d-none" id="{0}-masterpass-address">{9}</span>';
+		address += '</label></input></div></div></div>';
+		var addressesHtml = "";
+
+		/* populate shipping addresses */
+		data.shippingAddresses.forEach(function(item) {
+			var id = item.addressId;
+			var recipent = item.recipientInfo.recipientName;
+			var phone = item.recipientInfo.recipientPhone;
+			var line1 = item.line1;
+			var line2 = item.line2 == null ? "" : item.line2 + "<br />";
+			var city = item.city;
+			var postal = item.postalCode;
+			var isDefault = item.default;
+			var addressId = item.addressId;
+			
+			var addressLine = "";
+			addressLine += item.line1;
+			if (item.line2 != null) {
+				addressLine += " " + item.line2;
+			}
+			addressLine += " " + item.city;
+			addressLine += " " + item.postalCode;
+			
+			addressesHtml += String.format(address, id, recipent, phone, line1, line2,
+				city, postal, isDefault, addressId, addressLine);
+		});
+		$("#shipping-addresses").html(addressesHtml);
+
+		/* Visible only success */
+		show("#modal-success");
+		precheckoutLoaded = true;
+	}
+
+	function error(e) {
+		show("#modal-error");
+		precheckoutLoaded = false;
+	}
+
+	function getMasterpassPrecheckout() {
+		if (precheckoutLoaded) {
+			return;
+		}
+		show("#modal-loading");
+		
+		/* Error message setting */
+		$("#modal-error-message").html("We cannot fetch your card details!");
+		
+		var request = {};
+		$.ajax({
+			type : "POST",
+			contentType : "application/json",
+			url : "/masterpass/precheckout",
+			data : JSON.stringify(request),
+			dataType : "json",
+			cache : false,
+			timeout : 30000,
+			success : precheckoutSuccess,
+			error : error
+		});
+	}
+
+	function saveChangesSuccess(){
+		$("#modal-card-and-ahipping-address").modal("hide");
+		location.reload();
+	}
+
+	function saveChanges(){
+		show("#modal-loading");
+		
+		var selectedCardId = $("input[name=radio-card]:checked")[0].id;
+		var selectedAddressId = $("input[name=radio-address]:checked")[0].id;
+		
+		console.log("#" + selectedAddressId + "-masterpass-recipient-name");
+		console.log("#" + selectedCardId + "-masterpass-recipient-name");
+		
+		var request = {
+				recipientName: $("#" + selectedAddressId + "-masterpass-recipient-name").html(),
+				recipientPhone: $("#" + selectedAddressId + "-masterpass-recipient-phone").html(),
+				cardId: $("#" + selectedCardId + "-masterpass-card-id").html(),
+				cardLast4: $("#" + selectedCardId + "-masterpass-card-last4").html(),
+				addressId: $("#" + selectedAddressId + "-masterpass-address-id").html(),
+				address: $("#" + selectedAddressId + "-masterpass-address").html()
+		};
+		
+		console.log(request);
+		
+		/* Error message setting */
+		$("#modal-error-message").html("We cannot perform your operation!");
+		
+		$.ajax({
+			type : "POST",
+			contentType : "application/json",
+			url : "/masterpass/save-precheckout",
+			data : JSON.stringify(request),
+			dataType : 'json',
+			cache : false,
+			timeout : 30000,
+			success : saveChangesSuccess,
+			error : error
+		});
+	}
+
+	function promptModalYesButtonClicked(){
+		window.location.href="/masterpass/remove-pairing";	
+	}
+	</script>
+</body>
+</html>

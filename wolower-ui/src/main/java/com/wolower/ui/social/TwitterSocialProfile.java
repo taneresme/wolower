@@ -38,9 +38,14 @@ public class TwitterSocialProfile implements SocialProfile {
 
 	@Override
 	public String getProfileImageUrl() {
-		return profile.getProfileImageUrl();
+		return profile.getProfileImageUrl().replace("_normal", "");
 	}
 
+	@Override
+	public String getThumbnailImageUrl() {
+		return profile.getProfileImageUrl();
+	}
+	
 	@Override
 	public String getProfileUrl() {
 		return profile.getProfileUrl();

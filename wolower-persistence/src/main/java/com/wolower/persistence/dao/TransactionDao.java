@@ -6,6 +6,7 @@ import javax.transaction.Transactional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import com.wolower.persistence.model.Transaction;
@@ -15,10 +16,10 @@ import com.wolower.persistence.model.Transaction;
 public interface TransactionDao extends JpaRepository<Transaction, Integer> {
 	public Long countByUserId(int userId);
 
-	@Query(value = "SELECT SUM(t.amount) as total FROM Transaction t", nativeQuery = true)
-	public Long totalPurchaseByUserId(int userId);
+	@Query(value = "SELECT SUM(t.amount) as total FROM Transaction t where t.userId = :userId")
+	public Long totalPurchaseByUserId(@Param("userId") int userId);
 
-	public List<Transaction> findTop20ByUserId(int userId);
+	public List<Transaction> findTop5ByUserId(int userId);
 	
 	public List<Transaction> findAllByUserId(int userId);
 }

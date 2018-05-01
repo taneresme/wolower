@@ -11,4 +11,5 @@ public class Header {
 	private String profilePictureUrl;
 	private String profileBannerUrl;
 	private String backgroundImageUrl;
+	private String balance;
 }

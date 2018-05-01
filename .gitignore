@@ -47,3 +47,4 @@ log/
 #Sensitive Configuration files
 app_config/
 db/
+confidential/

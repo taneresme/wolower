@@ -50,10 +50,10 @@ public class TwitterPostScheduler {
 		/* Get last post ID processed by the wolower */
 		Parameter lastPostIdParameter = parameterDao
 				.findOneByParameterKey(ParameterKeys.TWITTER_LAST_PROCESSED_POST_ID.toString());
-		Long lastPostId = (long) 0;
-		if (lastPostIdParameter != null) {
-			lastPostId = Long.valueOf(lastPostIdParameter.getParameterValue());
+		if (lastPostIdParameter == null) {
+			lastPostIdParameter = new Parameter(ParameterKeys.TWITTER_LAST_PROCESSED_POST_ID.toString(), "0");
 		}
+		Long lastPostId = Long.valueOf(lastPostIdParameter.getParameterValue());
 
 		/* gets last 30 mentions */
 		List<SocialPost> posts = socialService.getWoows(lastPostId);

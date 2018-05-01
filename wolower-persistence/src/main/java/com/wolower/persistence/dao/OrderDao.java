@@ -21,4 +21,6 @@ public interface OrderDao extends JpaRepository<Order, Integer> {
 	public Long countByUserId(int userId);
 
 	public List<Order> findAllByUserId(int userId);
+
+	public List<Order> findAllByPaid(Boolean paid);
 }

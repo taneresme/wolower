@@ -36,12 +36,20 @@ public class Transaction {
 	private int masterpassId;
 
 	@NotNull
-	@Column(name = "masterpassPairingId")
-	private int masterpassPairingId;
+	@Column(name = "pairingId")
+	private String pairingId;
+
+	@NotNull
+	@Column(name = "transactionId")
+	private String transactionId;
 
 	@NotNull
 	@Column(name = "authorizationCode")
 	private String authorizationCode;
+
+	@NotNull
+	@Column(name = "responseCode")
+	private String responseCode;
 
 	@NotNull
 	@Column(name = "socialPostId")
@@ -63,14 +71,13 @@ public class Transaction {
 	@Column(name = "currency")
 	private String currency;
 
-	@Column(name = "postId")
-	private Long postId;
+	@NotNull
+	@Column(name = "PAN")
+	private String PAN;
 
-	@Column(name = "postDate")
-	private LocalDateTime postDate;
-
-	@Column(name = "postText")
-	private String postText;
+	@NotNull
+	@Column(name = "shippingAddress")
+	private String shippingAddress;
 
 	@NotNull
 	@Column(name = "timestamp")
