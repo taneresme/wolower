@@ -73,8 +73,6 @@ public class SigninController {
 		} catch (Exception ex) {
 			LOGGER.error(ExceptionUtils.getStackTrace(ex));
 		}
-		// sessionService.logout();
-
-		return "redirect:/";
+		return "";
 	}
 }
