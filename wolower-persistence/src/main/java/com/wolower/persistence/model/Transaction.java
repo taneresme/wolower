@@ -86,4 +86,10 @@ public class Transaction {
 	public Transaction() {
 		this.timestamp = LocalDateTime.now();
 	}
+
+	public Transaction(@NotNull Long amount, @NotNull String currency) {
+		this.amount = amount;
+		this.currency = currency;
+		this.timestamp = LocalDateTime.now();
+	}
 }

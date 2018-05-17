@@ -72,4 +72,10 @@ public class Product {
 		this.sold = false;
 	}
 
+	public Product(@NotNull Long price, @NotNull String currency) {
+		this.timestamp = LocalDateTime.now();
+		this.sold = false;
+		this.price = price;
+		this.currency = currency;
+	}
 }

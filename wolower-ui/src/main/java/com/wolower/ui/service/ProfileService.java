@@ -22,6 +22,10 @@ public class ProfileService {
 		this.balance = balance;
 	}
 
+	void setProfile(Profile profile){
+		this.profile = profile;
+	}
+
 	public Profile getProfile() {
 		User user = session.user();
 		this.profile.setUser(user);

@@ -25,8 +25,8 @@ import com.wolower.ui.util.Extractor;
 public class TwitterService implements SocialService {
 	private Logger logger = LoggerFactory.getLogger(TwitterService.class);
 
-	private static String SOCIAL_MEDIA = "TWITTER";
-	private static String USER_NAME = "wolower_payment";
+	public static String SOCIAL_MEDIA = "TWITTER";
+	public static String USER_NAME = "wolower_payment";
 
 	private Twitter twitter;
 	private UserDao userDao;
@@ -41,7 +41,7 @@ public class TwitterService implements SocialService {
 		this.masterpass = masterpass;
 	}
 
-	private Boolean checkTweet(Tweet tweet) {
+	public Boolean checkTweet(Tweet tweet) {
 		/* Whether the user is registered or not */
 		User user = userDao.findOneBySocialMediaAndSocialUserName(SOCIAL_MEDIA, tweet.getFromUser());
 		if (user == null) {
@@ -74,7 +74,7 @@ public class TwitterService implements SocialService {
 		return true;
 	}
 
-	private SocialPost newPost(Tweet tweet) {
+	SocialPost newPost(Tweet tweet) {
 		SocialPost post = new SocialPost();
 		post.setAmount(Extractor.extractPrice(tweet.getText()));
 		post.setCurrency("USD");

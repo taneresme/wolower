@@ -38,7 +38,6 @@ public class UserService {
 		user.setOauthToken(oauthToken);
 		user.setOauthVerifier(oauthVerifier);
 		user.setProfileUrl(profile.getProfileUrl());
-		user.setSocialMedia(profile.getSocialMedia());
 		user.setSocialUserId(profile.getSocialId());
 		user.setEnabled(true);
 		return userDao.save(user);

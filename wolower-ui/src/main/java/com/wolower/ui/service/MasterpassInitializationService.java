@@ -34,11 +34,15 @@ public class MasterpassInitializationService {
 
 	@Autowired
 	public MasterpassInitializationService(MasterpassConfig config, MasterpassService masterpassService,
-			SessionService session, MasterpassDao masterpassDao) {
+										   SessionService session, MasterpassDao masterpassDao) {
 		this.config = config;
 		this.masterpassService = masterpassService;
 		this.session = session;
 		this.masterpassDao = masterpassDao;
+	}
+
+	void setMasterpass(Masterpass masterpass){
+		this.masterpass = masterpass;
 	}
 
 	public String getCheckoutId() {
@@ -47,7 +51,7 @@ public class MasterpassInitializationService {
 
 	public void initMasterpass(Pairing pairing, String oauthToken, String pairingVerifier, String pairingToken,
 			String mpstatus) {
-		this.masterpass = getMasterpass() == null ? new Masterpass() : this.masterpass;
+		this.masterpass = getMasterpass() == null ? new Masterpass() : getMasterpass();
 		this.masterpass.setUserId(session.user().getId());
 		this.masterpass.setMpStatus(mpstatus);
 		this.masterpass.setOauthToken(oauthToken);
