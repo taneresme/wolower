@@ -45,7 +45,7 @@ public class MasterpassPaymentSchedulerTest {
 	private MasterpassPaymentScheduler service;
 
 	@Test
-	public void testPayment_WithNoOrder(){
+	public void testPaymentWithNoOrder(){
 		List<Order> orders = new ArrayList<>();
 
 		doReturn(orders).when(orderDao).findAllByPaid(any());
@@ -63,7 +63,7 @@ public class MasterpassPaymentSchedulerTest {
 	}
 
 	@Test
-	public void testPayment_WithOrders(){
+	public void testPaymentWithOrders(){
 		Order order = mock(Order.class);
 		List<Order> orders = new ArrayList<>();
 		orders.add(order);

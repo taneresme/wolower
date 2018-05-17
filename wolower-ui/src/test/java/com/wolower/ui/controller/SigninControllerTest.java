@@ -44,7 +44,7 @@ public class SigninControllerTest {
 	}
 
 	@Test
-	public void testTwitterCallback_Denied(){
+	public void testTwitterCallbackDenied(){
 		Model model = mock(Model.class);
 		String oauthToken = "";
 		String oauthVerifier = "oauthVerifier";
@@ -59,7 +59,7 @@ public class SigninControllerTest {
 	}
 
 	@Test
-	public void testTwitterCallback_NotDenied(){
+	public void testTwitterCallbackNotDenied(){
 		Model model = mock(Model.class);
 		String oauthToken = "oauthToken";
 		String oauthVerifier = "oauthVerifier";

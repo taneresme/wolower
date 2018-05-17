@@ -22,7 +22,7 @@ public class ProfileService {
 		this.balance = balance;
 	}
 
-	void setProfile(Profile profile){
+	public void setProfile(Profile profile){
 		this.profile = profile;
 	}
 

@@ -41,7 +41,7 @@ public class TwitterPostSchedulerTest {
 	private TwitterPostScheduler service;
 
 	@Test
-	public void testReadPosts_WithNoWoow(){
+	public void testReadPostsWithNoWoow(){
 		Long id = 1000L;
 		Parameter parameter = mock(Parameter.class);
 		String parameterValue = "10";
@@ -65,7 +65,7 @@ public class TwitterPostSchedulerTest {
 	}
 
 	@Test
-	public void testReadPosts_WithNoWoowAndNullParameter(){
+	public void testReadPostsWithNoWoowAndNullParameter(){
 		Long id = 1000L;
 		List<SocialPost> posts = new ArrayList<>();
 
@@ -86,7 +86,7 @@ public class TwitterPostSchedulerTest {
 	}
 
 	@Test
-	public void testReadPosts_WithWoowAndOrder(){
+	public void testReadPostsWithWoowAndOrder(){
 		User user = mock(User.class);
 		SocialPost socialPost = spy(SocialPost.class);
 		Long id = 1000L;
@@ -119,7 +119,7 @@ public class TwitterPostSchedulerTest {
 	}
 
 	@Test
-	public void testReadPosts_WithWoowAndProduct(){
+	public void testReadPostsWithWoowAndProduct(){
 		User user = mock(User.class);
 		SocialPost socialPost = spy(SocialPost.class);
 		Long id = 1000L;

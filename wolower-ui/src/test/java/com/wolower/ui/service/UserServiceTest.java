@@ -52,7 +52,7 @@ public class UserServiceTest {
 		doReturn(accessTokenSecret).when(token).getSecret();
 		doReturn(user).when(userDao).findOneBySocialMediaAndSocialUserName(socialMedia, socialUsername);
 
-		User result = service.saveUser(profile, oauthToken, oauthVerifier, token);
+		service.saveUser(profile, oauthToken, oauthVerifier, token);
 
 		verify(user).setSocialMedia(socialMedia);
 		verify(user).setSocialUserName(socialUsername);
@@ -71,7 +71,7 @@ public class UserServiceTest {
 	}
 
 	@Test
-	public void testRegistred_True(){
+	public void testRegistredTrue(){
 		User user = mock(User.class);
 		SocialProfile profile = mock(SocialProfile.class);
 		String socialMedia = "TWITTER";
@@ -86,7 +86,7 @@ public class UserServiceTest {
 	}
 
 	@Test
-	public void testRegistred_False(){
+	public void testRegistredFalse(){
 		SocialProfile profile = mock(SocialProfile.class);
 		String socialMedia = "TWITTER";
 		String socialUsername = "socialUsername";

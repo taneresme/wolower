@@ -38,7 +38,7 @@ public class DashboardServiceTest {
 	private DashboardService service;
 
 	@Test
-	public void testGetDashboard_NoTransactionExists(){
+	public void testGetDashboardNoTransactionExists(){
 		User user = mock(User.class);
 		Header header = mock(Header.class);
 		String name = "NAME";
@@ -63,7 +63,7 @@ public class DashboardServiceTest {
 	}
 
 	@Test
-	public void testGetDashboard_TransactionExists(){
+	public void testGetDashboardTransactionExists(){
 		User user = mock(User.class);
 		Header header = mock(Header.class);
 		String name = "NAME";

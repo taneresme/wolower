@@ -13,8 +13,6 @@ import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
 
@@ -23,8 +21,6 @@ import static org.mockito.Mockito.*;
 
 @RunWith(MockitoJUnitRunner.class)
 public class MasterpassControllerTest {
-	private static final Logger LOGGER = LoggerFactory.getLogger(MasterpassController.class);
-
 	@Mock
 	private MasterpassInitializationService masterpassInitializationService;
 
@@ -35,7 +31,7 @@ public class MasterpassControllerTest {
 	private MasterpassController controller;
 
 	@Test
-	public void testCallback_Cancel(){
+	public void testCallbackCancel(){
 		Model model = mock(Model.class);
 		String result = controller.callback(model, null, null,
 				null, "cancel", null);
@@ -73,7 +69,7 @@ public class MasterpassControllerTest {
 	}
 
 	@Test(expected = Exception.class)
-	public void testPrecheckout_Exception(){
+	public void testPrecheckoutException(){
 		doThrow(new Exception("EXCEPTION")).when(masterpassInitializationService).getPrecheckoutData();
 
 		ResponseEntity<PreCheckoutData> result = controller.precheckout(null);
@@ -94,7 +90,7 @@ public class MasterpassControllerTest {
 	}
 
 	@Test(expected = Exception.class)
-	public void testSavePrecheckout_Exception(){
+	public void testSavePrecheckoutException(){
 		SavePrecheckoutRequest savePrecheckoutRequest = mock(SavePrecheckoutRequest.class);
 		doThrow(new Exception("EXCEPTION")).when(masterpassInitializationService).saveCardAndAddress(savePrecheckoutRequest);
 

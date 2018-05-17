@@ -8,15 +8,12 @@ import com.wolower.persistence.dao.MasterpassPairingIdDao;
 import com.wolower.persistence.dao.MasterpassPrecheckoutDao;
 import com.wolower.persistence.enums.PairingIdSources;
 import com.wolower.persistence.model.*;
-import com.wolower.ui.config.MasterpassConfig;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Spy;
 import org.mockito.runners.MockitoJUnitRunner;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Matchers.any;
@@ -24,10 +21,6 @@ import static org.mockito.Mockito.*;
 
 @RunWith(MockitoJUnitRunner.class)
 public class MasterpassServiceTest {
-	private static final Logger LOGGER = LoggerFactory.getLogger(MasterpassService.class);
-
-	@Mock
-	private MasterpassConfig config;
 	@Mock
 	private MasterpassDao masterpassDao;
 	@Mock

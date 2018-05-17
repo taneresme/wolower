@@ -14,7 +14,6 @@ import static org.mockito.Mockito.mock;
 
 @RunWith(MockitoJUnitRunner.class)
 public class HeaderServiceTest {
-	private Header header  = new Header();
 	@Mock
 	private SessionService sessionService;
 	@Mock
@@ -23,7 +22,7 @@ public class HeaderServiceTest {
 	private HeaderService service;
 
 	@Test
-	public void testHeader_SingleName(){
+	public void testHeaderSingleName(){
 		User user = mock(User.class);
 		String displayName = "displayName";
 		String thumbnailUrl = "thumbnailUrl";
@@ -48,7 +47,7 @@ public class HeaderServiceTest {
 	}
 
 	@Test
-	public void testHeader_NameAndSurname(){
+	public void testHeaderNameAndSurname(){
 		User user = mock(User.class);
 		String name = "name";
 		String surname = "surname";

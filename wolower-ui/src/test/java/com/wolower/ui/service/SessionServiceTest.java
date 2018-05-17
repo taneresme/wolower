@@ -36,7 +36,7 @@ public class SessionServiceTest {
 	}
 
 	@Test
-	public void testUser_Failure(){
+	public void testUserFailure(){
 		doReturn(false).when(service).authenticated();
 
 		User result = service.user();
@@ -45,7 +45,7 @@ public class SessionServiceTest {
 	}
 
 	@Test
-	public void testUser_Success(){
+	public void testUserSuccess(){
 		User user = mock(User.class);
 		doReturn(true).when(service).authenticated();
 
@@ -56,7 +56,7 @@ public class SessionServiceTest {
 	}
 
 	@Test
-	public void testgetFirstTime_Success(){
+	public void testgetFirstTimeSuccess(){
 		User user = mock(User.class);
 		doReturn(LocalDateTime.now()).when(user).getTimestamp();
 		doReturn(user).when(service).user();
@@ -67,7 +67,7 @@ public class SessionServiceTest {
 	}
 
 	@Test
-	public void testgetFirstTime_Failure(){
+	public void testgetFirstTimeFailure(){
 		User user = mock(User.class);
 		doReturn(LocalDateTime.now().minusDays(5)).when(user).getTimestamp();
 		doReturn(user).when(service).user();

@@ -33,7 +33,7 @@ public class TwitterSigninService {
 		return accessToken;
 	}
 
-	void setAccessToken(OAuthToken accessToken) {
+	public void setAccessToken(OAuthToken accessToken) {
 		this.accessToken = accessToken;
 	}
 

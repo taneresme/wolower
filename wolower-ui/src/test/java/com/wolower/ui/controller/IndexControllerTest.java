@@ -38,7 +38,7 @@ public class IndexControllerTest {
 	}
 
 	@Test
-	public void testRoot_Authenticated(){
+	public void testRootAuthenticated(){
 		String displayName = "DISPLAY-NAME";
 		User user = mock(User.class);
 		doReturn(user).when(sessionService).user();
@@ -65,16 +65,16 @@ public class IndexControllerTest {
 	}
 
 	@Test
-	public void testIndex_InvalidSession(){
-		testIndex_WithReason("invalidSession");
+	public void testIndexInvalidSession(){
+		testIndexWithReason("invalidSession");
 	}
 
 	@Test
-	public void testIndex_AuthenticationError(){
-		testIndex_WithReason("authenticationError");
+	public void testIndexAuthenticationError(){
+		testIndexWithReason("authenticationError");
 	}
 
-	private void testIndex_WithReason(String reason){
+	private void testIndexWithReason(String reason){
 		doReturn(false).when(sessionService).authenticated();
 
 		Model model = mock(Model.class);
@@ -87,7 +87,7 @@ public class IndexControllerTest {
 	}
 
 	@Test
-	public void testIndex_Authenticated(){
+	public void testIndexAuthenticated(){
 		String displayName = "DISPLAY-NAME";
 		User user = mock(User.class);
 		doReturn(user).when(sessionService).user();

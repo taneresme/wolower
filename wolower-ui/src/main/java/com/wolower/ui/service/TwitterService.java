@@ -74,7 +74,7 @@ public class TwitterService implements SocialService {
 		return true;
 	}
 
-	SocialPost newPost(Tweet tweet) {
+	public SocialPost newPost(Tweet tweet) {
 		SocialPost post = new SocialPost();
 		post.setAmount(Extractor.extractPrice(tweet.getText()));
 		post.setCurrency("USD");

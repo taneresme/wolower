@@ -56,7 +56,7 @@ public class TwitterServiceTest {
 	}
 
 	@Test
-	public void testCheckTweet_UserIsNull(){
+	public void testCheckTweetUserIsNull(){
 		Tweet tweet = mock(Tweet.class);
 		SocialPost socialPost = spy(SocialPost.class);
 		TwitterProfile profile = mock(TwitterProfile.class);
@@ -77,7 +77,7 @@ public class TwitterServiceTest {
 	}
 
 	@Test
-	public void testCheckTweet_SameUser(){
+	public void testCheckTweetSameUser(){
 		User user = mock(User.class);
 		Tweet tweet = mock(Tweet.class);
 		TwitterProfile profile = mock(TwitterProfile.class);
@@ -97,7 +97,7 @@ public class TwitterServiceTest {
 	}
 
 	@Test
-	public void testCheckTweet_NoPrice(){
+	public void testCheckTweetNoPrice(){
 		User user = mock(User.class);
 		Tweet tweet = mock(Tweet.class);
 		SocialPost socialPost = spy(SocialPost.class);
@@ -122,7 +122,7 @@ public class TwitterServiceTest {
 	}
 
 	@Test
-	public void testCheckTweet_NoMasterpassPaired(){
+	public void testCheckTweetNoMasterpassPaired(){
 		User user = mock(User.class);
 		Tweet tweet = mock(Tweet.class);
 		SocialPost socialPost = spy(SocialPost.class);
@@ -199,7 +199,7 @@ public class TwitterServiceTest {
 	}
 
 	@Test
-	public void testGetWoows_WithMentions(){
+	public void testGetWoowsWithMentions(){
 		Tweet tweet = mock(Tweet.class);
 		SocialPost socialPost = spy(SocialPost.class);
 		Long id = 1000L;
@@ -224,7 +224,7 @@ public class TwitterServiceTest {
 	}
 
 	@Test
-	public void testGetWoows_WithNoMentions(){
+	public void testGetWoowsWithNoMentions(){
 		Tweet tweet = mock(Tweet.class);
 		SocialPost socialPost = spy(SocialPost.class);
 		SearchOperations searchOperations = mock(SearchOperations.class);
@@ -247,7 +247,7 @@ public class TwitterServiceTest {
 	}
 
 	@Test
-	public void testGetWoows_WithInnerException(){
+	public void testGetWoowsWithInnerException(){
 		Tweet tweet = mock(Tweet.class);
 		SocialPost socialPost = spy(SocialPost.class);
 		Long id = 1000L;
@@ -271,7 +271,7 @@ public class TwitterServiceTest {
 	}
 
 	@Test
-	public void testGetWoows_WithOuterException(){
+	public void testGetWoowsWithOuterException(){
 		Tweet tweet = mock(Tweet.class);
 		SearchOperations searchOperations = mock(SearchOperations.class);
 		Long sinceId = 100000L;
@@ -288,7 +288,7 @@ public class TwitterServiceTest {
 	}
 
 	@Test
-	public void testReply_Tweet(){
+	public void testReplyTweet(){
 		Tweet tweet = mock(Tweet.class);
 		String fromUser = "fromUser";
 		String reply = "reply";
@@ -303,7 +303,7 @@ public class TwitterServiceTest {
 	}
 
 	@Test
-	public void testReply_SocialPost(){
+	public void testReplySocialPost(){
 		Tweet tweet = mock(Tweet.class);
 		SocialPost socialPost = spy(SocialPost.class);
 		String reply = "reply";

@@ -14,7 +14,6 @@ import static org.mockito.Mockito.*;
 
 @RunWith(MockitoJUnitRunner.class)
 public class ProfileServiceTest {
-	private Profile profile = new Profile();
 	@Mock
 	private SessionService sessionService;
 	@Mock
@@ -39,7 +38,7 @@ public class ProfileServiceTest {
 		doReturn(balanceString).when(balanceService).getBalanceString(user);
 
 		service.setProfile(profile);
-		Profile result = service.getProfile();
+		service.getProfile();
 
 		verify(profile).setUser(user);
 		verify(profile).setMasterpassCheckoutId(checkoutId);

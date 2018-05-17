@@ -78,7 +78,7 @@ public class MasterpassPaymentScheduler {
 		this.orderDao.save(orders);
 	}
 
-	void saveTransaction(User user, Order order, PspServiceResponse pspResponse, PaymentData paymentData) {
+	public void saveTransaction(User user, Order order, PspServiceResponse pspResponse, PaymentData paymentData) {
 		Masterpass masterpass = this.masterpass.getMasterpass(user);
 		Transaction transaction = new Transaction();
 		transaction.setAmount(order.getPrice());

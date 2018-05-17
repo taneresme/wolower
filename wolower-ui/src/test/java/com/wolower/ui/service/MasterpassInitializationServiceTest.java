@@ -16,8 +16,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Spy;
 import org.mockito.runners.MockitoJUnitRunner;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Matchers.anyObject;
@@ -26,8 +24,6 @@ import static org.mockito.Mockito.*;
 
 @RunWith(MockitoJUnitRunner.class)
 public class MasterpassInitializationServiceTest {
-	private static final Logger LOGGER = LoggerFactory.getLogger(MasterpassInitializationService.class);
-
 	@Mock
 	private MasterpassConfig config;
 	@Mock
@@ -36,8 +32,6 @@ public class MasterpassInitializationServiceTest {
 	private SessionService sessionService;
 	@Mock
 	private MasterpassDao masterpassDao;
-//	@Mock
-	private Masterpass masterpass;
 	@InjectMocks
 	@Spy
 	private MasterpassInitializationService service;

@@ -25,7 +25,7 @@ public class BalanceServiceTest {
 	private BalanceService service;
 
 	@Test
-	public void testGetBalanceString_NullBalance(){
+	public void testGetBalanceStringNullBalance(){
 		User user = mock(User.class);
 		int id = 1;
 		doReturn(id).when(user).getId();
@@ -36,16 +36,8 @@ public class BalanceServiceTest {
 		assertEquals("0", result);
 	}
 
-	public String getBalanceString(User user) {
-		Balance balance = this.balanceDao.findOneByUserId(user.getId());
-		if (balance == null) {
-			return "0";
-		}
-		return String.format("%s %s", PriceUtils.toString(balance.getBalance()), balance.getCurrency());
-	}
-
 	@Test
-	public void testGetBalance_NullBalance(){
+	public void testGetBalanceNullBalance(){
 		User user = mock(User.class);
 		int id = 1;
 		Balance balance = new Balance();

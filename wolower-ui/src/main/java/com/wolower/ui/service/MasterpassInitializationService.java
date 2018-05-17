@@ -41,7 +41,7 @@ public class MasterpassInitializationService {
 		this.masterpassDao = masterpassDao;
 	}
 
-	void setMasterpass(Masterpass masterpass){
+	public void setMasterpass(Masterpass masterpass){
 		this.masterpass = masterpass;
 	}
 
