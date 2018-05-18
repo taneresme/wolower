@@ -68,7 +68,9 @@ public class TwitterPostScheduler {
 				User user = userDao.findOneBySocialMediaAndSocialUserName(post.getSocialMedia(),
 						post.getSocialUserName());
 				if (user != null) {
-					if (post.getIsReply() && orderDao.findOneByPostId(post.getPostId()) == null) {
+					if (post.getIsReply()
+							&& orderDao.findOneByPostId(post.getPostId()) == null
+							&& productDao.findOneByPostId(post.getRepliedPostId()) != null) {
 						/* There is no order with this post ID */
 						ordersToReply.add(post);
 						int productId = productDao.findOneByPostId(post.getRepliedPostId()).getId();
