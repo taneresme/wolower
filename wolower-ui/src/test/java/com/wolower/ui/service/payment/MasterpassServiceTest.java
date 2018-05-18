@@ -113,8 +113,6 @@ public class MasterpassServiceTest {
 		User user = mock(User.class);
 		PaymentData paymentData = mock(PaymentData.class);
 		Masterpass masterpass = mock(Masterpass.class);
-		MasterpassPairingId masterpassPairingId = mock(MasterpassPairingId.class);
-		String pairingId = "pairingId";
 		int id = 1;
 		String walletId = "walletId";
 		String walletName = "walletName";

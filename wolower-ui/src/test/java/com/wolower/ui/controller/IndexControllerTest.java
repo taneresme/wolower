@@ -66,19 +66,23 @@ public class IndexControllerTest {
 
 	@Test
 	public void testIndexInvalidSession(){
-		testIndexWithReason("invalidSession");
+		doReturn(false).when(sessionService).authenticated();
+
+		Model model = mock(Model.class);
+		String result = controller.index(model, "invalidSession", null);
+
+		assertEquals("index", result);
+		verify(model, times(2)).addAttribute(anyString(), anyObject());
+		verify(model).addAttribute(eq("showWarning"), anyObject());
+		verify(model).addAttribute(eq("warningMessage"), anyObject());
 	}
 
 	@Test
 	public void testIndexAuthenticationError(){
-		testIndexWithReason("authenticationError");
-	}
-
-	private void testIndexWithReason(String reason){
 		doReturn(false).when(sessionService).authenticated();
 
 		Model model = mock(Model.class);
-		String result = controller.index(model,reason, null);
+		String result = controller.index(model, "authenticationError", null);
 
 		assertEquals("index", result);
 		verify(model, times(2)).addAttribute(anyString(), anyObject());

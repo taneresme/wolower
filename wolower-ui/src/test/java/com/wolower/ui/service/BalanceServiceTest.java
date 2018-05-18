@@ -3,7 +3,6 @@ package com.wolower.ui.service;
 import com.wolower.persistence.dao.BalanceDao;
 import com.wolower.persistence.model.Balance;
 import com.wolower.persistence.model.User;
-import com.wolower.ui.util.PriceUtils;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
