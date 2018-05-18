@@ -88,6 +88,7 @@ and
 * **Thymeleaf** as a HTML template engine
 * **Travis.CI** as a continuous integration tool
 * **Codacy** as a code quality tool
+* **AWS EC2 Instance Service** as the deployment server
 
 ## Authors
 * Taner Eşme
