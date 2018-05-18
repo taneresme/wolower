@@ -100,6 +100,7 @@ public class TwitterService implements SocialService {
 		try {
 			List<Tweet> mentions = twitter.searchOperations().search("@" + USER_NAME, 30, sinceId, Long.MAX_VALUE)
 					.getTweets();
+			//List<Tweet> mentions = twitter.timelineOperations().getMentions();
 
 			for (Tweet tweet : mentions) {
 				try {
