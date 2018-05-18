@@ -112,7 +112,7 @@ public class TwitterPostSchedulerTest {
 		verify(parameterDao, times(1)).save(any(Parameter.class));
 		verify(userDao, times(1)).findOneBySocialMediaAndSocialUserName(any(), any());
 		verify(orderDao, times(1)).findOneByPostId(any());
-		verify(productDao, times(1)).findOneByPostId(any());
+		verify(productDao, times(2)).findOneByPostId(any());
 		verify(productDao, times(1)).save(anyList());
 		verify(orderDao, times(1)).save(anyList());
 		verify(socialService, times(1)).reply(any(), any());
