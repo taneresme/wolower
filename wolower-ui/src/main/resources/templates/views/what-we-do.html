@@ -1,0 +1,60 @@
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head th:replace="fragments/commons :: head" />
+<body>
+	<th:block th:include="fragments/header :: header" />
+
+	<div class="container" style="margin-bottom: 150px; margin-top: 90px;">
+
+        <div class="card border-dark mb-4">
+            <div class="card-body">
+                <p class="card-text lead">
+                    The <strong>wolower</strong> provides you a automated payment mechanism for the purchases that you did on Twitter.
+                    You can find below how the transaction sequences are.
+                </p>
+            </div>
+        </div>
+
+		<div class="card border-dark mb-4">
+			<div class="card-body">
+                <p class="card-text lead">
+                    When you are pairing your Masterpass account with the <strong>wolower</strong>,
+                    the high-level sequence of the operations are depicted as follows.
+                </p>
+                <br />
+                <div class="mx-auto text-center">
+                    <img th:src="@{/img/wolower.masterpass-pairing.svg}" />
+                </div>
+			</div>
+		</div>
+
+		<div class="card border-dark mb-4">
+			<div class="card-body">
+                <p class="card-text lead">
+                    The <strong>wolower</strong> fetches the tweets that are tweeted for selling something
+                    as shown below;
+                </p>
+                <br />
+                <div class="mx-auto text-center">
+                    <img th:src="@{/img/wolower.fetching-products.svg}" />
+                </div>
+			</div>
+		</div>
+
+		<div class="card border-dark mb-4">
+			<div class="card-body">
+                <p class="card-text lead">
+                    The following diagram depicts what the <strong>wolower</strong> does when you buy
+                    something which is sold on Twitter.
+                </p>
+                <br />
+                <div class="mx-auto text-center">
+                    <img th:src="@{/img/wolower.order.svg}" />
+                </div>
+			</div>
+		</div>
+	</div>
+
+	<th:block th:include="fragments/footer :: footer" />
+</body>
+</html>

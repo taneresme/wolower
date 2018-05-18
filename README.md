@@ -71,7 +71,7 @@ A requirement specification document was also studied for the wolower.
 For all document,
 [requirements Specification Document](https://github.com/taneresme/swe.573.project/blob/master/docs.project/wolower.requirement-specification.pdf)
 
-## Desing Diagrams
+## Design Diagrams
 If you want to learn more about how the wolower works,
 you review its design documents,
 [design diagrams](https://github.com/taneresme/swe.573.project/blob/master/docs.project/wolower.diagrams.pdf)
@@ -80,11 +80,12 @@ and
 
 ## Tools
 * **Derby** as en embedded DBMS
-* **hibernate** as an ORM tools
+* **Hibernate** as an ORM tool
 * **Spring Boot** as a framework
-* **Java 8** as the primary programming languate
+* **Java 8** as the primary programming language
 * **Maven** for building the software
 * **Bootstrap 4** as a HTML template with Jquery
+* **Thymeleaf** as a HTML template engine
 * **Travis.CI** as a continuous integration tool
 * **Codacy** as a code quality tool
 

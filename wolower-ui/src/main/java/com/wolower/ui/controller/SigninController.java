@@ -66,15 +66,13 @@ public class SigninController {
 	}
 
 	@GetMapping("/logout")
-	public String twitterCallback(Model model, HttpServletRequest request) {
+	public String logout(Model model, HttpServletRequest request) {
 		try {
 			LOGGER.info("Loging out: " + sessionService.user().getSocialUserName());
 			request.logout();
 		} catch (Exception ex) {
 			LOGGER.error(ExceptionUtils.getStackTrace(ex));
 		}
-		// sessionService.logout();
-
-		return "redirect:/";
+		return "";
 	}
 }

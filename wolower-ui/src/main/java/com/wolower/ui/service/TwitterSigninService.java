@@ -22,8 +22,6 @@ public class TwitterSigninService {
 	private OAuth1Operations oauth1Operations;
 	private TwitterConnectionFactory connectionFactoryTwitter;
 	private OAuthToken requestToken;
-	private String oauthToken;
-	private String oauthVerifier;
 	private OAuthToken accessToken;
 
 	@Autowired
@@ -31,20 +29,12 @@ public class TwitterSigninService {
 		this.twitterConfig = twitterConfig;
 	}
 
-	public OAuthToken getRequestToken() {
-		return requestToken;
-	}
-
-	public String getOauthToken() {
-		return oauthToken;
-	}
-
-	public String getOauthVerifier() {
-		return oauthVerifier;
-	}
-
 	public OAuthToken getAccessToken() {
 		return accessToken;
+	}
+
+	public void setAccessToken(OAuthToken accessToken) {
+		this.accessToken = accessToken;
 	}
 
 	public String getAuthenticationUrl() {

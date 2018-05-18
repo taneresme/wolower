@@ -108,7 +108,7 @@ public class MasterpassService {
 		}
 	}
 
-	private void savePrecheckout(User user, PreCheckoutData precheckoutData, Masterpass masterpass) {
+	public void savePrecheckout(User user, PreCheckoutData precheckoutData, Masterpass masterpass) {
 		MasterpassPrecheckout precheckout = new MasterpassPrecheckout();
 		precheckout.setConsumerWalletId(precheckoutData.getConsumerWalletId());
 		precheckout.setMasterpassId(masterpass.getId());
@@ -156,7 +156,7 @@ public class MasterpassService {
 		}
 	}
 
-	private void saveExpressCheckout(User user, PaymentData paymentData, Masterpass masterpass) {
+	public void saveExpressCheckout(User user, PaymentData paymentData, Masterpass masterpass) {
 		MasterpassExpressCheckout expressCheckout = new MasterpassExpressCheckout();
 		expressCheckout.setMasterpassId(masterpass.getId());
 		expressCheckout.setUserId(user.getId());

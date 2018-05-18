@@ -77,4 +77,12 @@ public class Order {
 		this.count = 1;
 		this.paid = false;
 	}
+
+	public Order(@NotNull Long price, @NotNull String currency) {
+		this.price = price;
+		this.currency = currency;
+		this.timestamp = LocalDateTime.now();
+		this.count = 1;
+		this.paid = false;
+	}
 }

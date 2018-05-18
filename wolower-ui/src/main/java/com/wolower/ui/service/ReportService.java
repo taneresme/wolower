@@ -3,6 +3,7 @@ package com.wolower.ui.service;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.context.annotation.SessionScope;
 
@@ -25,6 +26,7 @@ public class ReportService {
 	private OrderDao orderDao;
 	private SessionService sessionService;
 
+	@Autowired
 	public ReportService(ProductDao productDao, TransactionDao transactionDao, OrderDao orderDao,
 			SessionService sessionService) {
 		this.productDao = productDao;

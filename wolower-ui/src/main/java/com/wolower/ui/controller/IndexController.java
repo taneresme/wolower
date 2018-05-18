@@ -31,7 +31,7 @@ public class IndexController {
 		if ("invalidSession".equals(reason)) {
 			model.addAttribute("showWarning", true);
 			model.addAttribute("warningMessage",
-					"We had a problem with your session details. Do you think to log in again?");
+					"Your session expired!");
 		} else if ("authenticationError".equals(reason)) {
 			model.addAttribute("showWarning", true);
 			model.addAttribute("warningMessage",

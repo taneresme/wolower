@@ -1,7 +1,6 @@
 package com.wolower.ui.controller;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.slf4j.Logger;
@@ -33,11 +32,6 @@ public class MasterpassController {
 	@Autowired
 	private SessionService session;
 
-	@GetMapping("/masterpass/pairing")
-	public String pairing(Model model, HttpServletRequest request) {
-		return "/views/masterpass/pairing";
-	}
-
 	@GetMapping("/masterpass/callback")
 	public String callback(Model model, @RequestParam(name = "oauth_token", required = false) String oauthToken,
 			@RequestParam(name = "pairing_verifier", required = false) String pairingVerifier,
@@ -60,9 +54,6 @@ public class MasterpassController {
 	public ResponseEntity<PreCheckoutData> precheckout(HttpServletRequest request) {
 		try {
 			PreCheckoutData response = masterpass.getPrecheckoutData();
-
-			HttpSession session = request.getSession();
-			session.setAttribute("precheckout", response);
 
 			return ResponseEntity.ok(response);
 		} catch (Exception e) {
