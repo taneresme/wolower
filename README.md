@@ -82,7 +82,7 @@ and
 * **Derby** as en embedded DBMS
 * **Hibernate** as an ORM tool
 * **Spring Boot** as a framework
-* **Java 8** as the primary programming language
+* **Java** as the primary programming language
 * **Maven** for building the software
 * **Bootstrap 4** as a HTML template with Jquery
 * **Thymeleaf** as a HTML template engine
