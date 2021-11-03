@@ -1,5 +1,5 @@
-[![Build Status](https://travis-ci.org/taneresme/swe.573.project.png?branch=master)](https://travis-ci.org/taneresme/swe.573.project)
-[![Codacy Badge](https://api.codacy.com/project/badge/grade/820e539363de414c84ce1c2694061b0a)](https://app.codacy.com/app/tnr.esme/swe.573.project/dashboard)
+[![Build Status](https://travis-ci.org/taneresme/wolower.png?branch=master)](https://travis-ci.org/taneresme/wolower)
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/93a2db46cf464f3a814dce23b52cffb6)](https://www.codacy.com/gh/taneresme/wolower/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=taneresme/wolower&amp;utm_campaign=Badge_Grade)
 
 
 This project is a Twitter-based application that is analyzed, designed, 
